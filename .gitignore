@@ -1,0 +1,17 @@
+.DS_Store
+.venv/
+__pycache__/
+.pytest_cache/
+*.py[cod]
+.env
+.env.*
+!.env.example
+data/
+outputs/
+*.nii
+*.nii.gz
+*.dcm
+*.dat
+*.rda
+*.spar
+*.sdat
