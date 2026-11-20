@@ -9,13 +9,29 @@
 | Main study | Bray et al. (2020), Figures 5 and 6. Use the public Figure 5 files for the demonstration. [Paper](references/papers/Bray_et_al_2020_Operando_Sodium_Ion_Battery_NMR.pdf) · [Data](https://edata.bham.ac.uk/456/) |
 | System and data | One sodium-ion full cell during its first formation cycle. Figure 5 has 16 ²³Na NMR acquisitions (60–75) and 99,841 electrochemistry rows. Figure 6 supplies published time context. |
 | State variable | Latest accepted signed integral of the 1020–1150 ppm metal region, in a.u.·ppm. This is a relative signal indicator for one cell. Physical claims about mass, morphology, SOC, SOH, or charging safety require independent validation. |
-| Comparison | Use acquisitions 61 and 63 and the same saved processing number 2. The signed baseline integral includes background. Its negative value is valid as a signed feature. |
+| Comparison | Use acquisitions 61 and 63 and the same saved processing number 2. The signed baseline integral retains residual background after correction. A negative integral is possible when the signal is unresolved. |
 | Timing | Use TopSpin audit start and end times for NMR. Mark each acquisition window. The electrochemistry zero point is provisional relative to NMR. The state update uses confirmed NMR timing. |
 | Update policy | Apply the Birmingham gate. A FAIL leaves the state unchanged. A WARN requires explicit acceptance. The latest accepted observation then becomes the state. |
 | Evidence interface | Read the original local files in the browser. Generate challenge v1.0 evidence packets from the measured inputs. Keep the update event separate within the export bundle. |
 | Reference and scope | Keep the organizer's MRI/MRS case for reproducing the worked example. The Bruker workbench and Cambridge data support independent spectroscopy checks. The Birmingham pitch uses the Bray study as its research case. |
 
 The authoritative requirements are in [Dossier v1.6](MRI_Local_Spectroscopy_Health_Digital_Twin_Hackathon_Dossier_v1.6.pdf), especially §§1.4, 4.10, 5.11, 6.11, 7.10, 8.2–8.7, 9.6–9.10 and Appendix J.6. [The Quantum Engineering slides](NMR_QE_InnovateU_Conclusion_v2.3_2026-11-20.pdf) map the four tracks to device and biomedical examples.
+
+## Baselines and decision criteria
+
+- Bray et al. used the pristine-cell electrolyte spectrum at nominal t = 0 for Figure 6a. The archive identifies it as acquisition 10. The paper also shows acquisition 63 at nominal 2 h. Our Figure 5 update uses acquisition 61 as an earlier observed reference for acquisition 63 within the available series. The comparison is a team choice. [Paper, Figure 6](references/papers/Bray_et_al_2020_Operando_Sodium_Ion_Battery_NMR.pdf) · [Figure 6 archive](https://edata.bham.ac.uk/456/5/Figure_6.zip)
+- Figure 5 supplies the spectra, acquisition logs and stored processing parameters. The study reports a metal-region signal shifting from about 1050 to 1115 ppm. The team chose the 1020–1150 ppm integration window and fits a linear background from the 940–980 and 1190–1230 ppm sidebands. The detection rule requires an interior peak at least five times the sideband residual standard deviation and a signed area above the method sensitivity allowance. The team also requires the increase to exceed the sum of both allowances. These are exploratory method settings with no established detection limit or statistical coverage. [Explorer method](MRI_Data_Explorer_Birmingham.html)
+
+## Design freedom and challenge requirements
+
+| Area | Team choice | Challenge requirement |
+| --- | --- | --- |
+| Physical system and state | One public sodium-ion full-cell NMR series and one relative spectral feature. | Name the physical object, the observation model, the comparison baseline, the calibration status and the limits. See §9.2, §11.3 and Appendix J.6. |
+| Software and presentation | An offline browser Explorer. The dossier also lists clickable slides, notebooks and web apps. | Demonstrate at least one working or clickable baseline-to-follow-up update, with the required cards, views and five-minute pitch. See §§9.7–9.9. |
+| Data and architecture | Keep native Bruker inputs. Choose the internal model, storage, framework and module structure. | Deliver an architecture and a machine-readable dictionary and evidence-packet example conforming to v1.0. Connect measurement, validation, evidence representation and state update. See §§7.10–7.11, 8.2–8.7 and 9.7. |
+| Visuals | Show acquisition windows, aligned spectrum overlays, and the gate and state change. | Make units, provenance, uncertainty and competing explanations visible. Distinguish observed and predicted values. Include a prediction or scenario comparison and a next-evidence proposal. See §§7.10, 8.7 and 9.7. |
+
+The current replay keeps the latest accepted observation in memory and exports the event on request. The final demonstrator still needs to show persistent state for Level 3 and verify how the update handles changes in uncertainty. The scope of code written before the event remains a question for the organizer. [Dossier v1.6](MRI_Local_Spectroscopy_Health_Digital_Twin_Hackathon_Dossier_v1.6.pdf) · [Open questions](docs/QUESTIONS.md)
 
 ## Tasks and acceptance
 

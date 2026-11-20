@@ -29,11 +29,13 @@ Keep downloaded archives and extracted third-party experiment data under `online
 | --- | --- | --- |
 | Birmingham ²³Na time series and electrochemistry (main case) | [Figure_5.zip](https://edata.bham.ac.uk/456/4/Figure_5.zip) | `online downloaded data/Figure_5/`, with `Na_fullSpectrum_60` through `Na_fullSpectrum_75` and the electrochemical text file directly inside |
 | Cambridge lithium DNP NMR | [Li_DNP_NMR_data.zip](https://api.repository.cam.ac.uk/server/api/core/bitstreams/d7f35bc2-9740-4107-a4de-5cef29ead191/content) | `online downloaded data/open_data/`, containing `sample_A` through `sample_G` and `Misc` |
-| Birmingham Figure 2 (423 MB) | [Figure_2.zip](https://edata.bham.ac.uk/456/2/Figure_2.zip) | `online downloaded data/Birmingham_Bray_2020/` |
-| Birmingham Figure 3 (832 MB) | [Figure_3.zip](https://edata.bham.ac.uk/456/16/Figure_3.zip) | `online downloaded data/Birmingham_Bray_2020/` |
-| Birmingham Supplementary Figure 5 (846 MB) | [SupplementaryFigure_5.zip](https://edata.bham.ac.uk/456/17/SupplementaryFigure_5.zip) | `online downloaded data/Birmingham_Bray_2020/` |
+| Birmingham published comparison (optional reference) | [Figure_6.zip](https://edata.bham.ac.uk/456/5/Figure_6.zip) and [Supplementary Figure 8](https://edata.bham.ac.uk/456/10/SupplementaryFigure_8.zip) | `online downloaded data/Birmingham_Bray_2020/` |
 
-The three large Birmingham archives are optional for the Figure 5 case. See the [Birmingham data record and other figure archives](https://edata.bham.ac.uk/456/) and the [Cambridge Apollo data record](https://www.repository.cam.ac.uk/items/a5ed5aab-5881-4e09-bcc1-89cb03df66e9).
+Figure 5 alone is sufficient to replay the Birmingham Explorer. Download other files as needed using the [full Birmingham figure guide](references/en/birmingham_bray_2020_data_guide.md), the [Birmingham data record](https://edata.bham.ac.uk/456/) or the [Cambridge Apollo data record](https://www.repository.cam.ac.uk/items/a5ed5aab-5881-4e09-bcc1-89cb03df66e9).
+
+## Repository updates
+
+Make changes in the local project checkout, regenerate any affected companion HTML, and verify the changes locally. Commit and push through Git. For another checkout of the same branch, use `git pull --ff-only origin main` to receive the tracked updates. Download the experimental data separately in each checkout that needs it.
 
 ## Local environment
 
