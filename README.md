@@ -6,6 +6,8 @@ Private project workspace for the NMR Quantum Engineering challenge (20–21 Nov
 
 The challenge asks teams to demonstrate a traceable baseline-to-follow-up update, distinguish physical change from measurement effects, communicate uncertainty, and propose the next measurement. The organizer's [dossier v1.6](MRI_Local_Spectroscopy_Health_Digital_Twin_Hackathon_Dossier_v1.6.pdf) specifies the deliverables and permits public and synthetic data.
 
+[Project plan and decisions](PROJECT_PLAN.md) maps the four tracks and submission tasks to the Birmingham Figure 5 case.
+
 ## Project files
 
 - [Birmingham Explorer](MRI_Data_Explorer_Birmingham.html) follows the measured ²³Na series and the corresponding electrochemical record for the main case. The cross-device time offset is provisional.
@@ -13,7 +15,7 @@ The challenge asks teams to demonstrate a traceable baseline-to-follow-up update
 - [Organizer's MRI Data Explorer](MRI_Data_Explorer_v1.0-rc5.html) opens the synthetic MRI/MRS teaching case.
 - [Chinese materials index](translations/zh/index.html) links the translations to the organizer's original documents.
 - [Organizer's StarterPack archive](MRI_Hackathon_DataScience_StarterPack_v0.3.zip) contains the full synthetic teaching package. Extract it to restore the MRI and MRS example files alongside those already in the StarterPack directory.
-- [Reference notes](references/zh/battery_mr_references_zh.md) cover battery magnetic resonance. The two papers are available locally as [Bray et al. (2020)](references/papers/Bray_et_al_2020_Operando_Sodium_Ion_Battery_NMR.pdf) and [Hope et al. (2020)](references/papers/Hope_et_al_2020_Lithium_Metal_DNP_NMR.pdf).
+- [Bray et al. (2020)](references/papers/Bray_et_al_2020_Operando_Sodium_Ion_Battery_NMR.pdf) is the paper for the main case. See the [Birmingham case walkthrough](references/zh/birmingham_digital_twin_explained_zh.md) and [background references](references/zh/battery_mr_references_zh.md).
 
 ## Experimental data downloads
 
