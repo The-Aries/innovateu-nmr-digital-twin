@@ -1,0 +1,19 @@
+{
+  "Manufacturer": "SYNTHETIC",
+  "ManufacturersModelName": "Synthetic MR Simulator",
+  "MagneticFieldStrength": 3.0,
+  "PulseSequenceType": "PRESS",
+  "ScanningSequence": "SVS",
+  "SequenceName": "synthetic_press",
+  "EchoTime": 0.03,
+  "RepetitionTime": 2.0,
+  "ResonantNucleus": "1H",
+  "NumberOfTransients": 64,
+  "WaterSuppression": true,
+  "BodyPart": "BRAIN",
+  "BodyPartDetails": "frontal lobe",
+  "InstitutionName": "Hackathon Teaching Dataset",
+  "SpectrometerFrequency": [
+    123.25
+  ]
+}

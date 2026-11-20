@@ -1,0 +1,18 @@
+{
+  "packet_version": "0.2",
+  "subject_id": "sub-01",
+  "session": "baseline",
+  "observation_time": "2026-11-20T08:00:00Z",
+  "source_files": [
+    "../03_BIDS_MRI/sub-01/ses-baseline/anat/sub-01_ses-baseline_T1w.nii.gz",
+    "../04_MRS_BIDS/sub-01/ses-baseline/mrs/sub-01_ses-baseline_acq-press_nuc-1H_voi-frontal_svs.nii.gz"
+  ],
+  "measurements": {
+    "mri": {"roi_volume_mm3": 22140, "roi_mean_intensity_au": 758.2, "registration_rms_mm": 0.7},
+    "mrs": {"NAA_Cr": 1.25, "Cho_Cr": 0.69, "snr": 31.2, "linewidth_Hz": 8.7}
+  },
+  "quality": {"status": "PASS", "reasons": []},
+  "uncertainty": {"roi_volume_relative_percent": 3.0, "NAA_Cr_absolute": 0.06, "Cho_Cr_absolute": 0.05},
+  "provenance": {"pipeline": "synthetic_demo_v0.2", "steps": ["ingest", "geometry check", "feature extraction", "MRS fitting mock", "QC aggregation"]},
+  "twin_action": {"recommended": "update", "reason": "required evidence and quality checks pass"}
+}

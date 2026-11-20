@@ -1,0 +1,13 @@
+{
+  "Name": "Synthetic ROI partial-volume masks",
+  "BIDSVersion": "1.11.1",
+  "DatasetType": "derivative",
+  "GeneratedBy": [
+    {
+      "Name": "nmrqe_starterpack",
+      "Version": "0.3",
+      "Description": "Partial-volume ROI fraction; volume = sum(fraction) x 36 mm^3"
+    }
+  ],
+  "HowToAcknowledge": "Synthetic teaching data; no real participant information."
+}

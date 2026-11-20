@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="document-schema" content="1">
+<title>用 Birmingham NMR 数据建立电池数字孪生</title>
+<style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body { margin: 0; background: #fbf5df; color: #292719; font: 16px/1.65 "PingFang SC", "Microsoft YaHei", "Segoe UI", Arial, sans-serif; }
+.document { max-width: 920px; margin: 24px auto; padding: 32px 40px; background: #fffdf3; }
+.document h1 { font-size: 2rem; line-height: 1.3; }
+.document h2 { font-size: 1.45rem; line-height: 1.35; }
+.document h3 { font-size: 1.18rem; line-height: 1.4; }
+.document img { max-width: 100%; height: auto; }
+.document table { border-collapse: collapse; display: block; overflow-x: auto; max-width: 100%; }
+.document th, .document td { border: 1px solid #aaa; padding: 6px 8px; }
+.document pre { white-space: pre; overflow-x: auto; padding: 12px; background: #f7f1e2; }
+.document code { overflow-wrap: anywhere; }
+.document .figure, .document .caption { text-align: center; }
+.document .flowchart { display: table; table-layout: fixed; }
+.document .flowchart td { text-align: center; }
+.document .math-display { overflow-x: auto; text-align: center; }
+.document blockquote { margin: 1em 0; padding: .4em 1em; border-left: 3px solid #aaa; }
+.document a { color: #695321; }
+.fallback-generation { max-width: 920px; margin: 8px auto 26px; padding: 0 40px; font-size: 12px; color: #615c4b; }
+/* Explicit neutral mode remains available; default is always warm parchment. */
+body.theme-default { background: #f5f5f5; color: #161616; }
+body.theme-default .document { background: #fff; }
+body.theme-default .document a { color: #2457a7; }
+@media (max-width: 700px) { .document { margin: 0; padding: 22px 16px; } }
+@media print { body { background: white; color: black; } .document { max-width: none; margin: 0; padding: 0; } }
+</style>
+</head>
+<body class="theme-parchment">
+<main class="document">
+<h1 id="用-birmingham-nmr-数据建立电池数字孪生">用 Birmingham NMR 数据建立电池数字孪生</h1><p>这份说明面向 NMR Hackathon，以 Bray 等人发表的钠离子全电池数据为例。 <a href="../en/birmingham%5Fdigital%5Ftwin%5Fexplained.html">English version</a> · <a href="birmingham%5Fbray%5F2020%5Fdata%5Fguide%5Fzh.html">数据包与文件指南</a></p><h2 id="几个问题的简短回答">几个问题的简短回答</h2><table><thead><tr><th>问题</th><th>简答</th></tr></thead><tbody><tr><td>这些数据有什么用？</td><td>回放一次真实的电池化成过程，并将电池的电学响应与钠的化学环境变化联系起来。</td></tr><tr><td>能建立什么样的数字孪生？</td><td>一块钠离子全电池的首圈化成离线状态孪生。每当新谱可用，就用实测更新相对金属钠信号。</td></tr><tr><td>怎么建立？</td><td>把电流、电压与 NMR 采集时间窗关联起来，提取谱指标，做质控，并记录每次状态更新的依据。</td></tr><tr><td>未来能预测什么？</td><td>可用这轮记录回测未来 5 分钟的端电压。下一张谱的信号可以做探索性预测。可靠预测首次出峰、寿命或其他电池的表现需要补测。</td></tr><tr><td>只需要 Figure 5 吗？</td><td>当前原型用 Figure 5 即可。Figure 6、Figure 7 和部分补图各自对应不同的扩展问题。</td></tr></tbody></table><p><a href="#section-1">两类实测各提供什么信息</a> · <a href="#section-2">如何建立数字孪生</a> · <a href="#section-3">如何预测未来和检验结果</a> · <a href="#section-4">哪些数据包进入模型</a></p><h2 id="section-1">1. 两类实测各提供什么信息</h2><p>Figure 5 记录了一块全电池在 30 mA/g 条件下的首圈化成。它包含 <strong>99,841 条电化学记录</strong>和 <strong>16 次运行中（operando）²³Na NMR 采集</strong>。电流和端电压描述电池的电学响应。NMR 提供了钠所处化学环境的证据。论文报告，首充早期金属钠峰在约 1050 ppm 出现，随后移向 1115 ppm，再降至检测水平以下。 <a href="https://doi.org/10.1038/s41467-020-15938-x">Bray 等（2020），Figure 5–6 和 Methods</a></p><p>60–75 是同一电池的 NMR 采集编号。每张谱汇总约 30 分钟的信号，相邻采集窗间隔约 5 分钟。仪器日志记录 NMR 的 UTC 起止时间。电化学文件记录经过时间，两套时钟的零点仍是暂定对齐。将谱与电流、电压或累计电荷关联时，保留采集窗和假定的时钟偏移。</p><h2 id="section-2">2. 如何建立数字孪生</h2><table><thead><tr><th>组成</th><th>实现方法</th></tr></thead><tbody><tr><td>输入</td><td>电流、端电压、²³Na 原始信号或处理谱，以及 NMR 采集日志。</td></tr><tr><td>状态</td><td>跟踪从选定起点开始流经电池端子的累计净电荷，以及相对金属钠信号。对电流积分即可得到累计净电荷。换算荷电状态还需要初始状态和可用容量标定。</td></tr><tr><td>观测模型</td><td>恢复处理谱强度，拟合局部背景，再对 1020–1150 ppm 的信号做带符号积分。记录峰位、检出情况和指标对处理条件的敏感程度。</td></tr><tr><td>更新规则</td><td>对可比的谱做质控，通过后才用于更新。有警告时记录审核决定。保留未检出的结果和最近一次可靠观测的时间。</td></tr><tr><td>证据记录</td><td>保存采集编号、UTC 采集窗、假定的时钟偏移、处理版本、质控结果、文件路径及更新前后的状态。</td></tr></tbody></table><h3 id="explorer-的一次真实更新">Explorer 的一次真实更新</h3><p>当前 Explorer 的默认示例对比采集 <strong>61</strong> 和 <strong>63</strong>。用其处理编号 2 和积分方法，可以从本地 Bruker 文件复算以下结果。 <a href="../../MRI%5FData%5FExplorer%5FBirmingham.html">Birmingham Explorer</a></p><table><thead><tr><th>采集</th><th>带符号积分（×10⁶ a.u.·ppm）</th><th>方法敏感性余量（×10⁶ a.u.·ppm）</th><th>检出结果</th></tr></thead><tbody><tr><td>61</td><td>−3.96</td><td>5.85</td><td>未检出</td></tr><tr><td>63</td><td>8.51</td><td>4.07</td><td>按 Explorer 规则检出</td></tr></tbody></table><p>差值为 <strong>12.47 × 10⁶ a.u.·ppm</strong>，超过两次敏感性余量之和 <strong>9.92 × 10⁶ a.u.·ppm</strong>。系统仍提示两项警告：基准谱未检出，且两次保存的相位参数有差异。因此，这次更新需要明确接受警告。基准谱的负值来自扣除背景后的带符号积分。敏感性余量反映处理方法的影响，若要建立统计置信区间，需要另行标定。当前状态采用最近一次被接受的观测。要预测未来，还需要加入观测之间的状态演化规则。 <a href="../../MRI%5FLocal%5FSpectroscopy%5FHealth%5FDigital%5FTwin%5FHackathon%5FDossier%5Fv1.6.pdf">挑战手册 v1.6 §8.5、§9.7 和附录 J.6</a></p><h2 id="section-3">3. 如何预测未来和检验结果</h2><ol><li><strong>定义目标和提前量。</strong> 可以预测 5 分钟后的端电压，也可以预测下一采集窗的相对金属钠信号。若预测依赖未来电流，使用已知的充电程序，或明确假定的电流曲线。</li><li><strong>先建立基准。</strong> 用最近一次已知值作为保持模型。对电压，再比较短时趋势外推。对 NMR，将更复杂的模型与保持模型比较，并分别记录检出状态和带符号积分。</li><li><strong>按时间回测。</strong> 每个起点只使用当时已经可用的观测。NMR 至少要等采集结束，若处理需要时间，还要计入延迟。先保存预测，再读取后续实测评分。单独检查启动和电流切换阶段的误差。跨电池验证应留出整块未参与拟合的电池。</li></ol><h3 id="电压回测给出的结果">电压回测给出的结果</h3><p>在电化学时钟上，从 300 s 到 29,400 s 每隔 5 分钟取一个起点，共 <strong>98 个</strong>。预测输入使用各所需时刻及以前最后一条电压记录。预测目标是起点 5 分钟后的电压，只有在为目标值评分时才按需插值。趋势模型将过去 60 秒的电压变化量乘以 5，再加到最近的电压上。 <a href="https://edata.bham.ac.uk/456/4/Figure%5F5.zip">Figure 5 源数据</a></p><table><thead><tr><th>5 分钟预测方法</th><th>平均绝对误差</th><th>中位绝对误差</th><th>最大绝对误差</th></tr></thead><tbody><tr><td>保持最近的端电压</td><td>17.7 mV</td><td>13.0 mV</td><td>173.9 mV</td></tr><tr><td>外推过去 60 秒的端电压趋势</td><td>13.8 mV</td><td>1.2 mV</td><td>1,165.9 mV</td></tr></tbody></table><p>趋势模型的平均误差更低，但在启动阶段的偏差更大。以 300 s 为起点时，它对 600 s 的预测是 <strong>3.193 V</strong>，实测是 <strong>2.027 V</strong>。这个结果适合用来比较短时基准，并说明为什么需要按运行阶段检查误差。98 个起点都来自同一块电池的一次循环。回测全程使用电化学时钟，NMR 的时间偏移需要独立验证。</p><h3 id="现有证据支持预测哪些信息">现有证据支持预测哪些信息</h3><table><thead><tr><th>预测目标</th><th>现有证据和所需补测</th></tr></thead><tbody><tr><td>几分钟后的端电压</td><td>可在本次循环内回测。换电池、温度或电流程序后需要单独验证。</td></tr><tr><td>下一张谱的相对金属钠积分或检出状态</td><td>可以做单步探索。只有一段 16 次采集的序列，首次出峰时刻及其概率缺少独立验证。</td></tr><tr><td>绝对析钠量、沉积位置或枝晶形貌</td><td>绝对质量需要考虑观测响应的独立标定。空间结论需要对相应电池进行配准后的成像。</td></tr><tr><td>荷电状态、健康状态、寿命或故障风险</td><td>荷电状态需要参考状态和可用容量标定。老化和故障预测需要多电池的长期循环以及相应的结果记录。</td></tr></tbody></table><h2 id="section-4">4. 哪些数据包进入模型</h2><table><thead><tr><th>目标</th><th>使用的数据</th></tr></thead><tbody><tr><td>原型状态更新和短时端电压回测</td><td><strong>Figure 5 即可。</strong> 包含该原型所需的电化学记录和 NMR 序列。</td></tr><tr><td>建立未充电参考或核对峰解释</td><td>Figure 6 增加未充电的编号 10。编号 63 和 67 已在 Figure 5 中。补图 8 重用 63–65，可用于查看首充早期的峰形。</td></tr><tr><td>比较另一种工况</td><td>Figure 7 和补图 3 提供另一块全电池在 86 mA/g 条件下的谱和电化学记录。三张谱适合作为稀疏对照。补图 3 中的 30 mA/g 记录与 Figure 5 重复。</td></tr><tr><td>扩展空间成像或观测模型</td><td>Figure 1–4 及相关补图可作为独立的钠金属电池研究，包括沉积和枝晶形貌。补表 1 的弛豫实验可用于观测建模。</td></tr><tr><td>可靠预测其他电池或工况</td><td>对独立的全电池重复采集同步电流、电压和 NMR。在可比条件下做重复实验，并设置不同工况。以整块电池为单位留出验证集。</td></tr></tbody></table><p><a href="https://edata.bham.ac.uk/456/">Birmingham 数据记录</a> · <a href="https://doi.org/10.1038/s41467-020-15938-x">原论文及补充信息</a> · <a href="../../online%20downloaded%20data/Birmingham%5FBray%5F2020/">下载目录</a></p>
+</main>
+<footer class="fallback-generation">Generated: <time datetime="2026-11-20T21:04:26+01:00">2026-11-20 21:04:26 CET (UTC+01:00)</time></footer>
+<script type="application/json" id="renderer-document-data">{"schema": 1, "generatedAt": "2026-11-20T21:04:26+01:00", "generatedLabel": "2026-11-20 21:04:26 CET (UTC+01:00)", "files": ["battery_mr_references_zh.html", "birmingham_bray_2020_data_guide_zh.html", "birmingham_digital_twin_explained_zh.html"]}</script>
+<script>
+(function () {
+  'use strict';
+  var candidates = ["file:///Users/aries/Projects/markdown_document_renderer/viewer/viewer.js", "file:///C:/Projects/markdown_document_renderer/viewer/viewer.js", "file:///home/zjmfkk/Projects/markdown_document_renderer/viewer/viewer.js"];
+  var nextIndex = 0;
+  function tryNext() {
+    if (nextIndex >= candidates.length) {
+      var footer = document.querySelector('.fallback-generation');
+      if (footer) {
+        var notice = document.createElement('span');
+        notice.textContent = ' · Shared viewer unavailable; showing the standalone document.';
+        notice.setAttribute('role', 'status');
+        footer.appendChild(notice);
+      }
+      return;
+    }
+    var url = candidates[nextIndex++];
+    var script = document.createElement('script');
+    script.src = url;
+    script.onerror = function () { script.remove(); tryNext(); };
+    window.__rendererViewerLoadFailed = function () { script.remove(); tryNext(); };
+    document.head.appendChild(script);
+  }
+  tryNext();
+})();
+</script>
+
+</body>
+</html>

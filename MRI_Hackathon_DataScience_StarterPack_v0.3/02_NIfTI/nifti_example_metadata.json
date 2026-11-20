@@ -1,0 +1,14 @@
+{
+  "note": "NIfTI stores array data plus geometry; rich acquisition metadata normally travels in sidecar JSON/BIDS.",
+  "voxel_size_mm": [
+    3.0,
+    3.0,
+    4.0
+  ],
+  "shape": [
+    64,
+    64,
+    16
+  ],
+  "T1map_units": "ms"
+}

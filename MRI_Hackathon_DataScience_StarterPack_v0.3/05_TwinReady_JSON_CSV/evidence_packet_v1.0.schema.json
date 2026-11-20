@@ -1,0 +1,381 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "evidence_packet_v1.0.schema.json",
+  "title": "MRI/MRS health digital twin — evidence packet v1.0",
+  "description": "Interface object between Quantum Engineering, Precision Mechanics / Metrology, Data Science and Digital Twins (Hackathon Dossier v1.0, §8.2, Appendix E). Educational, non-clinical.",
+  "type": "object",
+  "required": [
+    "packet_version",
+    "packet_id",
+    "subject_id",
+    "session_id",
+    "relative_time",
+    "modality",
+    "source_object",
+    "spatial_reference",
+    "observable",
+    "value",
+    "unit",
+    "uncertainty",
+    "qc_checks",
+    "qc_status",
+    "origin",
+    "value_epistemic",
+    "decision_epistemic",
+    "acquisition_context",
+    "processing",
+    "provenance",
+    "twin_action",
+    "interpretation_limit"
+  ],
+  "properties": {
+    "packet_version": {
+      "const": "1.0"
+    },
+    "packet_id": {
+      "type": "string",
+      "pattern": "^E-t[0-9]+-[a-z0-9_]+$"
+    },
+    "subject_id": {
+      "type": "string",
+      "pattern": "^sub-[A-Za-z0-9]+$"
+    },
+    "session_id": {
+      "type": "string",
+      "pattern": "^ses-[A-Za-z0-9]+$"
+    },
+    "relative_time": {
+      "type": "object",
+      "required": [
+        "value",
+        "unit"
+      ],
+      "properties": {
+        "value": {
+          "type": "number"
+        },
+        "unit": {
+          "enum": [
+            "day",
+            "week",
+            "month",
+            "year",
+            "s"
+          ]
+        }
+      }
+    },
+    "modality": {
+      "enum": [
+        "MRI",
+        "qMRI",
+        "MRS",
+        "MRSI",
+        "HP13C",
+        "calibration"
+      ]
+    },
+    "source_object": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_sha256": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "spatial_reference": {
+      "type": "object",
+      "required": [
+        "frame"
+      ],
+      "properties": {
+        "frame": {
+          "enum": [
+            "scanner",
+            "registered_anatomical",
+            "named_region"
+          ]
+        }
+      }
+    },
+    "observable": {
+      "type": "string",
+      "minLength": 1
+    },
+    "value": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "unit": {
+      "type": "string",
+      "description": "UCUM-style unit; '1' for dimensionless"
+    },
+    "valid_range": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "uncertainty": {
+      "type": "object",
+      "required": [
+        "type",
+        "value"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "SD",
+            "CI95",
+            "CRLB",
+            "category"
+          ]
+        },
+        "value": {
+          "type": [
+            "number",
+            "string",
+            "null"
+          ]
+        },
+        "budget_ref": {
+          "type": "string"
+        }
+      }
+    },
+    "qc_checks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "status",
+          "owner"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "value": {
+            "type": [
+              "number",
+              "string",
+              "boolean",
+              "null"
+            ]
+          },
+          "unit": {
+            "type": "string"
+          },
+          "threshold": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "PASS",
+              "WARN",
+              "FAIL"
+            ]
+          },
+          "owner": {
+            "enum": [
+              "QE",
+              "PM",
+              "DS",
+              "DT",
+              "shared"
+            ]
+          }
+        }
+      }
+    },
+    "qc_status": {
+      "enum": [
+        "PASS",
+        "WARN",
+        "FAIL"
+      ]
+    },
+    "qc_reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "origin": {
+      "enum": [
+        "MEASURED",
+        "SIMULATED"
+      ]
+    },
+    "value_epistemic": {
+      "enum": [
+        "MEASURED",
+        "DERIVED",
+        "INFERRED",
+        "SIMULATED"
+      ]
+    },
+    "decision_epistemic": {
+      "const": "INFERRED"
+    },
+    "system_qc_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "protocol_match": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "comparable": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "acquisition_context": {
+      "type": "object",
+      "properties": {
+        "field_strength_T": {
+          "type": "number"
+        },
+        "spectrometer_frequency_MHz": {
+          "type": "number"
+        },
+        "sequence": {
+          "type": "string"
+        },
+        "TE_s": {
+          "type": "number"
+        },
+        "TR_s": {
+          "type": "number"
+        },
+        "averages": {
+          "type": "integer"
+        }
+      }
+    },
+    "calibration_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "thresholds_ref": {
+      "type": "string"
+    },
+    "processing": {
+      "type": "object",
+      "required": [
+        "pipeline",
+        "version"
+      ]
+    },
+    "provenance": {
+      "type": "object",
+      "required": [
+        "parents",
+        "activities"
+      ]
+    },
+    "twin_action": {
+      "type": "object",
+      "required": [
+        "recommended",
+        "reason"
+      ],
+      "properties": {
+        "recommended": {
+          "enum": [
+            "update",
+            "update_with_warning",
+            "reject"
+          ]
+        },
+        "reason": {
+          "type": "string"
+        }
+      }
+    },
+    "interpretation_limit": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "qc_status": {
+            "const": "FAIL"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "twin_action": {
+            "properties": {
+              "recommended": {
+                "const": "reject"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "qc_status": {
+            "const": "WARN"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "twin_action": {
+            "properties": {
+              "recommended": {
+                "enum": [
+                  "update_with_warning",
+                  "reject"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "origin": {
+            "const": "SIMULATED"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "value_epistemic": {
+            "not": {
+              "const": "MEASURED"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

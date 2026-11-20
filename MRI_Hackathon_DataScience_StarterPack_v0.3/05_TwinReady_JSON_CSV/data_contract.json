@@ -1,0 +1,39 @@
+{
+  "contract_version": "1.0",
+  "packet_schema": "evidence_packet_v1.0.schema.json",
+  "thresholds_ref": "thresholds-v1.0",
+  "required_identifiers": [
+    "subject_id",
+    "session_id",
+    "relative_time"
+  ],
+  "accepted_quality_states": [
+    "PASS",
+    "WARN"
+  ],
+  "rejected_quality_states": [
+    "FAIL"
+  ],
+  "twin_policy": {
+    "PASS": {
+      "action": "update",
+      "R_factor": 1.0
+    },
+    "WARN": {
+      "action": "update_with_warning",
+      "R_factor": 2.0
+    },
+    "FAIL": {
+      "action": "reject"
+    },
+    "note": "R_factor is a declared team policy, not a physical constant (dossier section 7.5)"
+  },
+  "missing_value_policy": "Required fields: FAIL. Optional fields: explicit null plus reason. No silent imputation.",
+  "unit_policy": "Every numeric value carries a UCUM-style unit; '1' marks a dimensionless value.",
+  "epistemic_policy": "origin MEASURED or SIMULATED; value_epistemic MEASURED, DERIVED, INFERRED or SIMULATED; a SIMULATED origin is never labelled MEASURED.",
+  "digital_twin_requirements": {
+    "time_alignment": "session_id + relative_time; sessions.tsv gives acq_time",
+    "coordinate_link": "spatial_reference gives the frame (scanner or registered_anatomical) and VOI or mask",
+    "uncertainty": "required for every value used in a state update"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "file": "synthetic_T1w_baseline.nii.gz",
+  "dim": [
+    64,
+    64,
+    16
+  ],
+  "voxel_size_mm": [
+    3.0,
+    3.0,
+    4.0
+  ],
+  "datatype": "float32",
+  "sform_code": 1,
+  "qform_code": 1,
+  "affine_mm": [
+    [
+      3.0,
+      0.0,
+      0.0,
+      -96.0
+    ],
+    [
+      0.0,
+      3.0,
+      0.0,
+      -96.0
+    ],
+    [
+      0.0,
+      0.0,
+      4.0,
+      -32.0
+    ],
+    [
+      0,
+      0,
+      0,
+      1
+    ]
+  ],
+  "axis_codes": "RAS",
+  "coordinate_note": "voxel (i, j, k) -> scanner RAS mm = affine . (i, j, k, 1); voxel (32, 32, 8) is the origin.",
+  "lesson": "NIfTI carries the image array and its geometry compactly; most acquisition parameters live in the BIDS JSON sidecar."
+}

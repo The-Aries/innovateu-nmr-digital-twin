@@ -1,0 +1,51 @@
+{
+  "packet_version": "0.2",
+  "subject_id": "sub-01",
+  "session": "followup",
+  "observation_time": "2026-11-20T09:30:00Z",
+  "comparison_to": "baseline",
+  "source_files": [
+    "../03_BIDS_MRI/sub-01/ses-followup/anat/sub-01_ses-followup_T1w.nii.gz",
+    "../04_MRS_BIDS/sub-01/ses-followup/mrs/sub-01_ses-followup_acq-press_nuc-1H_voi-frontal_svs.nii.gz"
+  ],
+  "measurements": {
+    "mri": {
+      "roi_volume_mm3": 27810,
+      "roi_mean_intensity_au": 813.9,
+      "registration_rms_mm": 1.1
+    },
+    "mrs": {
+      "NAA_Cr": 1.16,
+      "Cho_Cr": 0.85,
+      "snr": 24.8,
+      "linewidth_Hz": 11.4
+    }
+  },
+  "quality": {
+    "status": "WARN",
+    "reasons": [
+      "MRS SNR just below teaching threshold",
+      "linewidth above teaching threshold"
+    ]
+  },
+  "uncertainty": {
+    "roi_volume_relative_percent": 4.0,
+    "NAA_Cr_absolute": 0.08,
+    "Cho_Cr_absolute": 0.06
+  },
+  "provenance": {
+    "pipeline": "synthetic_demo_v0.2",
+    "steps": [
+      "DICOM/NIfTI ingest",
+      "geometry check",
+      "ROI feature extraction",
+      "MRS FFT/fitting mock",
+      "QC aggregation"
+    ],
+    "code_commit": "teaching-example-not-production"
+  },
+  "twin_action": {
+    "recommended": "update_with_warning",
+    "reason": "evidence is usable but spectroscopy uncertainty must remain visible"
+  }
+}

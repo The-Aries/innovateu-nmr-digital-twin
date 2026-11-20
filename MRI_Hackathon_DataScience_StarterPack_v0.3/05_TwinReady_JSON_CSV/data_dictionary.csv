@@ -1,0 +1,15 @@
+field,type,unit,owner,epistemic,meaning
+subject_id,string,,Data Science,,Pseudonymous subject identifier (BIDS sub- label)
+session_id,string,,Data Science,,BIDS session label
+relative_time_month,number,mo,Data Science,,Time since baseline; acq_time in sub-01_sessions.tsv
+roi_volume_mm3,number,mm3,Precision Mechanics / Metrology,DERIVED,Partial-volume ROI volume = sum(fraction) x voxel volume
+u_roi_volume_mm3,number,mm3,Precision Mechanics / Metrology,DERIVED,Stated standard uncertainty of the ROI volume
+mri_roi_mean_au,number,a.u.,Quantum Engineering,DERIVED,"PV-weighted mean T1w intensity in the ROI; contrast-weighted, not a tissue parameter"
+NAA_Cr,number,1,Quantum Engineering,DERIVED,NAA / Cr(CH3) amplitude ratio from the time-domain fit
+u_NAA_Cr,number,1,Precision Mechanics / Metrology,DERIVED,"Standard uncertainty (budget, worksheet D)"
+Cho_Cr,number,1,Quantum Engineering,DERIVED,Cho / Cr(CH3) amplitude ratio from the time-domain fit
+u_Cho_Cr,number,1,Precision Mechanics / Metrology,DERIVED,"Standard uncertainty (budget, worksheet D)"
+mrs_snr,number,1,Quantum Engineering,DERIVED,"SNR = height of the NAA peak in the real (absorption) spectrum, 1.9-2.1 ppm, divided by the SD of the real spectrum in the signal-free window -3.0 to 0.0 ppm (peak height / noise SD; LCModel's S/N uses 2 x RMS residual and gives about half)"
+mrs_linewidth_Hz,number,Hz,Precision Mechanics / Metrology,DERIVED,FWHM of the Lorentzian lines (common linewidth of the fit)
+registration_rms_mm,number,mm,Precision Mechanics / Metrology,DERIVED,Residual RMS of the rigid registration to the baseline
+qc_status,enum,,Shared gate,,PASS / WARN / FAIL = worst required check; never silently removed

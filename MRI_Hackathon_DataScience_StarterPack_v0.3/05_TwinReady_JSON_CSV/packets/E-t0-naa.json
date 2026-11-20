@@ -1,0 +1,112 @@
+{
+  "packet_version": "1.0",
+  "subject_id": "sub-01",
+  "session_id": "ses-baseline",
+  "relative_time": {
+    "value": 0,
+    "unit": "month"
+  },
+  "origin": "SIMULATED",
+  "decision_epistemic": "INFERRED",
+  "system_qc_id": "sysqc-synthetic-20260520",
+  "protocol_match": true,
+  "comparable": true,
+  "calibration_id": "phantom-2026-05",
+  "thresholds_ref": "thresholds-v1.0",
+  "interpretation_limit": "educational synthetic data; frontal VOI only; Cr assumed stable; no clinical meaning",
+  "packet_id": "E-t0-naa",
+  "modality": "MRS",
+  "observable": "NAA_Cr",
+  "value": 1.25,
+  "unit": "1",
+  "valid_range": [
+    0,
+    3
+  ],
+  "value_epistemic": "DERIVED",
+  "source_object": "04_MRS_BIDS/sub-01/ses-baseline/mrs/sub-01_ses-baseline_acq-press_nuc-1H_voi-frontal_svs.nii.gz",
+  "source_sha256": "bc30ca7d26d8973fa95b54470ec33783ea4fd3d3b89917f6d4d922a0792d804c",
+  "spatial_reference": {
+    "frame": "scanner",
+    "voi_center_mm": [
+      -16.0,
+      45.0,
+      6.0
+    ],
+    "voi_size_mm": [
+      20,
+      20,
+      20
+    ],
+    "csde_mm_NAA_Cho": 2.4
+  },
+  "uncertainty": {
+    "type": "SD",
+    "value": 0.06,
+    "budget_ref": "D-worksheet-t0"
+  },
+  "qc_checks": [
+    {
+      "name": "mrs_snr",
+      "value": 31.2,
+      "unit": "1",
+      "threshold": "WARN < 25; FAIL < 10",
+      "status": "PASS",
+      "owner": "QE"
+    },
+    {
+      "name": "mrs_linewidth_Hz",
+      "value": 8.7,
+      "unit": "Hz",
+      "threshold": "WARN > 10; FAIL > 20",
+      "status": "PASS",
+      "owner": "PM"
+    },
+    {
+      "name": "registration_rms_mm",
+      "value": 0.7,
+      "unit": "mm",
+      "threshold": "WARN > 2.0; FAIL > 3.0",
+      "status": "PASS",
+      "owner": "PM"
+    },
+    {
+      "name": "missing_values",
+      "value": 0,
+      "unit": "1",
+      "threshold": "FAIL > 0",
+      "status": "PASS",
+      "owner": "DS"
+    }
+  ],
+  "qc_status": "PASS",
+  "qc_reasons": [],
+  "acquisition_context": {
+    "field_strength_T": 3.0,
+    "spectrometer_frequency_MHz": 123.25,
+    "sequence": "PRESS",
+    "TE_s": 0.03,
+    "TR_s": 2.0,
+    "averages": 64
+  },
+  "processing": {
+    "pipeline": "nmrqe_starterpack",
+    "version": "0.3",
+    "fit": "time-domain Lorentzian, common linewidth, shift and phase; ratio to the Cr CH3 singlet (3.03 ppm)"
+  },
+  "provenance": {
+    "parents": [
+      "04_MRS_BIDS/sub-01/ses-baseline/mrs/sub-01_ses-baseline_acq-press_nuc-1H_voi-frontal_svs.nii.gz"
+    ],
+    "activities": [
+      "NIfTI-MRS ingest",
+      "spectral fit",
+      "ratio to Cr",
+      "QC aggregation"
+    ]
+  },
+  "twin_action": {
+    "recommended": "update",
+    "reason": "required evidence and quality checks pass"
+  }
+}

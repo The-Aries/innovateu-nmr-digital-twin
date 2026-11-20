@@ -1,0 +1,94 @@
+{
+  "packet_version": "1.0",
+  "subject_id": "sub-01",
+  "session_id": "ses-followup",
+  "relative_time": {
+    "value": 6,
+    "unit": "month"
+  },
+  "origin": "SIMULATED",
+  "decision_epistemic": "INFERRED",
+  "system_qc_id": "sysqc-synthetic-20261120",
+  "protocol_match": true,
+  "comparable": true,
+  "calibration_id": "phantom-2026-11",
+  "thresholds_ref": "thresholds-v1.0",
+  "interpretation_limit": "educational synthetic data; region volume only; no clinical meaning",
+  "packet_id": "E-t1-roi",
+  "modality": "MRI",
+  "observable": "roi_volume",
+  "value": 27810.0,
+  "unit": "mm3",
+  "valid_range": [
+    0,
+    2000000
+  ],
+  "value_epistemic": "DERIVED",
+  "source_object": "03_BIDS_MRI/derivatives/roi/sub-01/ses-followup/anat/sub-01_ses-followup_space-T1w_label-ROI_probseg.nii.gz",
+  "source_sha256": "9444ae2385df26ebd28db42dd71925c5d5a625487147b090bccb0faecd49d890",
+  "spatial_reference": {
+    "frame": "registered_anatomical",
+    "reference_image": "ses-baseline T1w",
+    "mask_propagated": true,
+    "reference_roi_volume_mm3": 22140.0,
+    "registration_rms_mm": 1.1,
+    "registration": "rigid, follow-up T1w to baseline T1w; baseline ROI mask propagated",
+    "mask": "03_BIDS_MRI/derivatives/roi/sub-01/ses-followup/anat/sub-01_ses-followup_space-T1w_label-ROI_probseg.nii.gz"
+  },
+  "uncertainty": {
+    "type": "SD",
+    "value": 1112.4,
+    "relative": 0.04,
+    "budget_ref": "segmentation repeatability (stated by the pipeline)"
+  },
+  "qc_checks": [
+    {
+      "name": "registration_rms_mm",
+      "value": 1.1,
+      "unit": "mm",
+      "threshold": "WARN > 2.0; FAIL > 3.0",
+      "status": "PASS",
+      "owner": "PM"
+    },
+    {
+      "name": "missing_values",
+      "value": 0,
+      "unit": "1",
+      "threshold": "FAIL > 0",
+      "status": "PASS",
+      "owner": "DS"
+    }
+  ],
+  "qc_status": "PASS",
+  "qc_reasons": [],
+  "acquisition_context": {
+    "field_strength_T": 3.0,
+    "spectrometer_frequency_MHz": 123.25,
+    "sequence": "MPRAGE-like 3D IR-SPGR",
+    "TE_s": 0.003,
+    "TR_s": 2.3
+  },
+  "processing": {
+    "pipeline": "nmrqe_starterpack",
+    "version": "0.3",
+    "segmentation": "partial-volume ROI mask; volume = sum(fraction) x voxel volume",
+    "registration": "rigid, to ses-baseline T1w"
+  },
+  "provenance": {
+    "parents": [
+      "03_BIDS_MRI/derivatives/roi/sub-01/ses-followup/anat/sub-01_ses-followup_space-T1w_label-ROI_probseg.nii.gz",
+      "03_BIDS_MRI/sub-01/ses-followup/anat/sub-01_ses-followup_T1w.nii.gz"
+    ],
+    "activities": [
+      "NIfTI ingest",
+      "rigid registration",
+      "mask propagation",
+      "volume integration",
+      "QC aggregation"
+    ]
+  },
+  "twin_action": {
+    "recommended": "update",
+    "reason": "required evidence and quality checks pass"
+  }
+}

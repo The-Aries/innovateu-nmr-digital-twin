@@ -1,0 +1,45 @@
+{
+  "report_version": "1.0",
+  "subject_id": "sub-01",
+  "session_id": "ses-followup",
+  "thresholds_ref": "thresholds-v1.0",
+  "status": "WARN",
+  "checks": [
+    {
+      "name": "mrs_snr",
+      "value": 24.8,
+      "unit": "1",
+      "threshold": "WARN < 25; FAIL < 10",
+      "status": "WARN",
+      "owner": "QE"
+    },
+    {
+      "name": "mrs_linewidth_Hz",
+      "value": 11.4,
+      "unit": "Hz",
+      "threshold": "WARN > 10; FAIL > 20",
+      "status": "WARN",
+      "owner": "PM"
+    },
+    {
+      "name": "registration_rms_mm",
+      "value": 1.1,
+      "unit": "mm",
+      "threshold": "WARN > 2.0; FAIL > 3.0",
+      "status": "PASS",
+      "owner": "PM"
+    },
+    {
+      "name": "missing_values",
+      "value": 0,
+      "unit": "1",
+      "threshold": "FAIL > 0",
+      "status": "PASS",
+      "owner": "DS"
+    }
+  ],
+  "not_run_by_pipeline": [
+    "roi_u_consistency"
+  ],
+  "policy": "Do not silently impute or discard. Preserve the flag and route it to the owning track."
+}

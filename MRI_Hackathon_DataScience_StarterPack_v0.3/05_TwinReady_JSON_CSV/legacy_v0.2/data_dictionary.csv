@@ -1,0 +1,10 @@
+field,type,unit,owner,meaning
+subject_id,string,,Data Science,Pseudonymous subject identifier
+session,string,,Data Science,Longitudinal session label
+roi_volume_mm3,number,mm3,Applied Physics + Precision,Registered ROI volume
+mri_roi_mean_au,number,a.u.,Applied Physics,Mean signal intensity in ROI; not a quantitative tissue parameter
+mrs_NAA_Cr,number,ratio,Applied Physics,Synthetic NAA/Cr ratio
+mrs_Cho_Cr,number,ratio,Applied Physics,Synthetic Cho/Cr ratio
+mrs_snr,number,ratio,Applied Physics + Data Science,Spectral signal-to-noise quality metric
+mrs_linewidth_Hz,number,Hz,Applied Physics + Precision,Spectral linewidth quality metric
+qc_status,enum,,Shared quality gate,PASS/WARN/FAIL; never silently removed

@@ -1,0 +1,17 @@
+{
+  "Manufacturer": "SYNTHETIC",
+  "ManufacturersModelName": "Synthetic MR Simulator",
+  "MagneticFieldStrength": 3.0,
+  "ImagingFrequency": 123.25,
+  "MRAcquisitionType": "3D",
+  "PulseSequenceType": "MPRAGE-like inversion-prepared spoiled gradient echo (synthetic contrast model)",
+  "ScanningSequence": "GR_IR",
+  "SequenceVariant": "SK_SP_MP",
+  "RepetitionTime": 2.3,
+  "InversionTime": 0.9,
+  "EchoTime": 0.003,
+  "FlipAngle": 9,
+  "SliceThickness": 4.0,
+  "SoftwareVersions": "nmrqe-synth 0.3",
+  "ReceiveCoilName": "SYN_HEAD_32"
+}

@@ -15,3 +15,6 @@ outputs/
 *.rda
 *.spar
 *.sdat
+
+# Third-party experiment data can be restored from the links in README.md.
+/online downloaded data/

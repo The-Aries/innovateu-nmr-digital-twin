@@ -1,0 +1,9 @@
+{
+  "age": {
+    "Description": "Age; intentionally omitted for synthetic example",
+    "Units": "years"
+  },
+  "sex": {
+    "Description": "Sex; intentionally omitted for synthetic example"
+  }
+}

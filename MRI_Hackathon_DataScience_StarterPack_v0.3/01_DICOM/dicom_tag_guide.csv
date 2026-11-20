@@ -1,0 +1,17 @@
+tag,name,purpose
+"(0010,0020)",PatientID,Synthetic subject identifier; de-identify in real projects
+"(0020,000D)",StudyInstanceUID,Uniquely identifies study
+"(0020,000E)",SeriesInstanceUID,Uniquely identifies series
+"(0008,0018)",SOPInstanceUID,Uniquely identifies one DICOM object
+"(0018,0080)",RepetitionTime,Acquisition parameter (ms in DICOM MR Image)
+"(0018,0081)",EchoTime,Acquisition parameter (ms in DICOM MR Image)
+"(0028,0030)",PixelSpacing,In-plane geometry (mm)
+"(0020,0032)",ImagePositionPatient,Image origin in patient coordinate system
+"(0020,0037)",ImageOrientationPatient,Image orientation direction cosines
+"(0008,0020)",StudyDate,Session date; shift or remove in de-identified real data
+"(0018,0084)",ImagingFrequency,Larmor frequency in MHz; gives the actual field B0 = f / 42.577 MHz T^-1
+"(0018,0082)",InversionTime,Inversion-prepared sequences (ms)
+"(0018,1314)",FlipAngle,Excitation flip angle (deg)
+"(0018,1020)",SoftwareVersions,Changes between sessions are a comparability risk
+"(0018,1250)",ReceiveCoilName,Changes between sessions are a comparability risk
+"(0010,0010)",PatientName,Identifying; must be removed or replaced in real data

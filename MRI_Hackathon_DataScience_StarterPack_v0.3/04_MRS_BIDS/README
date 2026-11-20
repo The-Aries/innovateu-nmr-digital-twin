@@ -1,0 +1,1 @@
+Synthetic MRS-BIDS example. NIfTI-MRS files contain complex time-domain FIDs and a NIfTI header extension with MRS metadata.

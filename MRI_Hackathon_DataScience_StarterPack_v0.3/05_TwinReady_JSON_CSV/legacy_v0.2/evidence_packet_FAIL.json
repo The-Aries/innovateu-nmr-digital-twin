@@ -1,0 +1,23 @@
+{
+  "packet_version": "0.2",
+  "subject_id": "sub-01",
+  "session": "followup-bad-example",
+  "observation_time": "2026-11-20T10:15:00Z",
+  "source_files": ["synthetic_missing_spectrum_reference"],
+  "measurements": {
+    "mri": {"roi_volume_mm3": 27910, "registration_rms_mm": 3.8},
+    "mrs": {"NAA_Cr": null, "Cho_Cr": null, "snr": 9.0, "linewidth_Hz": 24.0}
+  },
+  "quality": {
+    "status": "FAIL",
+    "reasons": [
+      "required MRS feature missing",
+      "registration RMS exceeds teaching threshold",
+      "MRS SNR below teaching threshold",
+      "MRS linewidth above teaching threshold"
+    ]
+  },
+  "uncertainty": {"roi_volume_relative_percent": 12.0, "NAA_Cr_absolute": null, "Cho_Cr_absolute": null},
+  "provenance": {"pipeline": "synthetic_demo_v0.2", "steps": ["ingest", "failed registration/QC"]},
+  "twin_action": {"recommended": "reject", "reason": "required evidence is invalid or missing; reacquisition/domain review required"}
+}

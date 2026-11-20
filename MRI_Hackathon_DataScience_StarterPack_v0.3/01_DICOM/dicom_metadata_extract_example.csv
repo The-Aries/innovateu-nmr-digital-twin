@@ -1,0 +1,21 @@
+source_series,tag,keyword,value,unit_or_note
+baseline,"(0008,0020)",StudyDate,20260520,YYYYMMDD
+baseline,"(0018,0087)",MagneticFieldStrength,3,T (nominal)
+baseline,"(0018,0084)",ImagingFrequency,123.25,MHz
+baseline,"(0018,0080)",RepetitionTime,2300,ms
+baseline,"(0018,0081)",EchoTime,3,ms
+baseline,"(0018,0082)",InversionTime,900,ms
+baseline,"(0018,1314)",FlipAngle,9,deg
+baseline,"(0028,0030)",PixelSpacing,3\3,mm
+baseline,"(0020,0032)",ImagePositionPatient (IM0001),-93\-93\-32,"mm, LPS"
+baseline,"(0020,0037)",ImageOrientationPatient,1\0\0\0\1\0,"direction cosines, LPS"
+followup,"(0008,0020)",StudyDate,20261120,YYYYMMDD
+followup,"(0018,0087)",MagneticFieldStrength,3,T (nominal)
+followup,"(0018,0084)",ImagingFrequency,123.25,MHz
+followup,"(0018,0080)",RepetitionTime,2300,ms
+followup,"(0018,0081)",EchoTime,3,ms
+followup,"(0018,0082)",InversionTime,900,ms
+followup,"(0018,1314)",FlipAngle,9,deg
+followup,"(0028,0030)",PixelSpacing,3\3,mm
+followup,"(0020,0032)",ImagePositionPatient (IM0001),-93\-93\-32,"mm, LPS"
+followup,"(0020,0037)",ImageOrientationPatient,1\0\0\0\1\0,"direction cosines, LPS"

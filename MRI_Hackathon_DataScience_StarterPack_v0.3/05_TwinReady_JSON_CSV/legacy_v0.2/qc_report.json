@@ -1,0 +1,36 @@
+{
+  "subject_id": "sub-01",
+  "session": "followup",
+  "status": "WARN",
+  "checks": [
+    {
+      "name": "file_structure",
+      "status": "PASS",
+      "detail": "Expected files present"
+    },
+    {
+      "name": "registration_rms_mm",
+      "status": "PASS",
+      "value": 1.1,
+      "threshold_max": 2.0
+    },
+    {
+      "name": "mrs_snr",
+      "status": "WARN",
+      "value": 24.8,
+      "threshold_min": 25.0
+    },
+    {
+      "name": "mrs_linewidth_Hz",
+      "status": "WARN",
+      "value": 11.4,
+      "threshold_max": 10.0
+    },
+    {
+      "name": "missing_values",
+      "status": "PASS",
+      "missing_required": []
+    }
+  ],
+  "policy": "Do not silently impute or discard. Preserve flag and route to domain review."
+}

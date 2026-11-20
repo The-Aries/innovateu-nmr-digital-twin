@@ -1,0 +1,9 @@
+{
+  "Name": "Synthetic MRS-BIDS Hackathon Starter Dataset",
+  "BIDSVersion": "1.11.1",
+  "DatasetType": "raw",
+  "Authors": [
+    "Hackathon teaching team"
+  ],
+  "HowToAcknowledge": "Synthetic NIfTI-MRS/MRS-BIDS teaching data; no real participant information."
+}

@@ -1,19 +1,33 @@
 # InnovateU 2026 — NMR Digital Twin
 
-Private **preparation workspace** for the NMR Quantum Engineering challenge (20–21 November 2026, KICU Ulm).
+Private project workspace for the NMR Quantum Engineering challenge (20–21 November 2026, KICU Ulm).
 
 ## Scope
 
-The official task is to build a digital-twin prototype from a baseline and follow-up synthetic MRI/MRS session, distinguish credible change from measurement effects, communicate uncertainty, and recommend the next measurement. Final deliverables are a working prototype, a machine-readable evidence packet, and a five-minute pitch.
+The challenge asks teams to demonstrate a traceable baseline-to-follow-up update, distinguish physical change from measurement effects, communicate uncertainty, and propose the next measurement. The organizer's [dossier v1.6](MRI_Local_Spectroscopy_Health_Digital_Twin_Hackathon_Dossier_v1.6.pdf) specifies the deliverables and permits public and synthetic data.
 
-**Status:** Preparation only. We have not received the official challenge dossier, synthetic data, measurement-error assumptions, or judging rubric. Do not invent them or treat unrelated public examples as competition data. Whether work started before the event can be submitted is unconfirmed.
+## Project files
 
-## Before the event
+- [Birmingham Explorer](MRI_Data_Explorer_Birmingham.html) follows the measured ²³Na series and the corresponding electrochemical record for the main case. The cross-device time offset is provisional.
+- [Bruker Explorer](MRI_Data_Explorer_Bruker.html) reads and compares TopSpin spectra. The Cambridge lithium-metal dataset provides the microwave on/off comparison.
+- [Organizer's MRI Data Explorer](MRI_Data_Explorer_v1.0-rc5.html) opens the synthetic MRI/MRS teaching case.
+- [Chinese materials index](translations/zh/index.html) links the translations to the organizer's original documents.
+- [Organizer's StarterPack archive](MRI_Hackathon_DataScience_StarterPack_v0.3.zip) contains the full synthetic teaching package. Extract it to restore the MRI and MRS example files alongside those already in the StarterPack directory.
+- [Reference notes](references/zh/battery_mr_references_zh.md) cover battery magnetic resonance. The two papers are available locally as [Bray et al. (2020)](references/papers/Bray_et_al_2020_Operando_Sodium_Ion_Battery_NMR.pdf) and [Hope et al. (2020)](references/papers/Hope_et_al_2020_Lithium_Metal_DNP_NMR.pdf).
 
-- Read [challenge facts](docs/CHALLENGE.md), [scientific references](docs/RESEARCH.md), and [open questions](docs/QUESTIONS.md).
-- Confirm event rules for pre-built code and participating in two teams.
-- Check the Python scientific stack on the laptop; this is a generic environment check, not a competition solution.
-- Attend the MRI/MRS lecture on 20 November, 10:00–13:00 (venue of lecture to confirm).
+## Experimental data downloads
+
+Keep downloaded archives and extracted third-party experiment data under `online downloaded data/`. Git ignores that directory. Open the Explorer HTML in a local browser and select the corresponding extracted directory.
+
+| Dataset | Official download | Local location |
+| --- | --- | --- |
+| Birmingham ²³Na time series and electrochemistry (main case) | [Figure_5.zip](https://edata.bham.ac.uk/456/4/Figure_5.zip) | `online downloaded data/Figure_5/`, with `Na_fullSpectrum_60` through `Na_fullSpectrum_75` and the electrochemical text file directly inside |
+| Cambridge lithium DNP NMR | [Li_DNP_NMR_data.zip](https://api.repository.cam.ac.uk/server/api/core/bitstreams/d7f35bc2-9740-4107-a4de-5cef29ead191/content) | `online downloaded data/open_data/`, containing `sample_A` through `sample_G` and `Misc` |
+| Birmingham Figure 2 (423 MB) | [Figure_2.zip](https://edata.bham.ac.uk/456/2/Figure_2.zip) | `online downloaded data/Birmingham_Bray_2020/` |
+| Birmingham Figure 3 (832 MB) | [Figure_3.zip](https://edata.bham.ac.uk/456/16/Figure_3.zip) | `online downloaded data/Birmingham_Bray_2020/` |
+| Birmingham Supplementary Figure 5 (846 MB) | [SupplementaryFigure_5.zip](https://edata.bham.ac.uk/456/17/SupplementaryFigure_5.zip) | `online downloaded data/Birmingham_Bray_2020/` |
+
+The three large Birmingham archives are optional for the Figure 5 case. See the [Birmingham data record and other figure archives](https://edata.bham.ac.uk/456/) and the [Cambridge Apollo data record](https://www.repository.cam.ac.uk/items/a5ed5aab-5881-4e09-bcc1-89cb03df66e9).
 
 ## Local environment
 
@@ -24,10 +38,8 @@ python -m pip install -r requirements.txt
 python scripts/check_environment.py
 ```
 
-No data, model or application is included yet. Once the organizers release the data, choose processing tools based on actual format instead of installing FSL-MRS or deep learning frameworks prematurely.
+## Preparation and on-site notes
 
-## On-site entry point
-
-Read [ON_SITE.md](docs/ON_SITE.md) and record decisions in [DECISIONS.md](docs/DECISIONS.md).
+The original preparation material is available in [CHALLENGE.md](docs/CHALLENGE.md), [RESEARCH.md](docs/RESEARCH.md), and [QUESTIONS.md](docs/QUESTIONS.md). See [ON_SITE.md](docs/ON_SITE.md) for on-site planning and [DECISIONS.md](docs/DECISIONS.md) for the decision log.
 
 Official brief: https://www.uni-ulm.de/en/io/degree-phd/students/fit4u/community/vernetzung/hackathon/

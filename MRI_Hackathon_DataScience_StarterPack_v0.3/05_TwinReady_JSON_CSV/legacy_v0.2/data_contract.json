@@ -1,0 +1,26 @@
+{
+  "contract_version": "0.2",
+  "required_identifiers": [
+    "subject_id",
+    "session",
+    "observation_time"
+  ],
+  "required_quality_fields": [
+    "quality.status",
+    "provenance.pipeline"
+  ],
+  "accepted_quality_states": [
+    "PASS",
+    "WARN"
+  ],
+  "rejected_quality_states": [
+    "FAIL"
+  ],
+  "missing_value_policy": "Required fields: FAIL. Optional fields: preserve explicit null and reason. No silent imputation.",
+  "unit_policy": "Every numeric feature requires a unit or explicit dimensionless marker.",
+  "digital_twin_requirements": {
+    "time_alignment": "ISO 8601 timestamp or named session",
+    "coordinate_link": "Source image geometry/registration must be traceable",
+    "uncertainty": "Must accompany any feature used for state update when available"
+  }
+}
