@@ -8,6 +8,10 @@ The challenge asks teams to demonstrate a traceable baseline-to-follow-up update
 
 [Project plan and decisions](PROJECT_PLAN.md) maps the four tracks and submission tasks to the Birmingham Figure 5 case.
 
+## Offline documents
+
+Open [README.html](README.html) in a browser after cloning or downloading the repository. Each Markdown document has a companion HTML file in the same folder. Use [the project plan in HTML](PROJECT_PLAN.html) or the [Chinese materials index](translations/zh/index.html) for reading. The bundled [document viewer](assets/document-viewer/viewer.js) and [stylesheet](assets/document-viewer/viewer.css) supply the contents and document switcher offline.
+
 ## Project files
 
 - [Birmingham Explorer](MRI_Data_Explorer_Birmingham.html) follows the measured ²³Na series and the corresponding electrochemical record for the main case. The cross-device time offset is provisional.
