@@ -13,14 +13,23 @@
 | Timing | Use TopSpin audit start and end times for NMR. Mark each acquisition window. The electrochemistry zero point is provisional relative to NMR. The state update uses confirmed NMR timing. |
 | Update policy | Apply the Birmingham gate. A FAIL leaves the state unchanged. A WARN requires explicit acceptance. The latest accepted observation then becomes the state. |
 | Evidence interface | Read the original local files in the browser. Generate challenge v1.0 evidence packets from the measured inputs. Keep the update event separate within the export bundle. |
-| Reference and scope | Keep the organizer's MRI/MRS case for reproducing the worked example. The Bruker workbench and Cambridge data support independent spectroscopy checks. The Birmingham pitch uses the Bray study as its research case. |
+| Reference and scope | Keep the organizer's MRI/MRS case for reproducing the worked example. Keep Bray et al.'s paper and the full Birmingham supporting data. The demonstration uses Figure 5. |
 
 The authoritative requirements are in [Dossier v1.6](MRI_Local_Spectroscopy_Health_Digital_Twin_Hackathon_Dossier_v1.6.pdf), especially §§1.4, 4.10, 5.11, 6.11, 7.10, 8.2–8.7, 9.6–9.10 and Appendix J.6. [The Quantum Engineering slides](NMR_QE_InnovateU_Conclusion_v2.3_2026-11-20.pdf) map the four tracks to device and biomedical examples.
 
 ## Baselines and decision criteria
 
-- Bray et al. used the pristine-cell electrolyte spectrum at nominal t = 0 for Figure 6a. The archive identifies it as acquisition 10. The paper also shows acquisition 63 at nominal 2 h. Our Figure 5 update uses acquisition 61 as an earlier observed reference for acquisition 63 within the available series. The comparison is a team choice. [Paper, Figure 6](references/papers/Bray_et_al_2020_Operando_Sodium_Ion_Battery_NMR.pdf) · [Figure 6 archive](https://edata.bham.ac.uk/456/5/Figure_6.zip)
-- Figure 5 supplies the spectra, acquisition logs and stored processing parameters. The study reports a metal-region signal shifting from about 1050 to 1115 ppm. The team chose the 1020–1150 ppm integration window and fits a linear background from the 940–980 and 1190–1230 ppm sidebands. The detection rule requires an interior peak at least five times the sideband residual standard deviation and a signed area above the method sensitivity allowance. The team also requires the increase to exceed the sum of both allowances. These are exploratory method settings with no established detection limit or statistical coverage. [Explorer method](MRI_Data_Explorer_Birmingham.html)
+**Published reference.** Figure 6a shows the pristine-cell electrolyte spectrum at nominal t = 0 (acquisition 10). Its archived processing spans approximately −107 to +129 ppm, so it supplies context for the electrolyte spectrum. A numerical comparison of the 1020–1150 ppm feature requires a recording that covers that region. Figure 6b shows the full spectrum from acquisition 63 at nominal 2 h. [Paper, Figure 6](references/papers/Bray_et_al_2020_Operando_Sodium_Ion_Battery_NMR.pdf) · [Figure 6 archive](https://edata.bham.ac.uk/456/5/Figure_6.zip)
+
+**Comparison baseline.** The Explorer subtracts the earlier signed area from the later signed area. #61 serves as the demo reference. It is an earlier acquisition in the same Figure 5 series with matching acquisition and non-phase processing settings. Its unresolved signal exercises the warning path when compared with #63. No recorded selection protocol establishes #61 as the reference for plating onset. #60 and #62 are also earlier, and both pass the current detection rule. The conclusion that the increase exceeds the sensitivity allowance depends on which earlier spectrum is used.
+
+| Reference spectrum | Signed area in 10⁶ a.u.·ppm | Increase to #63 | Combined allowance | Comparison |
+| --- | ---: | ---: | ---: | --- |
+| #60 | 7.77 | 0.74 | 6.25 | FAIL |
+| #61 | −3.96 | 12.47 | 9.92 | WARN |
+| #62 | 3.63 | 4.88 | 5.63 | FAIL |
+
+**Numerical thresholds.** Bray et al. observed a metal-region peak shifting from about 1050 to 1115 ppm. The team's 1020–1150 ppm integration window covers both reported positions with margin. The team fits a linear spectral background from the flanking 940–980 and 1190–1230 ppm sidebands. It requires a peak inside the window, a peak height at least five times the sideband residual standard deviation, and a signed area above the method sensitivity allowance. These checks screen for peaks that stand above residual background and for areas sensitive to processing. The allowance adds the background residual standard deviation times the window width, the largest area change under sideband shifts of ±10 ppm, and the largest area change under phase rotations of ±10°. The comparison requires the increase to exceed the sum of the two allowances. The exact factor of five, sidebands, and perturbations are exploratory choices. No independent repeatability or detection-limit study supports those settings. [Explorer method](MRI_Data_Explorer_Birmingham.html)
 
 ## Design freedom and challenge requirements
 

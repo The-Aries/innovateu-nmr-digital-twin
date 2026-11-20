@@ -15,7 +15,6 @@ Open [README.html](README.html) in a browser after cloning or downloading the re
 ## Project files
 
 - [Birmingham Explorer](MRI_Data_Explorer_Birmingham.html) follows the measured ²³Na series and the corresponding electrochemical record for the main case. The cross-device time offset is provisional.
-- [Bruker Explorer](MRI_Data_Explorer_Bruker.html) reads and compares TopSpin spectra. The Cambridge lithium-metal dataset provides the microwave on/off comparison.
 - [Organizer's MRI Data Explorer](MRI_Data_Explorer_v1.0-rc5.html) opens the synthetic MRI/MRS teaching case.
 - [Chinese materials index](translations/zh/index.html) links the translations to the organizer's original documents.
 - [Organizer's StarterPack archive](MRI_Hackathon_DataScience_StarterPack_v0.3.zip) contains the full synthetic teaching package. Extract it to restore the MRI and MRS example files alongside those already in the StarterPack directory.
@@ -28,10 +27,11 @@ Keep downloaded archives and extracted third-party experiment data under `online
 | Dataset | Official download | Local location |
 | --- | --- | --- |
 | Birmingham ²³Na time series and electrochemistry (main case) | [Figure_5.zip](https://edata.bham.ac.uk/456/4/Figure_5.zip) | `online downloaded data/Figure_5/`, with `Na_fullSpectrum_60` through `Na_fullSpectrum_75` and the electrochemical text file directly inside |
-| Cambridge lithium DNP NMR | [Li_DNP_NMR_data.zip](https://api.repository.cam.ac.uk/server/api/core/bitstreams/d7f35bc2-9740-4107-a4de-5cef29ead191/content) | `online downloaded data/open_data/`, containing `sample_A` through `sample_G` and `Misc` |
-| Birmingham published comparison (optional reference) | [Figure_6.zip](https://edata.bham.ac.uk/456/5/Figure_6.zip) and [Supplementary Figure 8](https://edata.bham.ac.uk/456/10/SupplementaryFigure_8.zip) | `online downloaded data/Birmingham_Bray_2020/` |
+| Birmingham paper and supplementary figure archives | [Birmingham data record](https://edata.bham.ac.uk/456/) | `online downloaded data/Birmingham_Bray_2020/` |
 
-Figure 5 alone is sufficient to replay the Birmingham Explorer. Download other files as needed using the [full Birmingham figure guide](references/en/birmingham_bray_2020_data_guide.md), the [Birmingham data record](https://edata.bham.ac.uk/456/) or the [Cambridge Apollo data record](https://www.repository.cam.ac.uk/items/a5ed5aab-5881-4e09-bcc1-89cb03df66e9).
+Figure 5 alone is sufficient to replay the Birmingham Explorer. Keep the other Birmingham archives with the paper for checking its figures and methods. The [full Birmingham figure guide](references/en/birmingham_bray_2020_data_guide.md) lists each archive and its purpose.
+
+The [Bruker Explorer](MRI_Data_Explorer_Bruker.html) remains available as a general TopSpin tool. Its former Cambridge comparison is outside the current case. The [Cambridge Apollo record](https://www.repository.cam.ac.uk/items/a5ed5aab-5881-4e09-bcc1-89cb03df66e9) provides the source data if that case is resumed.
 
 ## Repository updates
 
