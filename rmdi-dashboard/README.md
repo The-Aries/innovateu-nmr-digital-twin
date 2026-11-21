@@ -2,12 +2,12 @@
 
 ## Present and explore the twin
 
-Open the [online dashboard](https://innovateu-sodium-ion-twin.rusticarbor4.chatgpt.site) or use the [offline dashboard](../outputs/rmdi-dashboard/rmdi-dashboard.html). **Guided demo** walks through the upper limit, first accepted value, rejected acquisition and supported increase. **Explore** lets visitors select any cycle, compare end-of-charge and post-discharge spectra, inspect QC, and download the selected evidence packet. The offline HTML contains the plots, interface and verified simulated replay.
+Open the [online dashboard](https://innovateu-sodium-ion-twin.rusticarbor4.chatgpt.site) or use the [offline dashboard](../evidence/rmdi-dashboard/rmdi-dashboard.html). **Guided demo** walks through the upper limit, first accepted value, rejected acquisition and supported increase. **Explore** lets visitors select any cycle, compare end-of-charge and post-discharge spectra, inspect QC, and download the selected evidence packet. The offline HTML contains the plots, interface and verified simulated replay.
 
 Rebuild the dashboard from a verified run with the existing Python environment. Run this from the standalone directory.
 
 ```sh
-.venv/bin/python -m src.build_dashboard --run outputs/demo --output ../outputs/rmdi-dashboard/rmdi-dashboard.html
+.venv/bin/python -m src.build_dashboard --run outputs/demo --output ../evidence/rmdi-dashboard/rmdi-dashboard.html
 ```
 
 ## Run the standalone demonstrator

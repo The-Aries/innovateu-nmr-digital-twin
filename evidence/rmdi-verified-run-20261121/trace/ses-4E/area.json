@@ -1,0 +1,22 @@
+{
+  "config": {
+    "path": "../outputs/standalone-na23-rmdi-verified-20261121/run-config.json",
+    "sha256": "44e61fc21cfe686d26e4c4493553ca49de7387f06942a99f5b2381f4f31cc6d9"
+  },
+  "config_sha256": "44e61fc21cfe686d26e4c4493553ca49de7387f06942a99f5b2381f4f31cc6d9",
+  "config_version": "0.2.0",
+  "input": {
+    "path": "../outputs/standalone-na23-rmdi-verified-20261121/trace/ses-4E/fit.json",
+    "sha256": "759836cd127b1be106f6e28b7b4c902822fc0c0763dccc01d92ce3834ca5b826"
+  },
+  "origin": "SIMULATED",
+  "result": {
+    "area_unit": "[arb'U].ppm",
+    "metal_area": 163.73532396024677,
+    "metal_area_sd": 7.423372951024185,
+    "model_sensitivity_in_observable_unit": 9.533677185912097,
+    "reference_area": null,
+    "reference_area_sd": null
+  },
+  "step": "area"
+}

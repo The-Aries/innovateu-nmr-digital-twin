@@ -1,0 +1,21 @@
+{
+  "config": {
+    "path": "../outputs/standalone-na23-rmdi-verified-20261121/run-config.json",
+    "sha256": "44e61fc21cfe686d26e4c4493553ca49de7387f06942a99f5b2381f4f31cc6d9"
+  },
+  "config_sha256": "44e61fc21cfe686d26e4c4493553ca49de7387f06942a99f5b2381f4f31cc6d9",
+  "config_version": "0.2.0",
+  "input": {
+    "path": "../outputs/standalone-na23-rmdi-verified-20261121/spectra/ses-7E.json",
+    "sha256": "8635a4e0ac5cb07a98969e9ca6dc096e1bef507c8fd7e103cf6dca93e19a64f1"
+  },
+  "origin": "SIMULATED",
+  "result": {
+    "acquired_complex_points": 512,
+    "axis_unit": "ppm",
+    "fourier_points": 2048,
+    "method": "Use the stored spectral axis and an independent native fit grid",
+    "noise_kind": "zero_filled"
+  },
+  "step": "preprocessing"
+}

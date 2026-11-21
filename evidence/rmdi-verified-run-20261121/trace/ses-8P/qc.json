@@ -1,0 +1,91 @@
+{
+  "config": {
+    "path": "../outputs/standalone-na23-rmdi-verified-20261121/run-config.json",
+    "sha256": "44e61fc21cfe686d26e4c4493553ca49de7387f06942a99f5b2381f4f31cc6d9"
+  },
+  "config_sha256": "44e61fc21cfe686d26e4c4493553ca49de7387f06942a99f5b2381f4f31cc6d9",
+  "config_version": "0.2.0",
+  "input": {
+    "path": "../outputs/standalone-na23-rmdi-verified-20261121/trace/ses-8P/area.json",
+    "sha256": "b88d95f9a34dd7c428653c1bc2feeb14a83d12174a33a225f2a4732ee7b56440"
+  },
+  "origin": "SIMULATED",
+  "result": {
+    "detection": {
+      "classification": "invalid",
+      "reason": "Acquisition or fit fails QC.",
+      "standard_uncertainty": null,
+      "upper_limit": null,
+      "upper_limit_method": null,
+      "value": null
+    },
+    "qc": {
+      "checks": [
+        {
+          "name": "metadata_completeness",
+          "owner": "PM",
+          "status": "FAIL",
+          "threshold": "Required acquisition and cell-condition fields present",
+          "unit": "1",
+          "value": "sequence"
+        },
+        {
+          "name": "protocol_comparability",
+          "owner": "PM",
+          "status": "WARN",
+          "threshold": "Exact match to baseline protocol fields when baseline evidence is available",
+          "unit": "1",
+          "value": "sequence"
+        },
+        {
+          "name": "fit_convergence",
+          "owner": "QE",
+          "status": "PASS",
+          "threshold": "Optimizer converged",
+          "unit": "1",
+          "value": true
+        },
+        {
+          "name": "fitted_snr",
+          "owner": "QE",
+          "status": "PASS",
+          "threshold": "Finite nonnegative SNR, with detection thresholds 3 and 5",
+          "unit": "1",
+          "value": 27.419635401334038
+        },
+        {
+          "name": "peak_position",
+          "owner": "QE",
+          "status": "PASS",
+          "threshold": "Within fit window and between 1050 and 1115 ppm at SNR ≥ 3",
+          "unit": "ppm",
+          "value": 1109.5268005171256
+        },
+        {
+          "name": "baseline_residual_lag1",
+          "owner": "QE",
+          "status": "PASS",
+          "threshold": "Absolute lag-1 correlation ≤ 0.4 on the native fit grid",
+          "unit": "1",
+          "value": -0.13742180604641904
+        },
+        {
+          "name": "reference_fit",
+          "owner": "QE",
+          "status": "PASS",
+          "threshold": "Converged positive reference area with quantified uncertainty and SNR ≥ 5",
+          "unit": "1",
+          "value": 197.0408548639958
+        }
+      ],
+      "comparable": null,
+      "protocol_match": null,
+      "reasons": [
+        "Missing or invalid metadata: sequence.",
+        "Acquisition or cell protocol differs from baseline: sequence."
+      ],
+      "status": "FAIL"
+    }
+  },
+  "step": "qc"
+}

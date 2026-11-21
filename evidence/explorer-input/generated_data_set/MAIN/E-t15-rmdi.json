@@ -1,0 +1,157 @@
+{
+ "packet_version": "1.0",
+ "packet_id": "E-t15-rmdi",
+ "subject_id": "sub-cell001",
+ "session_id": "ses-MAINc15",
+ "cell_id": "cell-001",
+ "replay": "MAIN",
+ "cycle_n": 15,
+ "relative_time": {
+  "value": 1019948.0,
+  "unit": "s"
+ },
+ "modality": "MRS",
+ "nucleus": "23Na",
+ "measurement_stage": "post_discharge",
+ "source_object": "nmr/spectra/MAIN/152/fid",
+ "source_sha256": "bf6318c3111bc11a3cd891d8090ff34cd9e6a91966682ced1c3edee00abc8af7",
+ "spatial_reference": {
+  "frame": "named_region",
+  "region": "coil-sensitive volume of cell-001 (no imaging coordinates)"
+ },
+ "observable": "rmdi",
+ "value": 1.30931,
+ "unit": "1",
+ "valid_range": [
+  0,
+  5
+ ],
+ "uncertainty": {
+  "type": "SD",
+  "value": 0.08415,
+  "budget_ref": "documentation/methodology.md#uncertainty-budget"
+ },
+ "detection_class": "detected",
+ "fitted_snr": 103.93,
+ "upper_limit": null,
+ "fitted_value_not_used": null,
+ "raw_area_au": 6326.04,
+ "u_raw_area_au": 306.66,
+ "peak": {
+  "mu_ppm": 1097.22,
+  "u_mu_ppm": 0.23,
+  "sigma_ppm": 22.49,
+  "H": 90.213,
+  "reduced_chi2": 1.17
+ },
+ "reference": {
+  "area": 4831.6,
+  "u_area": 203.9,
+  "shift_ppm": -0.463,
+  "detected": true,
+  "area_ratio_to_baseline": 0.9484
+ },
+ "normalisation": "reference_capillary",
+ "protocol_match": true,
+ "comparable": true,
+ "qc_checks": [
+  {
+   "name": "reference_shift_error",
+   "value": 0.463,
+   "unit": "ppm",
+   "threshold": "PASS <= 1.0; WARN <= 3.0",
+   "status": "PASS",
+   "owner": "PM"
+  },
+  {
+   "name": "scan_delay",
+   "value": 48.21405220513476,
+   "unit": "min",
+   "threshold": "PASS 10-60; WARN <= 180",
+   "status": "PASS",
+   "owner": "PM"
+  },
+  {
+   "name": "cell_temperature_deviation",
+   "value": 0.72,
+   "unit": "K",
+   "threshold": "PASS <= 2.0; WARN <= 5.0",
+   "status": "PASS",
+   "owner": "PM"
+  },
+  {
+   "name": "reference_area_ratio",
+   "value": 0.948,
+   "unit": "1",
+   "threshold": "PASS [0.9, 1.1]; WARN [0.8, 1.2]",
+   "status": "PASS",
+   "owner": "PM"
+  },
+  {
+   "name": "detection_limit",
+   "value": 476.9,
+   "unit": "a.u.",
+   "threshold": "PASS <= 680; WARN <= 1360",
+   "status": "PASS",
+   "owner": "QE"
+  },
+  {
+   "name": "fit_validity",
+   "value": 1.17,
+   "unit": "reduced chi2",
+   "threshold": "converged, mu [1000, 1200], sigma [12, 45]; PASS chi2 <= 1.5; WARN <= 3.0",
+   "status": "PASS",
+   "owner": "QE"
+  },
+  {
+   "name": "metadata_provenance",
+   "value": "complete",
+   "unit": "",
+   "threshold": "all required fields present; source hash computable",
+   "status": "PASS",
+   "owner": "DS"
+  }
+ ],
+ "qc_status": "PASS",
+ "qc_reasons": [],
+ "system_qc_id": "sysqc-MAIN-c15",
+ "calibration_id": "detection_calibration.json",
+ "origin": "SIMULATED",
+ "value_epistemic": "DERIVED",
+ "decision_epistemic": "INFERRED",
+ "acquisition_context": {
+  "field_strength_T": 9.4,
+  "spectrometer_frequency_MHz": 105.855213,
+  "sequence": "zg_se1.gep",
+  "TR_s": 0.051,
+  "averages": 32768,
+  "scan_delay_min": 48.21405220513476,
+  "cell_temperature_C": 25.717425625962868,
+  "charging": "30 mA/g fixed; upper voltage 4.2 V (ASSUMED); lower voltage not specified",
+  "reference_type": "NaCl capillary"
+ },
+ "processing": {
+  "pipeline": "Na23 RMDI pipeline",
+  "version": "1.0",
+  "fit": "fit_spectra 1.0",
+  "twin": "rmdi_twin 1.0"
+ },
+ "provenance": {
+  "parents": [
+   "nmr/spectra/MAIN/152/fid",
+   "nmr/fitted_peaks.csv#MAIN/152"
+  ],
+  "activities": [
+   "generate_dataset (SIMULATED acquisition)",
+   "process 1.0: LB, zero fill, FFT, phase, baseline",
+   "Gaussian fit 1000-1200 ppm + time-domain reference fit",
+   "QC (config/thresholds.json)",
+   "packet build"
+  ]
+ },
+ "twin_action": {
+  "recommended": "update",
+  "reason": "PASS evidence"
+ },
+ "interpretation_limit": "NMR-visible metallic sodium signal (RMDI); not deposited mass, thickness, capacity fade or failure probability; synthetic data"
+}

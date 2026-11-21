@@ -77,4 +77,4 @@ The trend had a lower average error and a much larger startup miss. At the first
 | Spatial imaging or measurement physics | Figures 1–4 and the relevant supplements allow separate studies of sodium-metal cells, including plating morphology. Supplementary Table 1 provides relaxation experiments for measurement modelling. |
 | Robust prediction across cells or protocols | Collect repeated, time-synchronised current, voltage and NMR records from independent full cells under comparable and varied conditions. Keep entire cells separate for evaluation. |
 
-[University of Birmingham data record](https://edata.bham.ac.uk/456/) · [Original paper and supplementary information](https://doi.org/10.1038/s41467-020-15938-x) · [Download folder](../../online%20downloaded%20data/Birmingham%5FBray%5F2020/)
+[University of Birmingham data record](https://edata.bham.ac.uk/456/) · [Original paper and supplementary information](https://doi.org/10.1038/s41467-020-15938-x)

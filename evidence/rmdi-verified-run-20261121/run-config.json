@@ -1,0 +1,251 @@
+{
+  "config_version": {
+    "source": "M1–M4 synthetic demonstration configuration based on the approved M0 contract",
+    "status": "PROPOSED",
+    "value": "0.2.0"
+  },
+  "fit": {
+    "coverage_targets": {
+      "source": "Pasted M1 work brief. Report Monte Carlo sampling uncertainty and failures.",
+      "status": "PROPOSED",
+      "value": [
+        0.68,
+        0.95
+      ]
+    },
+    "coverage_trials_per_case": {
+      "source": "Pasted M1 work brief",
+      "status": "PROPOSED",
+      "value": 1000
+    },
+    "metal_window_ppm": {
+      "source": "Team specification §3.1. Audit tail and baseline sensitivity for the broad Table 6 line.",
+      "status": "PROPOSED",
+      "value": [
+        1000,
+        1200
+      ]
+    },
+    "reference_window_ppm": {
+      "source": "Window for the simulated 20 ppm reference and flanking background",
+      "status": "PROPOSED",
+      "value": [
+        -40,
+        40
+      ]
+    },
+    "window_sensitivity_fraction": {
+      "source": "Change the fitted window width by this fraction in both directions",
+      "status": "PROPOSED",
+      "value": 0.1
+    }
+  },
+  "pipeline_version": {
+    "source": "Standalone pipeline first implementation",
+    "status": "PROPOSED",
+    "value": "0.1.0"
+  },
+  "qc": {
+    "calibration_peak_snrs": {
+      "source": "No-peak and known-signal tests bracketing the proposed SNR thresholds",
+      "status": "SIMULATED",
+      "value": [
+        0,
+        3,
+        5,
+        8
+      ]
+    },
+    "calibration_trials": {
+      "source": "Repeated trials for rate estimates on each synthetic case",
+      "status": "PROPOSED",
+      "value": 1000
+    },
+    "censor_snr_candidate": {
+      "source": "Team specification §3.2 and pasted M2 brief. Evaluate with the full peak search.",
+      "status": "PROPOSED",
+      "value": 3
+    },
+    "comparability_and_residual_limits": {
+      "source": "Compare acquisition and operating conditions and screen residual lag-one correlation",
+      "status": "PROPOSED",
+      "value": "matched_protocol_and_noise_screen"
+    },
+    "detect_snr_candidate": {
+      "source": "Team specification §3.2 and pasted M2 brief. Evaluate with the full peak search.",
+      "status": "PROPOSED",
+      "value": 5
+    },
+    "metal_center_bounds_ppm": {
+      "source": "Approximate metallic-sodium shift range reported by Bray et al., Figure 5",
+      "status": "PROPOSED",
+      "value": [
+        1050,
+        1115
+      ]
+    },
+    "reference_min_snr": {
+      "source": "Screen synthetic reference usability before normalizing",
+      "status": "PROPOSED",
+      "value": 5
+    },
+    "residual_lag1_max": {
+      "source": "Screen substantial lag-one residual correlation on native bins",
+      "status": "PROPOSED",
+      "value": 0.4
+    },
+    "upper_limit_center_step_ppm": {
+      "source": "Center grid spacing for the M2 finite template bank",
+      "status": "PROPOSED",
+      "value": 5
+    },
+    "upper_limit_confidence": {
+      "source": "Nominal one-sided confidence for the configured synthetic upper-limit construction",
+      "status": "PROPOSED",
+      "value": 0.95
+    },
+    "upper_limit_method": {
+      "source": "M2 fixed-width Gaussian linear templates and residual Student-t uncertainty; scope limited to the simulated noise model",
+      "status": "PROPOSED",
+      "value": "gaussian_template_bank_t_bound"
+    }
+  },
+  "simulation": {
+    "acquired_complex_points": {
+      "source": "Simulator convention inspired by the paper's reported point count",
+      "status": "SIMULATED",
+      "value": 512
+    },
+    "cycle_count": {
+      "source": "Illustrative sequence with enough cycles to exercise a short-horizon forecast",
+      "status": "SIMULATED",
+      "value": 12
+    },
+    "fourier_points": {
+      "source": "Bray et al. Methods, zero-filled spectrum size",
+      "status": "SIMULATED",
+      "value": 2048
+    },
+    "line_shape_cases": {
+      "source": "Ideal-model coverage case and Bray-informed shape mismatch case",
+      "status": "SIMULATED",
+      "value": [
+        "gaussian",
+        "lorentzian"
+      ]
+    },
+    "metal_center_ppm": {
+      "source": "Bray et al. Supplementary Table 6, 1.5 h fit",
+      "status": "SIMULATED",
+      "value": 1109
+    },
+    "metal_fwhm_ppm": {
+      "source": "Bray et al. Supplementary Table 6 linewidth of 12632 Hz, converted at about 105.9 MHz",
+      "status": "SIMULATED",
+      "value": 119.3
+    },
+    "reference_center_ppm": {
+      "source": "External NaCl reference scenario from team specification §3.3",
+      "status": "SIMULATED",
+      "value": 0
+    },
+    "seed": {
+      "source": "Fixed reproducibility seed",
+      "status": "SIMULATED",
+      "value": 20261121
+    },
+    "spectral_width_ppm": {
+      "source": "Bray et al. Methods, full-cell spectroscopy",
+      "status": "SIMULATED",
+      "value": 2360
+    },
+    "trajectory_protocol_and_noise": {
+      "source": "Invented single-cell schedule, acquisition protocol and SNR targets for the requested demonstration cases. The field and frequency are representative of Bray et al., not a reproduction of their settings.",
+      "status": "ASSUMED",
+      "value": {
+        "TE_s": 0.001,
+        "TR_s": 0.05,
+        "ambiguous_cycle": 6,
+        "averages": 1024,
+        "baseline_offset_au": 0.15,
+        "baseline_slope_au_per_ppm": 0.0001,
+        "charge_current_mA": 1,
+        "charge_end_soc_pct": 100,
+        "correlated_noise": true,
+        "cycle_period_s": 86400,
+        "discharge_end_soc_pct": 0,
+        "discharge_protocol": "standardized_simulated_discharge",
+        "eoc_snr": [
+          18,
+          24,
+          30,
+          36,
+          40,
+          46,
+          51,
+          57,
+          65,
+          75,
+          88,
+          100
+        ],
+        "field_strength_T": 9.4,
+        "invalid_cycle": 8,
+        "measurement_delay_s": 120,
+        "noise_sd_au": 0.04,
+        "post_snr": [
+          0,
+          8,
+          11,
+          17,
+          17,
+          4,
+          27,
+          29,
+          36,
+          46,
+          58,
+          73
+        ],
+        "ppm_axis_center": 300,
+        "reference_area_au_ppm": 250,
+        "reference_fwhm_ppm": 20,
+        "sequence": "spin_echo",
+        "soc_start_pct": 0,
+        "spectrometer_frequency_MHz": 105.9,
+        "temperature_C": 25,
+        "voltage_limits_V": [
+          2,
+          4
+        ]
+      }
+    }
+  },
+  "twin": {
+    "adequate_sensitivity_margin": {
+      "source": "Dimensionless illustrative RMDI resolution margin. Includes observed change, random allowance and model sensitivity in the stability rule.",
+      "status": "PROPOSED",
+      "value": 0.05
+    },
+    "forecast_interval_level": {
+      "source": "M0 nominal coverage target. Include next-observation uncertainty and state assumptions.",
+      "status": "PROPOSED",
+      "value": 0.95
+    },
+    "forecast_min_points": {
+      "source": "Team specification §5.1 and the residual degrees of freedom of a local line",
+      "status": "PROPOSED",
+      "value": 3
+    },
+    "forecast_window": {
+      "source": "M0 starting choice for recent observations. Audit sensitivity in M3.",
+      "status": "PROPOSED",
+      "value": 4
+    },
+    "increase_z": {
+      "source": "Team specification §4.3 demonstrator rule. Positive-side gate under approximate independent Gaussian errors.",
+      "status": "PROPOSED",
+      "value": 1.96
+    }
+  }
+}

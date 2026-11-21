@@ -1,0 +1,322 @@
+{
+  "calibration_trials_per_input_snr": 1000,
+  "candidate_thresholds": [
+    {
+      "fitted_snr_threshold": 3.0,
+      "full_search": {
+        "count": 261,
+        "rate": 0.261,
+        "trials": 1000,
+        "wilson95": [
+          0.23473118426217232,
+          0.289098006293923
+        ]
+      },
+      "full_search_with_qc": {
+        "count": 2,
+        "rate": 0.002,
+        "trials": 1000,
+        "wilson95": [
+          0.0005486435881207272,
+          0.007262807863492176
+        ]
+      },
+      "input_snr": 0,
+      "quantity": "false_positive_rate"
+    },
+    {
+      "fitted_snr_threshold": 5.0,
+      "full_search": {
+        "count": 134,
+        "rate": 0.134,
+        "trials": 1000,
+        "wilson95": [
+          0.11428107599412643,
+          0.15652011121729995
+        ]
+      },
+      "full_search_with_qc": {
+        "count": 0,
+        "rate": 0.0,
+        "trials": 1000,
+        "wilson95": [
+          0.0,
+          0.0038267584855551234
+        ]
+      },
+      "input_snr": 0,
+      "quantity": "false_positive_rate"
+    },
+    {
+      "fitted_snr_threshold": 3.0,
+      "full_search": {
+        "count": 592,
+        "rate": 0.592,
+        "trials": 1000,
+        "wilson95": [
+          0.5612435983142354,
+          0.6220522781244222
+        ]
+      },
+      "full_search_with_qc": {
+        "count": 342,
+        "rate": 0.342,
+        "trials": 1000,
+        "wilson95": [
+          0.3132528988050859,
+          0.37195635687634954
+        ]
+      },
+      "input_snr": 3,
+      "quantity": "detection_rate"
+    },
+    {
+      "fitted_snr_threshold": 5.0,
+      "full_search": {
+        "count": 259,
+        "rate": 0.259,
+        "trials": 1000,
+        "wilson95": [
+          0.23280623499082612,
+          0.28703826259921145
+        ]
+      },
+      "full_search_with_qc": {
+        "count": 93,
+        "rate": 0.093,
+        "trials": 1000,
+        "wilson95": [
+          0.07652372564174531,
+          0.11259125576549656
+        ]
+      },
+      "input_snr": 3,
+      "quantity": "detection_rate"
+    },
+    {
+      "fitted_snr_threshold": 3.0,
+      "full_search": {
+        "count": 997,
+        "rate": 0.997,
+        "trials": 1000,
+        "wilson95": [
+          0.9912169859464968,
+          0.9989792161188613
+        ]
+      },
+      "full_search_with_qc": {
+        "count": 745,
+        "rate": 0.745,
+        "trials": 1000,
+        "wilson95": [
+          0.7170834253930005,
+          0.7710414629490774
+        ]
+      },
+      "input_snr": 5,
+      "quantity": "detection_rate"
+    },
+    {
+      "fitted_snr_threshold": 5.0,
+      "full_search": {
+        "count": 603,
+        "rate": 0.603,
+        "trials": 1000,
+        "wilson95": [
+          0.572336273352678,
+          0.6328754143992976
+        ]
+      },
+      "full_search_with_qc": {
+        "count": 392,
+        "rate": 0.392,
+        "trials": 1000,
+        "wilson95": [
+          0.3622102251883648,
+          0.42261635464451514
+        ]
+      },
+      "input_snr": 5,
+      "quantity": "detection_rate"
+    },
+    {
+      "fitted_snr_threshold": 3.0,
+      "full_search": {
+        "count": 1000,
+        "rate": 1.0,
+        "trials": 1000,
+        "wilson95": [
+          0.9961732415144449,
+          1.0
+        ]
+      },
+      "full_search_with_qc": {
+        "count": 847,
+        "rate": 0.847,
+        "trials": 1000,
+        "wilson95": [
+          0.8233634452353359,
+          0.8679807843756887
+        ]
+      },
+      "input_snr": 8,
+      "quantity": "detection_rate"
+    },
+    {
+      "fitted_snr_threshold": 5.0,
+      "full_search": {
+        "count": 998,
+        "rate": 0.998,
+        "trials": 1000,
+        "wilson95": [
+          0.9927371921365078,
+          0.9994513564118792
+        ]
+      },
+      "full_search_with_qc": {
+        "count": 845,
+        "rate": 0.845,
+        "trials": 1000,
+        "wilson95": [
+          0.8212531612601589,
+          0.8661063753848078
+        ]
+      },
+      "input_snr": 8,
+      "quantity": "detection_rate"
+    }
+  ],
+  "config_sha256": "44e61fc21cfe686d26e4c4493553ca49de7387f06942a99f5b2381f4f31cc6d9",
+  "config_version": "0.2.0",
+  "notes": [
+    "The free peak center and width create a look-elsewhere effect. These rates are empirical under the full configured search and noise model.",
+    "Rates after QC require usable fit, plausible peak position and acceptable residual structure.",
+    "The upper bound assumes that the true Gaussian center is on the finite bank and its width equals the configured linewidth. The ratio also assumes the configured reference model.",
+    "Coverage is nominal before the detection decision. The observed coverage among censored trials is reported separately."
+  ],
+  "origin": "SIMULATED",
+  "upper_limit_nominal_confidence": 0.95,
+  "upper_limit_validation": [
+    {
+      "bound_availability": {
+        "count": 1000,
+        "rate": 1.0,
+        "trials": 1000,
+        "wilson95": [
+          0.9961732415144449,
+          1.0
+        ]
+      },
+      "censored_trials": 714,
+      "coverage_in_bounded_censored_trials": {
+        "count": 714,
+        "rate": 1.0,
+        "trials": 714,
+        "wilson95": [
+          0.9946485971609872,
+          1.0
+        ]
+      },
+      "coverage_with_availability": {
+        "count": 1000,
+        "rate": 1.0,
+        "trials": 1000,
+        "wilson95": [
+          0.9961732415144449,
+          1.0
+        ]
+      },
+      "input_snr": 0
+    },
+    {
+      "bound_availability": {
+        "count": 1000,
+        "rate": 1.0,
+        "trials": 1000,
+        "wilson95": [
+          0.9961732415144449,
+          1.0
+        ]
+      },
+      "censored_trials": 402,
+      "coverage_in_bounded_censored_trials": {
+        "count": 400,
+        "rate": 0.9950248756218906,
+        "trials": 402,
+        "wilson95": [
+          0.982043937572714,
+          0.9986345794928414
+        ]
+      },
+      "coverage_with_availability": {
+        "count": 997,
+        "rate": 0.997,
+        "trials": 1000,
+        "wilson95": [
+          0.9912169859464968,
+          0.9989792161188613
+        ]
+      },
+      "input_snr": 3
+    },
+    {
+      "bound_availability": {
+        "count": 1000,
+        "rate": 1.0,
+        "trials": 1000,
+        "wilson95": [
+          0.9961732415144449,
+          1.0
+        ]
+      },
+      "censored_trials": 3,
+      "coverage_in_bounded_censored_trials": {
+        "count": 3,
+        "rate": 1.0,
+        "trials": 3,
+        "wilson95": [
+          0.4385029682449546,
+          1.0
+        ]
+      },
+      "coverage_with_availability": {
+        "count": 999,
+        "rate": 0.999,
+        "trials": 1000,
+        "wilson95": [
+          0.9943574414020421,
+          0.9998234536293739
+        ]
+      },
+      "input_snr": 5
+    },
+    {
+      "bound_availability": {
+        "count": 1000,
+        "rate": 1.0,
+        "trials": 1000,
+        "wilson95": [
+          0.9961732415144449,
+          1.0
+        ]
+      },
+      "censored_trials": 0,
+      "coverage_in_bounded_censored_trials": {
+        "count": 0,
+        "rate": null,
+        "trials": 0,
+        "wilson95": null
+      },
+      "coverage_with_availability": {
+        "count": 1000,
+        "rate": 1.0,
+        "trials": 1000,
+        "wilson95": [
+          0.9961732415144449,
+          1.0
+        ]
+      },
+      "input_snr": 8
+    }
+  ]
+}

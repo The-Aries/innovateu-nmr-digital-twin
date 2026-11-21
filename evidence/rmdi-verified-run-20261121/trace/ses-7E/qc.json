@@ -1,0 +1,80 @@
+{
+  "config": {
+    "path": "../outputs/standalone-na23-rmdi-verified-20261121/run-config.json",
+    "sha256": "44e61fc21cfe686d26e4c4493553ca49de7387f06942a99f5b2381f4f31cc6d9"
+  },
+  "config_sha256": "44e61fc21cfe686d26e4c4493553ca49de7387f06942a99f5b2381f4f31cc6d9",
+  "config_version": "0.2.0",
+  "input": {
+    "path": "../outputs/standalone-na23-rmdi-verified-20261121/trace/ses-7E/area.json",
+    "sha256": "f929fd3d5d42021044443efc05af9eb5a62f550f306381189b291780809edc1e"
+  },
+  "origin": "SIMULATED",
+  "result": {
+    "detection": {
+      "classification": "detected",
+      "reason": "Fitted SNR at least 5 with quantifiable area.",
+      "standard_uncertainty": 9.744089190740238,
+      "upper_limit": null,
+      "upper_limit_method": null,
+      "value": 263.4283890201765
+    },
+    "qc": {
+      "checks": [
+        {
+          "name": "metadata_completeness",
+          "owner": "PM",
+          "status": "PASS",
+          "threshold": "Required acquisition and cell-condition fields present",
+          "unit": "1",
+          "value": "complete"
+        },
+        {
+          "name": "protocol_comparability",
+          "owner": "PM",
+          "status": "PASS",
+          "threshold": "Exact match to baseline protocol fields when baseline evidence is available",
+          "unit": "1",
+          "value": true
+        },
+        {
+          "name": "fit_convergence",
+          "owner": "QE",
+          "status": "PASS",
+          "threshold": "Optimizer converged",
+          "unit": "1",
+          "value": true
+        },
+        {
+          "name": "fitted_snr",
+          "owner": "QE",
+          "status": "PASS",
+          "threshold": "Finite nonnegative SNR, with detection thresholds 3 and 5",
+          "unit": "1",
+          "value": 66.70655125325224
+        },
+        {
+          "name": "peak_position",
+          "owner": "QE",
+          "status": "PASS",
+          "threshold": "Within fit window and between 1050 and 1115 ppm at SNR ≥ 3",
+          "unit": "ppm",
+          "value": 1109.7501736102276
+        },
+        {
+          "name": "baseline_residual_lag1",
+          "owner": "QE",
+          "status": "PASS",
+          "threshold": "Absolute lag-1 correlation ≤ 0.4 on the native fit grid",
+          "unit": "1",
+          "value": -0.062009385206549014
+        }
+      ],
+      "comparable": true,
+      "protocol_match": true,
+      "reasons": [],
+      "status": "PASS"
+    }
+  },
+  "step": "qc"
+}

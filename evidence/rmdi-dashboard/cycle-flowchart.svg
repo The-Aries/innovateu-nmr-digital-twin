@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1080" viewBox="0 0 1800 1080" role="img" aria-labelledby="title description">
+  <title id="title">How the twin handles each cycle</title>
+  <desc id="description">Acquire end-of-charge and post-discharge sodium NMR spectra. Fit the post-discharge metal and reference peaks, and check the evidence packet. Reject failed quality checks, qualify unresolved evidence, or accept a detected, comparable RMDI. Record the decision and recommend the next measurement before the next cycle.</desc>
+  <defs>
+    <style>
+      text { font-family: Helvetica, Arial, sans-serif; }
+      .heading { font-weight: 700; fill: #1d2640; }
+      .body { font-size: 22px; fill: #3a4963; }
+      .small { font-size: 19px; fill: #53617b; }
+      .line { fill: none; stroke: #617094; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+      .back { fill: none; stroke: #929db7; stroke-width: 2.5; stroke-dasharray: 7 9; stroke-linecap: round; stroke-linejoin: round; }
+      .tag { font-size: 18px; font-weight: 700; letter-spacing: 1px; }
+      .card { stroke-width: 2; }
+    </style>
+  </defs>
+
+  <rect width="1800" height="1080" fill="#f3f5fa"/>
+  <rect x="88" y="58" width="211" height="36" rx="18" fill="#e6eafd"/>
+  <text x="193.5" y="82" text-anchor="middle" class="tag" fill="#3446a5">SIMULATED STUDY</text>
+  <text x="86" y="155" font-size="61" class="heading">How the twin handles each cycle</text>
+  <text x="90" y="193" font-size="25" fill="#4b5a79">Sodium-ion cell · ²³Na NMR · post-discharge evidence</text>
+
+  <!-- Connect the three evidence preparation steps and fan out the quality decision. -->
+  <path d="M568 324 H635 M1138 324 H1233" class="line"/>
+  <path d="M635 317 L647 324 L635 331 Z M1232 317 L1244 324 L1232 331 Z" fill="#617094"/>
+  <path d="M1468 416 V459 H328 V479 M898 459 V479 M1468 459 V479" class="line"/>
+  <path d="M321 478 H335 L328 490 Z M891 478 H905 L898 490 Z M1461 478 H1475 L1468 490 Z" fill="#617094"/>
+  <circle cx="898" cy="459" r="4.5" fill="#617094"/>
+  <circle cx="1468" cy="459" r="4.5" fill="#617094"/>
+
+  <rect x="88" y="250" width="480" height="148" rx="16" fill="#ffffff" stroke="#c7d1e7" class="card"/>
+  <text x="117" y="293" font-size="30" class="heading">Acquire two ²³Na spectra</text>
+  <text x="117" y="329" class="body">Log end-of-charge evidence as context.</text>
+  <text x="117" y="361" class="body">Measure after standardized discharge.</text>
+
+  <rect x="658" y="250" width="480" height="148" rx="16" fill="#ffffff" stroke="#c7d1e7" class="card"/>
+  <text x="687" y="293" font-size="30" class="heading">Build the evidence packet</text>
+  <text x="687" y="329" class="body">Fit the metal and reference peaks.</text>
+  <text x="687" y="361" class="body">Compute RMDI and its uncertainty.</text>
+
+  <path d="M1468 226 L1691 324 L1468 422 L1245 324 Z" fill="#e7ebff" stroke="#7383d7" stroke-width="2.5"/>
+  <text x="1468" y="310" text-anchor="middle" class="heading" font-size="30">Evidence gate</text>
+  <text x="1468" y="343" text-anchor="middle" class="small">Check QC, detection</text>
+  <text x="1468" y="368" text-anchor="middle" class="small">and comparability</text>
+
+  <!-- Three dispositions from the evidence gate. -->
+  <g>
+    <rect x="88" y="495" width="480" height="309" rx="18" fill="#fffafb" stroke="#e1b5bf" class="card"/>
+    <rect x="116" y="522" width="136" height="35" rx="8" fill="#f7e3e8"/>
+    <text x="184" y="546" text-anchor="middle" class="tag" fill="#8f3248">QC FAIL</text>
+    <text x="116" y="602" font-size="34" class="heading">Reject the update</text>
+    <text x="116" y="642" class="body">Log the failed acquisition.</text>
+    <text x="116" y="675" class="body">Keep the last accepted RMDI.</text>
+    <rect x="116" y="738" width="424" height="43" rx="8" fill="#f8e9ed"/>
+    <text x="130" y="766" class="small" fill="#7e2d40">Cycle 8 · Sequence metadata missing</text>
+  </g>
+
+  <g>
+    <rect x="658" y="495" width="480" height="309" rx="18" fill="#fffdf8" stroke="#ddc4a1" class="card"/>
+    <rect x="686" y="522" width="257" height="35" rx="8" fill="#faeed8"/>
+    <text x="814.5" y="546" text-anchor="middle" class="tag" fill="#80490e">WARN OR UNRESOLVED</text>
+    <text x="686" y="602" font-size="34" class="heading">Keep qualified evidence</text>
+    <text x="686" y="642" class="body">Record an upper limit when available,</text>
+    <text x="686" y="675" class="body">or log why comparison is uncertain.</text>
+    <text x="686" y="708" class="body">Keep the accepted RMDI, if any.</text>
+    <rect x="686" y="738" width="424" height="43" rx="8" fill="#faefdc"/>
+    <text x="700" y="766" class="small" fill="#784710">Cycle 1 · Upper limit 0.0488</text>
+  </g>
+
+  <g>
+    <rect x="1228" y="495" width="480" height="309" rx="18" fill="#f7fdfb" stroke="#a5d3c8" class="card"/>
+    <rect x="1256" y="522" width="403" height="35" rx="8" fill="#ddeee9"/>
+    <text x="1457.5" y="546" text-anchor="middle" class="tag" fill="#1b6358">PASS · DETECTED · COMPARABLE</text>
+    <text x="1256" y="602" font-size="34" class="heading">Accept the RMDI</text>
+    <text x="1256" y="637" class="body">First reliable value sets the baseline.</text>
+    <text x="1256" y="665" class="body">Compare each later value with the prior.</text>
+    <text x="1256" y="693" class="body">Increase above guard? Flag accumulation.</text>
+    <text x="1256" y="721" class="body">Otherwise, assess stability or uncertainty.</text>
+    <rect x="1256" y="738" width="424" height="43" rx="8" fill="#e2f2ed"/>
+    <text x="1270" y="766" class="small" fill="#205f55">Cycle 12 · Increase 0.410 &gt; guard 0.309</text>
+  </g>
+
+  <!-- Rejoin at the recorded outcome and loop when the next cycle is measured. -->
+  <path d="M328 804 V847 H1468 V804" class="line"/>
+  <path d="M898 805 V868" class="line"/>
+  <path d="M891 867 H905 L898 879 Z" fill="#617094"/>
+  <circle cx="898" cy="847" r="4.5" fill="#617094"/>
+
+  <rect x="340" y="884" width="1120" height="119" rx="17" fill="#202d4a"/>
+  <text x="900" y="930" text-anchor="middle" font-size="32" font-weight="700" fill="#ffffff">Record the decision and recommend the next measurement</text>
+  <text x="900" y="969" text-anchor="middle" font-size="22" fill="#e0e7f8">Issue a next-cycle forecast after an accepted update when ≥3 reliable values are available.</text>
+
+  <path d="M339 947 H52 Q41 947 41 936 V335 Q41 324 52 324 H74" class="back"/>
+  <path d="M72 318 L84 324 L72 330 Z" fill="#929db7"/>
+  <text x="27" y="718" class="tag" fill="#576581" transform="rotate(-90 27 718)">NEXT CYCLE</text>
+  <text x="88" y="1047" class="small">RMDI = metallic-sodium peak area ÷ reference peak area. The change guard combines fit uncertainty and fit-model sensitivity.</text>
+</svg>

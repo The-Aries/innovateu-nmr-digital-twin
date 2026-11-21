@@ -1,0 +1,176 @@
+{
+  "acquisition_context": {
+    "TE_s": 0.001,
+    "TR_s": 0.05,
+    "acquired_complex_points": 512,
+    "averages": 1024,
+    "field_strength_T": 9.4,
+    "fourier_points": 2048,
+    "measurement_delay_s": 120,
+    "noise_kind": "zero_filled",
+    "sequence": "spin_echo",
+    "spectral_reference": "simulated external aqueous NaCl",
+    "spectral_width_ppm": 2360,
+    "spectrometer_frequency_MHz": 105.9
+  },
+  "calibration_id": "simulated-reference",
+  "cell_conditions": {
+    "charge_current_mA": 1,
+    "discharge_protocol": "standardized_simulated_discharge",
+    "soc_end_pct": 0,
+    "soc_start_pct": 0,
+    "temperature_C": 25,
+    "voltage_limits_V": [
+      2,
+      4
+    ]
+  },
+  "cell_id": "cell-na23-sim",
+  "comparable": true,
+  "cycle_n": 4,
+  "decision_epistemic": "INFERRED",
+  "detection_class": "detected",
+  "interpretation_limit": "Derived from a simulated spectrum. The observable describes relative NMR signal.",
+  "measurement_stage": "post_discharge",
+  "modality": "MRS",
+  "model_sensitivity": 0.3777387406337078,
+  "normalization_method": "external_reference_area",
+  "nucleus": "23Na",
+  "observable": "rmdi",
+  "origin": "SIMULATED",
+  "packet_id": "E-t4-rmdi",
+  "packet_version": "1.0",
+  "processing": {
+    "config_sha256": "44e61fc21cfe686d26e4c4493553ca49de7387f06942a99f5b2381f4f31cc6d9",
+    "config_version": "0.2.0",
+    "pipeline": "standalone-na23-rmdi",
+    "version": "0.1.0"
+  },
+  "protocol_match": true,
+  "provenance": {
+    "activities": [
+      {
+        "artifact": {
+          "path": "../outputs/standalone-na23-rmdi-verified-20261121/trace/ses-4P/preprocessing.json",
+          "sha256": "f39b0c8dc144b26d2a364955b3c29821ce979b77a25bac30b91be67835a7f44c"
+        },
+        "step": "preprocessing"
+      },
+      {
+        "artifact": {
+          "path": "../outputs/standalone-na23-rmdi-verified-20261121/trace/ses-4P/fit.json",
+          "sha256": "732a933fcf9d394c3e19a265189bafbe481b742999d717c5af94e90256595f51"
+        },
+        "step": "fit"
+      },
+      {
+        "artifact": {
+          "path": "../outputs/standalone-na23-rmdi-verified-20261121/trace/ses-4P/area.json",
+          "sha256": "7510714ee9b3cbaf775a89c2774ab1acff1071061ca0250be8127cddac0e04c6"
+        },
+        "step": "area"
+      },
+      {
+        "artifact": {
+          "path": "../outputs/standalone-na23-rmdi-verified-20261121/trace/ses-4P/qc.json",
+          "sha256": "5233bcde54c98fca6684ba64c86e541c7bd5a8eebacbaa477f1a6d9c3552dacd"
+        },
+        "step": "qc"
+      }
+    ],
+    "parents": [
+      {
+        "path": "../outputs/standalone-na23-rmdi-verified-20261121/spectra/ses-4P.json",
+        "sha256": "6bbd7d368856199728edc1f15817d60df29b393f740171f5db6a0b2143003667"
+      }
+    ]
+  },
+  "qc_checks": [
+    {
+      "name": "metadata_completeness",
+      "owner": "PM",
+      "status": "PASS",
+      "threshold": "Required acquisition and cell-condition fields present",
+      "unit": "1",
+      "value": "complete"
+    },
+    {
+      "name": "protocol_comparability",
+      "owner": "PM",
+      "status": "PASS",
+      "threshold": "Exact match to baseline protocol fields when baseline evidence is available",
+      "unit": "1",
+      "value": true
+    },
+    {
+      "name": "fit_convergence",
+      "owner": "QE",
+      "status": "PASS",
+      "threshold": "Optimizer converged",
+      "unit": "1",
+      "value": true
+    },
+    {
+      "name": "fitted_snr",
+      "owner": "QE",
+      "status": "PASS",
+      "threshold": "Finite nonnegative SNR, with detection thresholds 3 and 5",
+      "unit": "1",
+      "value": 18.287491728767794
+    },
+    {
+      "name": "peak_position",
+      "owner": "QE",
+      "status": "PASS",
+      "threshold": "Within fit window and between 1050 and 1115 ppm at SNR ≥ 3",
+      "unit": "ppm",
+      "value": 1110.0304273375882
+    },
+    {
+      "name": "baseline_residual_lag1",
+      "owner": "QE",
+      "status": "PASS",
+      "threshold": "Absolute lag-1 correlation ≤ 0.4 on the native fit grid",
+      "unit": "1",
+      "value": -0.08115772355544151
+    },
+    {
+      "name": "reference_fit",
+      "owner": "QE",
+      "status": "PASS",
+      "threshold": "Converged positive reference area with quantified uncertainty and SNR ≥ 5",
+      "unit": "1",
+      "value": 418.20054519764534
+    }
+  ],
+  "qc_reasons": [],
+  "qc_status": "PASS",
+  "relative_time": {
+    "unit": "s",
+    "value": 345720
+  },
+  "session_id": "ses-4P",
+  "source_object": "../outputs/standalone-na23-rmdi-verified-20261121/spectra/ses-4P.json",
+  "source_sha256": "6bbd7d368856199728edc1f15817d60df29b393f740171f5db6a0b2143003667",
+  "spatial_reference": {
+    "frame": "named_region",
+    "region": "coil-sensitive cell"
+  },
+  "subject_id": "sub-cellna23sim",
+  "system_qc_id": "simulated-system-qc",
+  "thresholds_ref": "config:0.2.0#qc",
+  "twin_action": {
+    "reason": "Fitted SNR at least 5 with quantifiable area.",
+    "recommended": "update"
+  },
+  "uncertainty": {
+    "budget_ref": "docs/uncertainty.md",
+    "type": "SD",
+    "value": 0.07157293336301028
+  },
+  "unit": "1",
+  "upper_limit": null,
+  "upper_limit_method": null,
+  "value": 0.3999175686398019,
+  "value_epistemic": "DERIVED"
+}

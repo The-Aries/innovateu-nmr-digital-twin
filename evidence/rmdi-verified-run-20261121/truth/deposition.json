@@ -1,0 +1,415 @@
+{
+  "config_sha256": "44e61fc21cfe686d26e4c4493553ca49de7387f06942a99f5b2381f4f31cc6d9",
+  "config_version": "0.2.0",
+  "observations": [
+    {
+      "cycle_n": 1,
+      "invalid_metadata": false,
+      "line_shape": "gaussian",
+      "metal_peak_area_au_ppm": 91.4334591010646,
+      "noise_sd_au": 0.04,
+      "nominal_metal_snr": 18,
+      "origin": "SIMULATED",
+      "reference_area_au_ppm": 250,
+      "rmdi": null,
+      "session_id": "ses-1E",
+      "source": {
+        "path": "spectra/ses-1E.json",
+        "sha256": "60c1acfb1f043d95cbee873ced5e71f2d573a3d32bb118b1ab34839e3a05e512"
+      },
+      "stage": "end_of_charge"
+    },
+    {
+      "cycle_n": 1,
+      "invalid_metadata": false,
+      "line_shape": "gaussian",
+      "metal_peak_area_au_ppm": 0.0,
+      "noise_sd_au": 0.04,
+      "nominal_metal_snr": 0,
+      "origin": "SIMULATED",
+      "reference_area_au_ppm": 250,
+      "rmdi": 0.0,
+      "session_id": "ses-1P",
+      "source": {
+        "path": "spectra/ses-1P.json",
+        "sha256": "4f3cb8fde14b2c82076e464517e08003b82090701ed0b388b8eb9bfdb1e67e37"
+      },
+      "stage": "post_discharge"
+    },
+    {
+      "cycle_n": 2,
+      "invalid_metadata": false,
+      "line_shape": "gaussian",
+      "metal_peak_area_au_ppm": 121.91127880141944,
+      "noise_sd_au": 0.04,
+      "nominal_metal_snr": 24,
+      "origin": "SIMULATED",
+      "reference_area_au_ppm": 250,
+      "rmdi": null,
+      "session_id": "ses-2E",
+      "source": {
+        "path": "spectra/ses-2E.json",
+        "sha256": "e4791c06c7f4706379cf9790180f61bae460f13ff54581227ef2884181115fea"
+      },
+      "stage": "end_of_charge"
+    },
+    {
+      "cycle_n": 2,
+      "invalid_metadata": false,
+      "line_shape": "gaussian",
+      "metal_peak_area_au_ppm": 40.637092933806485,
+      "noise_sd_au": 0.04,
+      "nominal_metal_snr": 8,
+      "origin": "SIMULATED",
+      "reference_area_au_ppm": 250,
+      "rmdi": 0.16254837173522593,
+      "session_id": "ses-2P",
+      "source": {
+        "path": "spectra/ses-2P.json",
+        "sha256": "eafa07dda9d0bdc14bf62e7966f2fbc8b53eefb3cc13990defa4d9c489b0d83a"
+      },
+      "stage": "post_discharge"
+    },
+    {
+      "cycle_n": 3,
+      "invalid_metadata": false,
+      "line_shape": "gaussian",
+      "metal_peak_area_au_ppm": 152.38909850177433,
+      "noise_sd_au": 0.04,
+      "nominal_metal_snr": 30,
+      "origin": "SIMULATED",
+      "reference_area_au_ppm": 250,
+      "rmdi": null,
+      "session_id": "ses-3E",
+      "source": {
+        "path": "spectra/ses-3E.json",
+        "sha256": "cfbe48525c4a7bcbe21d4de77b4e5cd7f7db60053c3b40c79bb8cd608f28f23f"
+      },
+      "stage": "end_of_charge"
+    },
+    {
+      "cycle_n": 3,
+      "invalid_metadata": false,
+      "line_shape": "gaussian",
+      "metal_peak_area_au_ppm": 55.87600278398392,
+      "noise_sd_au": 0.04,
+      "nominal_metal_snr": 11,
+      "origin": "SIMULATED",
+      "reference_area_au_ppm": 250,
+      "rmdi": 0.22350401113593568,
+      "session_id": "ses-3P",
+      "source": {
+        "path": "spectra/ses-3P.json",
+        "sha256": "2677e2a4d9a370f53c1258f69755953cd4982f7c524fb2c80ef6e63bc7df5f0f"
+      },
+      "stage": "post_discharge"
+    },
+    {
+      "cycle_n": 4,
+      "invalid_metadata": false,
+      "line_shape": "gaussian",
+      "metal_peak_area_au_ppm": 182.8669182021292,
+      "noise_sd_au": 0.04,
+      "nominal_metal_snr": 36,
+      "origin": "SIMULATED",
+      "reference_area_au_ppm": 250,
+      "rmdi": null,
+      "session_id": "ses-4E",
+      "source": {
+        "path": "spectra/ses-4E.json",
+        "sha256": "4a60cb51481a7406e1023e59645f61b504aeab84f26b8fb53c6d17959c8c49f1"
+      },
+      "stage": "end_of_charge"
+    },
+    {
+      "cycle_n": 4,
+      "invalid_metadata": false,
+      "line_shape": "gaussian",
+      "metal_peak_area_au_ppm": 86.35382248433879,
+      "noise_sd_au": 0.04,
+      "nominal_metal_snr": 17,
+      "origin": "SIMULATED",
+      "reference_area_au_ppm": 250,
+      "rmdi": 0.34541528993735515,
+      "session_id": "ses-4P",
+      "source": {
+        "path": "spectra/ses-4P.json",
+        "sha256": "6bbd7d368856199728edc1f15817d60df29b393f740171f5db6a0b2143003667"
+      },
+      "stage": "post_discharge"
+    },
+    {
+      "cycle_n": 5,
+      "invalid_metadata": false,
+      "line_shape": "gaussian",
+      "metal_peak_area_au_ppm": 203.18546466903243,
+      "noise_sd_au": 0.04,
+      "nominal_metal_snr": 40,
+      "origin": "SIMULATED",
+      "reference_area_au_ppm": 250,
+      "rmdi": null,
+      "session_id": "ses-5E",
+      "source": {
+        "path": "spectra/ses-5E.json",
+        "sha256": "b330230d1aa67058bed576c1ccd2e8bb938f63618f1b6b5b825b8b8d6cc07084"
+      },
+      "stage": "end_of_charge"
+    },
+    {
+      "cycle_n": 5,
+      "invalid_metadata": false,
+      "line_shape": "gaussian",
+      "metal_peak_area_au_ppm": 86.35382248433879,
+      "noise_sd_au": 0.04,
+      "nominal_metal_snr": 17,
+      "origin": "SIMULATED",
+      "reference_area_au_ppm": 250,
+      "rmdi": 0.34541528993735515,
+      "session_id": "ses-5P",
+      "source": {
+        "path": "spectra/ses-5P.json",
+        "sha256": "98db52ccb45db5070153a1633f87df1621bf4ab3cbda5fd74d2c7db382a2d299"
+      },
+      "stage": "post_discharge"
+    },
+    {
+      "cycle_n": 6,
+      "invalid_metadata": false,
+      "line_shape": "gaussian",
+      "metal_peak_area_au_ppm": 233.6632843693873,
+      "noise_sd_au": 0.04,
+      "nominal_metal_snr": 46,
+      "origin": "SIMULATED",
+      "reference_area_au_ppm": 250,
+      "rmdi": null,
+      "session_id": "ses-6E",
+      "source": {
+        "path": "spectra/ses-6E.json",
+        "sha256": "52bf6756e0b3ecf59b694467dabd89d5f7de67ac71331c72bda0dc976e830695"
+      },
+      "stage": "end_of_charge"
+    },
+    {
+      "cycle_n": 6,
+      "invalid_metadata": false,
+      "line_shape": "gaussian",
+      "metal_peak_area_au_ppm": 20.318546466903243,
+      "noise_sd_au": 0.04,
+      "nominal_metal_snr": 4,
+      "origin": "SIMULATED",
+      "reference_area_au_ppm": 250,
+      "rmdi": 0.08127418586761297,
+      "session_id": "ses-6P",
+      "source": {
+        "path": "spectra/ses-6P.json",
+        "sha256": "6caa0e8ab07cdf4ff12fc0c3541060ae8a9d64e2b18f077f37c9950058645e16"
+      },
+      "stage": "post_discharge"
+    },
+    {
+      "cycle_n": 7,
+      "invalid_metadata": false,
+      "line_shape": "gaussian",
+      "metal_peak_area_au_ppm": 259.06146745301635,
+      "noise_sd_au": 0.04,
+      "nominal_metal_snr": 51,
+      "origin": "SIMULATED",
+      "reference_area_au_ppm": 250,
+      "rmdi": null,
+      "session_id": "ses-7E",
+      "source": {
+        "path": "spectra/ses-7E.json",
+        "sha256": "8635a4e0ac5cb07a98969e9ca6dc096e1bef507c8fd7e103cf6dca93e19a64f1"
+      },
+      "stage": "end_of_charge"
+    },
+    {
+      "cycle_n": 7,
+      "invalid_metadata": false,
+      "line_shape": "gaussian",
+      "metal_peak_area_au_ppm": 137.1501886515969,
+      "noise_sd_au": 0.04,
+      "nominal_metal_snr": 27,
+      "origin": "SIMULATED",
+      "reference_area_au_ppm": 250,
+      "rmdi": 0.5486007546063876,
+      "session_id": "ses-7P",
+      "source": {
+        "path": "spectra/ses-7P.json",
+        "sha256": "bae8d1b9f62a2e264d9f3bedc06c60be8ae677a72bb12cde05172536a218a22e"
+      },
+      "stage": "post_discharge"
+    },
+    {
+      "cycle_n": 8,
+      "invalid_metadata": false,
+      "line_shape": "gaussian",
+      "metal_peak_area_au_ppm": 289.5392871533712,
+      "noise_sd_au": 0.04,
+      "nominal_metal_snr": 57,
+      "origin": "SIMULATED",
+      "reference_area_au_ppm": 250,
+      "rmdi": null,
+      "session_id": "ses-8E",
+      "source": {
+        "path": "spectra/ses-8E.json",
+        "sha256": "f68e17b0525d18e642fb5c262638198da073319fe89dbc34ed2544ffcfaabb4f"
+      },
+      "stage": "end_of_charge"
+    },
+    {
+      "cycle_n": 8,
+      "invalid_metadata": true,
+      "line_shape": "gaussian",
+      "metal_peak_area_au_ppm": 147.3094618850485,
+      "noise_sd_au": 0.04,
+      "nominal_metal_snr": 29,
+      "origin": "SIMULATED",
+      "reference_area_au_ppm": 250,
+      "rmdi": 0.589237847540194,
+      "session_id": "ses-8P",
+      "source": {
+        "path": "spectra/ses-8P.json",
+        "sha256": "13b630c48230ef685bb3de767f4d4ca143a36679bf9e9373bf2f536e06fdfb8e"
+      },
+      "stage": "post_discharge"
+    },
+    {
+      "cycle_n": 9,
+      "invalid_metadata": false,
+      "line_shape": "gaussian",
+      "metal_peak_area_au_ppm": 330.17638008717773,
+      "noise_sd_au": 0.04,
+      "nominal_metal_snr": 65,
+      "origin": "SIMULATED",
+      "reference_area_au_ppm": 250,
+      "rmdi": null,
+      "session_id": "ses-9E",
+      "source": {
+        "path": "spectra/ses-9E.json",
+        "sha256": "7342d1243335bbd41d61e7795143824dacb3f839088c989d18cdfe9679cce7e7"
+      },
+      "stage": "end_of_charge"
+    },
+    {
+      "cycle_n": 9,
+      "invalid_metadata": false,
+      "line_shape": "gaussian",
+      "metal_peak_area_au_ppm": 182.8669182021292,
+      "noise_sd_au": 0.04,
+      "nominal_metal_snr": 36,
+      "origin": "SIMULATED",
+      "reference_area_au_ppm": 250,
+      "rmdi": 0.7314676728085168,
+      "session_id": "ses-9P",
+      "source": {
+        "path": "spectra/ses-9P.json",
+        "sha256": "fc9ca8b97a4965ddb646d2418ca109e3b3bcc80eaf889a82c2dbb11bc2590ed0"
+      },
+      "stage": "post_discharge"
+    },
+    {
+      "cycle_n": 10,
+      "invalid_metadata": false,
+      "line_shape": "gaussian",
+      "metal_peak_area_au_ppm": 380.97274625443583,
+      "noise_sd_au": 0.04,
+      "nominal_metal_snr": 75,
+      "origin": "SIMULATED",
+      "reference_area_au_ppm": 250,
+      "rmdi": null,
+      "session_id": "ses-10E",
+      "source": {
+        "path": "spectra/ses-10E.json",
+        "sha256": "ee114058b0bfc4dd0e2fd5f888bfd9bb814c4fd23b1c2fc30351438ad7cf7694"
+      },
+      "stage": "end_of_charge"
+    },
+    {
+      "cycle_n": 10,
+      "invalid_metadata": false,
+      "line_shape": "gaussian",
+      "metal_peak_area_au_ppm": 233.6632843693873,
+      "noise_sd_au": 0.04,
+      "nominal_metal_snr": 46,
+      "origin": "SIMULATED",
+      "reference_area_au_ppm": 250,
+      "rmdi": 0.9346531374775492,
+      "session_id": "ses-10P",
+      "source": {
+        "path": "spectra/ses-10P.json",
+        "sha256": "baff20ce1e0fd6227bc49d03a295abfcbc2ae213edfaa61918a6835ba8d21f5a"
+      },
+      "stage": "post_discharge"
+    },
+    {
+      "cycle_n": 11,
+      "invalid_metadata": false,
+      "line_shape": "gaussian",
+      "metal_peak_area_au_ppm": 447.00802227187137,
+      "noise_sd_au": 0.04,
+      "nominal_metal_snr": 88,
+      "origin": "SIMULATED",
+      "reference_area_au_ppm": 250,
+      "rmdi": null,
+      "session_id": "ses-11E",
+      "source": {
+        "path": "spectra/ses-11E.json",
+        "sha256": "6bde31a3d01afaf3ab45b3b51b1c2c782aff313353ddff596d2d6b456356c5db"
+      },
+      "stage": "end_of_charge"
+    },
+    {
+      "cycle_n": 11,
+      "invalid_metadata": false,
+      "line_shape": "gaussian",
+      "metal_peak_area_au_ppm": 294.618923770097,
+      "noise_sd_au": 0.04,
+      "nominal_metal_snr": 58,
+      "origin": "SIMULATED",
+      "reference_area_au_ppm": 250,
+      "rmdi": 1.178475695080388,
+      "session_id": "ses-11P",
+      "source": {
+        "path": "spectra/ses-11P.json",
+        "sha256": "aa1cdd8d4e6dd69ed5fb39d7fb7bfcfd2114ab4c2e1579bea717149c7297ffad"
+      },
+      "stage": "post_discharge"
+    },
+    {
+      "cycle_n": 12,
+      "invalid_metadata": false,
+      "line_shape": "gaussian",
+      "metal_peak_area_au_ppm": 507.96366167258105,
+      "noise_sd_au": 0.04,
+      "nominal_metal_snr": 100,
+      "origin": "SIMULATED",
+      "reference_area_au_ppm": 250,
+      "rmdi": null,
+      "session_id": "ses-12E",
+      "source": {
+        "path": "spectra/ses-12E.json",
+        "sha256": "bd830195a1911f425e8af8d22fc8265c6417ed32efa4d22e4d834fba34bea8d0"
+      },
+      "stage": "end_of_charge"
+    },
+    {
+      "cycle_n": 12,
+      "invalid_metadata": false,
+      "line_shape": "gaussian",
+      "metal_peak_area_au_ppm": 370.8134730209842,
+      "noise_sd_au": 0.04,
+      "nominal_metal_snr": 73,
+      "origin": "SIMULATED",
+      "reference_area_au_ppm": 250,
+      "rmdi": 1.4832538920839367,
+      "session_id": "ses-12P",
+      "source": {
+        "path": "spectra/ses-12P.json",
+        "sha256": "7f3cc8284b3ddd503605b8f9bf4d4808a49ed116612c6d5360832e63bd1ca8b3"
+      },
+      "stage": "post_discharge"
+    }
+  ],
+  "origin": "SIMULATED"
+}
