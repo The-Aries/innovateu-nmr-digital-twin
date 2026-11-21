@@ -1,0 +1,380 @@
+{
+  "config": {
+    "path": "../evidence/rmdi-replay/run-config.json",
+    "sha256": "44e61fc21cfe686d26e4c4493553ca49de7387f06942a99f5b2381f4f31cc6d9"
+  },
+  "config_version": "0.2.0",
+  "origin": "SIMULATED",
+  "packets": [
+    {
+      "path": "../evidence/rmdi-replay/packets/E-t1-eoc_metal_area.json",
+      "sha256": "ee644b1b72d77daa989e7482ee7fb635155aba895208ae164280c45898bac840"
+    },
+    {
+      "path": "../evidence/rmdi-replay/packets/E-t1-rmdi.json",
+      "sha256": "3bcc164273e9c092bbf318d70ca4d8a3e04b3ffe67ba84288d48d32409060ec4"
+    },
+    {
+      "path": "../evidence/rmdi-replay/packets/E-t2-eoc_metal_area.json",
+      "sha256": "143e708049e11745da9b864cf0e355644c9b2314eaa9a46b8f74357574ccaf10"
+    },
+    {
+      "path": "../evidence/rmdi-replay/packets/E-t2-rmdi.json",
+      "sha256": "493656db67274a8875d3322178d38ec94fc2f293efbf6a567b2bd3823c9f6298"
+    },
+    {
+      "path": "../evidence/rmdi-replay/packets/E-t3-eoc_metal_area.json",
+      "sha256": "74cebe596cb034c91e65bd5493780e75d6dd28600212124f3558bdd52e790e06"
+    },
+    {
+      "path": "../evidence/rmdi-replay/packets/E-t3-rmdi.json",
+      "sha256": "11ff8973b705293e28f3eb4cecc4a1f4c6a27858b7af029b9c57c22dd49956fb"
+    },
+    {
+      "path": "../evidence/rmdi-replay/packets/E-t4-eoc_metal_area.json",
+      "sha256": "fac2a06e4c5f7d7f889e544edfc33128155ea061d8d3582a4317046f97d46192"
+    },
+    {
+      "path": "../evidence/rmdi-replay/packets/E-t4-rmdi.json",
+      "sha256": "230ff62003b0da6ed3b3e4cc824fbc331521543c7f7553d9d957ffed8716b639"
+    },
+    {
+      "path": "../evidence/rmdi-replay/packets/E-t5-eoc_metal_area.json",
+      "sha256": "4eceb500a10d439db22f836de57bf42f489d9c0ed578da8c604f873ad1f643de"
+    },
+    {
+      "path": "../evidence/rmdi-replay/packets/E-t5-rmdi.json",
+      "sha256": "dfc1e2449e51a72b4a03cda2165e2c09c15598263e8978aac6c426f2354f44fc"
+    },
+    {
+      "path": "../evidence/rmdi-replay/packets/E-t6-eoc_metal_area.json",
+      "sha256": "9c13375b2b424af7a3de511dd06413fe6a3dc6eaa565305efc9b2a339f4f5d93"
+    },
+    {
+      "path": "../evidence/rmdi-replay/packets/E-t6-rmdi.json",
+      "sha256": "2d236b5cc441cef2a7e6734fe757b8e2a9894c64921a3ad78cdaabae20f91340"
+    },
+    {
+      "path": "../evidence/rmdi-replay/packets/E-t7-eoc_metal_area.json",
+      "sha256": "e8f7a9aa5336b8afada000df86f94221410c971322b7c47d65325008f240199f"
+    },
+    {
+      "path": "../evidence/rmdi-replay/packets/E-t7-rmdi.json",
+      "sha256": "090fc6bf90f23885793a31d47126c6d8e8d140be44a27559b89412d59138c720"
+    },
+    {
+      "path": "../evidence/rmdi-replay/packets/E-t8-eoc_metal_area.json",
+      "sha256": "707ee78a75e947e736de29df12adbba47b7353724c6833718954f58427da25bf"
+    },
+    {
+      "path": "../evidence/rmdi-replay/packets/E-t8-rmdi.json",
+      "sha256": "5a145f6a9cb144a895386a6e08652f899bc14091212cbf6cbac550eb7e6bd5ca"
+    },
+    {
+      "path": "../evidence/rmdi-replay/packets/E-t9-eoc_metal_area.json",
+      "sha256": "1642b1202363c7e8c759f62f3d4171eae94392c01ab237048e06422fb75a3aca"
+    },
+    {
+      "path": "../evidence/rmdi-replay/packets/E-t9-rmdi.json",
+      "sha256": "3dd145dd14051392a13aaa4442f100b936d1e42fe85cc9de0d1ebb7af1e2028d"
+    },
+    {
+      "path": "../evidence/rmdi-replay/packets/E-t10-eoc_metal_area.json",
+      "sha256": "5cc61047b4164df3ebbc54f2db9087dd8d86cb47e7eba9c16dad4e070319163d"
+    },
+    {
+      "path": "../evidence/rmdi-replay/packets/E-t10-rmdi.json",
+      "sha256": "ae05ca230152d8889f6b26a28b0d281a6eda696485661c01aae64bf6e0ba0094"
+    },
+    {
+      "path": "../evidence/rmdi-replay/packets/E-t11-eoc_metal_area.json",
+      "sha256": "5f76ebe24d5da2ebb02b2b8543c83e6e6c338bb0827698c9a9f71b713345002f"
+    },
+    {
+      "path": "../evidence/rmdi-replay/packets/E-t11-rmdi.json",
+      "sha256": "d304a87985321d145ee46f26aa99615356513bac42b2b96122a173844ff4bc2f"
+    },
+    {
+      "path": "../evidence/rmdi-replay/packets/E-t12-eoc_metal_area.json",
+      "sha256": "fad75873900bffce0bbdf155ca511c1b8c36920c57ece69500aa66a8421b0f7c"
+    },
+    {
+      "path": "../evidence/rmdi-replay/packets/E-t12-rmdi.json",
+      "sha256": "fa96771e68c3509ffd342485652c7f9e177a1ac0a40dc6a35a6b068e1796d613"
+    }
+  ],
+  "state": {
+    "path": "../evidence/rmdi-replay/twin.json",
+    "sha256": "b015cb095efe1ca274cecadbf5b25a21374b25905ea10372c2ee6867575a717a"
+  },
+  "truth": {
+    "path": "../evidence/rmdi-replay/truth/deposition.json",
+    "sha256": "a41738e46ed307e0403c67974f318f9739dc7c542d17dab8d2e2ab83884a0fda"
+  },
+  "updates": [
+    {
+      "action": "reject",
+      "comparison": "undetermined",
+      "next_evidence": "Measure after the standardized discharge.",
+      "origin": "SIMULATED",
+      "packet": {
+        "path": "../evidence/rmdi-replay/packets/E-t1-eoc_metal_area.json",
+        "sha256": "ee644b1b72d77daa989e7482ee7fb635155aba895208ae164280c45898bac840"
+      },
+      "packet_id": "E-t1-eoc_metal_area"
+    },
+    {
+      "action": "update_with_warning",
+      "comparison": "undetermined",
+      "next_evidence": "Improve signal-to-noise and repeat the matched post-discharge measurement.",
+      "origin": "SIMULATED",
+      "packet": {
+        "path": "../evidence/rmdi-replay/packets/E-t1-rmdi.json",
+        "sha256": "3bcc164273e9c092bbf318d70ca4d8a3e04b3ffe67ba84288d48d32409060ec4"
+      },
+      "packet_id": "E-t1-rmdi"
+    },
+    {
+      "action": "reject",
+      "comparison": "undetermined",
+      "next_evidence": "Measure after the standardized discharge.",
+      "origin": "SIMULATED",
+      "packet": {
+        "path": "../evidence/rmdi-replay/packets/E-t2-eoc_metal_area.json",
+        "sha256": "143e708049e11745da9b864cf0e355644c9b2314eaa9a46b8f74357574ccaf10"
+      },
+      "packet_id": "E-t2-eoc_metal_area"
+    },
+    {
+      "action": "update",
+      "comparison": "undetermined",
+      "next_evidence": "Repeat the measurement after the next standardized discharge.",
+      "origin": "SIMULATED",
+      "packet": {
+        "path": "../evidence/rmdi-replay/packets/E-t2-rmdi.json",
+        "sha256": "493656db67274a8875d3322178d38ec94fc2f293efbf6a567b2bd3823c9f6298"
+      },
+      "packet_id": "E-t2-rmdi"
+    },
+    {
+      "action": "reject",
+      "comparison": "undetermined",
+      "next_evidence": "Measure after the standardized discharge.",
+      "origin": "SIMULATED",
+      "packet": {
+        "path": "../evidence/rmdi-replay/packets/E-t3-eoc_metal_area.json",
+        "sha256": "74cebe596cb034c91e65bd5493780e75d6dd28600212124f3558bdd52e790e06"
+      },
+      "packet_id": "E-t3-eoc_metal_area"
+    },
+    {
+      "action": "update",
+      "comparison": "undetermined",
+      "next_evidence": "Improve signal-to-noise and repeat the matched post-discharge measurement.",
+      "origin": "SIMULATED",
+      "packet": {
+        "path": "../evidence/rmdi-replay/packets/E-t3-rmdi.json",
+        "sha256": "11ff8973b705293e28f3eb4cecc4a1f4c6a27858b7af029b9c57c22dd49956fb"
+      },
+      "packet_id": "E-t3-rmdi"
+    },
+    {
+      "action": "reject",
+      "comparison": "undetermined",
+      "next_evidence": "Measure after the standardized discharge.",
+      "origin": "SIMULATED",
+      "packet": {
+        "path": "../evidence/rmdi-replay/packets/E-t4-eoc_metal_area.json",
+        "sha256": "fac2a06e4c5f7d7f889e544edfc33128155ea061d8d3582a4317046f97d46192"
+      },
+      "packet_id": "E-t4-eoc_metal_area"
+    },
+    {
+      "action": "update",
+      "comparison": "undetermined",
+      "next_evidence": "Improve signal-to-noise and repeat the matched post-discharge measurement.",
+      "origin": "SIMULATED",
+      "packet": {
+        "path": "../evidence/rmdi-replay/packets/E-t4-rmdi.json",
+        "sha256": "230ff62003b0da6ed3b3e4cc824fbc331521543c7f7553d9d957ffed8716b639"
+      },
+      "packet_id": "E-t4-rmdi"
+    },
+    {
+      "action": "reject",
+      "comparison": "undetermined",
+      "next_evidence": "Measure after the standardized discharge.",
+      "origin": "SIMULATED",
+      "packet": {
+        "path": "../evidence/rmdi-replay/packets/E-t5-eoc_metal_area.json",
+        "sha256": "4eceb500a10d439db22f836de57bf42f489d9c0ed578da8c604f873ad1f643de"
+      },
+      "packet_id": "E-t5-eoc_metal_area"
+    },
+    {
+      "action": "update",
+      "comparison": "undetermined",
+      "next_evidence": "Improve signal-to-noise and repeat the matched post-discharge measurement.",
+      "origin": "SIMULATED",
+      "packet": {
+        "path": "../evidence/rmdi-replay/packets/E-t5-rmdi.json",
+        "sha256": "dfc1e2449e51a72b4a03cda2165e2c09c15598263e8978aac6c426f2354f44fc"
+      },
+      "packet_id": "E-t5-rmdi"
+    },
+    {
+      "action": "reject",
+      "comparison": "undetermined",
+      "next_evidence": "Measure after the standardized discharge.",
+      "origin": "SIMULATED",
+      "packet": {
+        "path": "../evidence/rmdi-replay/packets/E-t6-eoc_metal_area.json",
+        "sha256": "9c13375b2b424af7a3de511dd06413fe6a3dc6eaa565305efc9b2a339f4f5d93"
+      },
+      "packet_id": "E-t6-eoc_metal_area"
+    },
+    {
+      "action": "update_with_warning",
+      "comparison": "undetermined",
+      "next_evidence": "Improve signal-to-noise and repeat the matched post-discharge measurement.",
+      "origin": "SIMULATED",
+      "packet": {
+        "path": "../evidence/rmdi-replay/packets/E-t6-rmdi.json",
+        "sha256": "2d236b5cc441cef2a7e6734fe757b8e2a9894c64921a3ad78cdaabae20f91340"
+      },
+      "packet_id": "E-t6-rmdi"
+    },
+    {
+      "action": "reject",
+      "comparison": "undetermined",
+      "next_evidence": "Measure after the standardized discharge.",
+      "origin": "SIMULATED",
+      "packet": {
+        "path": "../evidence/rmdi-replay/packets/E-t7-eoc_metal_area.json",
+        "sha256": "e8f7a9aa5336b8afada000df86f94221410c971322b7c47d65325008f240199f"
+      },
+      "packet_id": "E-t7-eoc_metal_area"
+    },
+    {
+      "action": "update",
+      "comparison": "undetermined",
+      "next_evidence": "Improve signal-to-noise and repeat the matched post-discharge measurement.",
+      "origin": "SIMULATED",
+      "packet": {
+        "path": "../evidence/rmdi-replay/packets/E-t7-rmdi.json",
+        "sha256": "090fc6bf90f23885793a31d47126c6d8e8d140be44a27559b89412d59138c720"
+      },
+      "packet_id": "E-t7-rmdi"
+    },
+    {
+      "action": "reject",
+      "comparison": "undetermined",
+      "next_evidence": "Measure after the standardized discharge.",
+      "origin": "SIMULATED",
+      "packet": {
+        "path": "../evidence/rmdi-replay/packets/E-t8-eoc_metal_area.json",
+        "sha256": "707ee78a75e947e736de29df12adbba47b7353724c6833718954f58427da25bf"
+      },
+      "packet_id": "E-t8-eoc_metal_area"
+    },
+    {
+      "action": "reject",
+      "comparison": "undetermined",
+      "next_evidence": "Resolve the recorded QC issue and repeat the matched post-discharge acquisition.",
+      "origin": "SIMULATED",
+      "packet": {
+        "path": "../evidence/rmdi-replay/packets/E-t8-rmdi.json",
+        "sha256": "5a145f6a9cb144a895386a6e08652f899bc14091212cbf6cbac550eb7e6bd5ca"
+      },
+      "packet_id": "E-t8-rmdi"
+    },
+    {
+      "action": "reject",
+      "comparison": "undetermined",
+      "next_evidence": "Measure after the standardized discharge.",
+      "origin": "SIMULATED",
+      "packet": {
+        "path": "../evidence/rmdi-replay/packets/E-t9-eoc_metal_area.json",
+        "sha256": "1642b1202363c7e8c759f62f3d4171eae94392c01ab237048e06422fb75a3aca"
+      },
+      "packet_id": "E-t9-eoc_metal_area"
+    },
+    {
+      "action": "update",
+      "comparison": "undetermined",
+      "next_evidence": "Improve signal-to-noise and repeat the matched post-discharge measurement.",
+      "origin": "SIMULATED",
+      "packet": {
+        "path": "../evidence/rmdi-replay/packets/E-t9-rmdi.json",
+        "sha256": "3dd145dd14051392a13aaa4442f100b936d1e42fe85cc9de0d1ebb7af1e2028d"
+      },
+      "packet_id": "E-t9-rmdi"
+    },
+    {
+      "action": "reject",
+      "comparison": "undetermined",
+      "next_evidence": "Measure after the standardized discharge.",
+      "origin": "SIMULATED",
+      "packet": {
+        "path": "../evidence/rmdi-replay/packets/E-t10-eoc_metal_area.json",
+        "sha256": "5cc61047b4164df3ebbc54f2db9087dd8d86cb47e7eba9c16dad4e070319163d"
+      },
+      "packet_id": "E-t10-eoc_metal_area"
+    },
+    {
+      "action": "update",
+      "comparison": "undetermined",
+      "next_evidence": "Improve signal-to-noise and repeat the matched post-discharge measurement.",
+      "origin": "SIMULATED",
+      "packet": {
+        "path": "../evidence/rmdi-replay/packets/E-t10-rmdi.json",
+        "sha256": "ae05ca230152d8889f6b26a28b0d281a6eda696485661c01aae64bf6e0ba0094"
+      },
+      "packet_id": "E-t10-rmdi"
+    },
+    {
+      "action": "reject",
+      "comparison": "undetermined",
+      "next_evidence": "Measure after the standardized discharge.",
+      "origin": "SIMULATED",
+      "packet": {
+        "path": "../evidence/rmdi-replay/packets/E-t11-eoc_metal_area.json",
+        "sha256": "5f76ebe24d5da2ebb02b2b8543c83e6e6c338bb0827698c9a9f71b713345002f"
+      },
+      "packet_id": "E-t11-eoc_metal_area"
+    },
+    {
+      "action": "update",
+      "comparison": "undetermined",
+      "next_evidence": "Improve signal-to-noise and repeat the matched post-discharge measurement.",
+      "origin": "SIMULATED",
+      "packet": {
+        "path": "../evidence/rmdi-replay/packets/E-t11-rmdi.json",
+        "sha256": "d304a87985321d145ee46f26aa99615356513bac42b2b96122a173844ff4bc2f"
+      },
+      "packet_id": "E-t11-rmdi"
+    },
+    {
+      "action": "reject",
+      "comparison": "undetermined",
+      "next_evidence": "Measure after the standardized discharge.",
+      "origin": "SIMULATED",
+      "packet": {
+        "path": "../evidence/rmdi-replay/packets/E-t12-eoc_metal_area.json",
+        "sha256": "fad75873900bffce0bbdf155ca511c1b8c36920c57ece69500aa66a8421b0f7c"
+      },
+      "packet_id": "E-t12-eoc_metal_area"
+    },
+    {
+      "action": "update",
+      "comparison": "deteriorating",
+      "next_evidence": "Request a matched post-discharge repeat and check reference stability and fit residuals.",
+      "origin": "SIMULATED",
+      "packet": {
+        "path": "../evidence/rmdi-replay/packets/E-t12-rmdi.json",
+        "sha256": "fa96771e68c3509ffd342485652c7f9e177a1ac0a40dc6a35a6b068e1796d613"
+      },
+      "packet_id": "E-t12-rmdi"
+    }
+  ]
+}

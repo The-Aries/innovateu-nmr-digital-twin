@@ -1,0 +1,9 @@
+............M1 IID trials=1000 fit_failures=0
+  target=68.00% observed=69.60% MC_SE=1.48%
+  target=95.00% observed=94.60% MC_SE=0.69%
+.M1 zero-filled native grid trials=1000 fit_failures=0
+  target=68.00% observed=64.90% MC_SE=1.48%
+  target=95.00% observed=93.90% MC_SE=0.69%
+.M1 Lorentzian truth=299.83 Gaussian area=119.91 ± 5.88 a.u.·ppm |Gaussian−pseudo-Voigt|=60.57 max window shift=5.19 a.u.·ppm (independent bins=44)
+...........................
+41 passed in 2.93s

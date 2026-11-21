@@ -1,0 +1,22 @@
+{
+  "config": {
+    "path": "../evidence/rmdi-replay/run-config.json",
+    "sha256": "44e61fc21cfe686d26e4c4493553ca49de7387f06942a99f5b2381f4f31cc6d9"
+  },
+  "config_sha256": "44e61fc21cfe686d26e4c4493553ca49de7387f06942a99f5b2381f4f31cc6d9",
+  "config_version": "0.2.0",
+  "input": {
+    "path": "../evidence/rmdi-replay/trace/ses-12E/fit.json",
+    "sha256": "8b531aa9f0e2992877c5fecbdc7b3820a87ec6b50319df2e0a5a4928730ef0bc"
+  },
+  "origin": "SIMULATED",
+  "result": {
+    "area_unit": "[arb'U].ppm",
+    "metal_area": 498.69177491803,
+    "metal_area_sd": 11.844731188683356,
+    "model_sensitivity_in_observable_unit": 59.052491485988696,
+    "reference_area": null,
+    "reference_area_sd": null
+  },
+  "step": "area"
+}

@@ -18,7 +18,7 @@ The measured basis is Bray et al., *Nat. Commun.* 11, 2083 (2020): operando ²³
 | Deliverable | Location |
 | --- | --- |
 | System architecture | [Architecture](rmdi-dashboard/docs/architecture.md) |
-| Machine-readable evidence packets (schema v1.0) | [Packet schema](rmdi-dashboard/schema/evidence_packet_v1.0.schema.json) and 24 [example packets](evidence/rmdi-verified-run-20261121/packets/) |
+| Machine-readable evidence packets (schema v1.0) | [Packet schema](rmdi-dashboard/schema/evidence_packet_v1.0.schema.json) and 24 [example packets](evidence/rmdi-replay/packets/) |
 | Data dictionary | Exported as `data-dictionary.json` from the Explorer's **Provenance & export** view |
 | Measurement card | [Measurement model](rmdi-dashboard/docs/measurement.md) |
 | Uncertainty card | [Uncertainty budget](rmdi-dashboard/docs/uncertainty.md) |
@@ -43,7 +43,7 @@ python3 -m venv .venv
 .venv/bin/python -m pytest -q
 ```
 
-The suite has 41 tests. To check the stored run instead of a new one, use `--output ../evidence/rmdi-verified-run-20261121`. See the [verification report](rmdi-dashboard/docs/verification.md) and the [demonstrator README](rmdi-dashboard/README.md).
+The suite has 41 tests. To check the stored run instead of a new one, use `--output ../evidence/rmdi-replay`. See the [verification report](rmdi-dashboard/docs/verification.md) and the [demonstrator README](rmdi-dashboard/README.md).
 
 ## Repository layout
 
@@ -51,7 +51,7 @@ The suite has 41 tests. To check the stored run instead of a new one, use `--out
 | --- | --- |
 | `rmdi-dashboard/` | Pipeline source, schema, tests and scientific documentation |
 | `battery-twin-explorer-v1.1.html` | Self-contained browser Explorer |
-| `evidence/` | Verified run (2026-11-21), offline dashboard and Explorer input packets |
+| `evidence/` | Verified replay, offline dashboard and Explorer input packets |
 | `pitch/` | Pitch deck and workflow slides |
 | `references/` | Bray et al. (2020), [case walkthrough](references/en/birmingham_digital_twin_explained.md), [figure guide](references/en/birmingham_bray_2020_data_guide.md) and [background references](references/en/battery_mr_references_en.md) |
 | `docs/` | [Decision log](docs/DECISIONS.md) and preparation notes from before the event |

@@ -1,0 +1,80 @@
+{
+  "config": {
+    "path": "../evidence/rmdi-replay/run-config.json",
+    "sha256": "44e61fc21cfe686d26e4c4493553ca49de7387f06942a99f5b2381f4f31cc6d9"
+  },
+  "config_sha256": "44e61fc21cfe686d26e4c4493553ca49de7387f06942a99f5b2381f4f31cc6d9",
+  "config_version": "0.2.0",
+  "input": {
+    "path": "../evidence/rmdi-replay/trace/ses-8E/area.json",
+    "sha256": "f6b03a876c66bf96544f2b6d8ee053fe4825c7cd54ddd81d56d3763b25b125b0"
+  },
+  "origin": "SIMULATED",
+  "result": {
+    "detection": {
+      "classification": "detected",
+      "reason": "Fitted SNR at least 5 with quantifiable area.",
+      "standard_uncertainty": 12.399976624370215,
+      "upper_limit": null,
+      "upper_limit_method": null,
+      "value": 280.9411222652717
+    },
+    "qc": {
+      "checks": [
+        {
+          "name": "metadata_completeness",
+          "owner": "PM",
+          "status": "PASS",
+          "threshold": "Required acquisition and cell-condition fields present",
+          "unit": "1",
+          "value": "complete"
+        },
+        {
+          "name": "protocol_comparability",
+          "owner": "PM",
+          "status": "PASS",
+          "threshold": "Exact match to baseline protocol fields when baseline evidence is available",
+          "unit": "1",
+          "value": true
+        },
+        {
+          "name": "fit_convergence",
+          "owner": "QE",
+          "status": "PASS",
+          "threshold": "Optimizer converged",
+          "unit": "1",
+          "value": true
+        },
+        {
+          "name": "fitted_snr",
+          "owner": "QE",
+          "status": "PASS",
+          "threshold": "Finite nonnegative SNR, with detection thresholds 3 and 5",
+          "unit": "1",
+          "value": 51.351183166381226
+        },
+        {
+          "name": "peak_position",
+          "owner": "QE",
+          "status": "PASS",
+          "threshold": "Within fit window and between 1050 and 1115 ppm at SNR ≥ 3",
+          "unit": "ppm",
+          "value": 1108.2631704739554
+        },
+        {
+          "name": "baseline_residual_lag1",
+          "owner": "QE",
+          "status": "PASS",
+          "threshold": "Absolute lag-1 correlation ≤ 0.4 on the native fit grid",
+          "unit": "1",
+          "value": -0.19296441131412817
+        }
+      ],
+      "comparable": true,
+      "protocol_match": true,
+      "reasons": [],
+      "status": "PASS"
+    }
+  },
+  "step": "qc"
+}

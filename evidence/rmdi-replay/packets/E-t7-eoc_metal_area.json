@@ -1,0 +1,168 @@
+{
+  "acquisition_context": {
+    "TE_s": 0.001,
+    "TR_s": 0.05,
+    "acquired_complex_points": 512,
+    "averages": 1024,
+    "field_strength_T": 9.4,
+    "fourier_points": 2048,
+    "measurement_delay_s": 120,
+    "noise_kind": "zero_filled",
+    "sequence": "spin_echo",
+    "spectral_reference": "simulated external aqueous NaCl",
+    "spectral_width_ppm": 2360,
+    "spectrometer_frequency_MHz": 105.9
+  },
+  "calibration_id": "simulated-reference",
+  "cell_conditions": {
+    "charge_current_mA": 1,
+    "discharge_protocol": "standardized_simulated_discharge",
+    "soc_end_pct": 100,
+    "soc_start_pct": 0,
+    "temperature_C": 25,
+    "voltage_limits_V": [
+      2,
+      4
+    ]
+  },
+  "cell_id": "cell-na23-sim",
+  "comparable": true,
+  "cycle_n": 7,
+  "decision_epistemic": "INFERRED",
+  "detection_class": "detected",
+  "interpretation_limit": "Derived from a simulated spectrum. The observable describes relative NMR signal.",
+  "measurement_stage": "end_of_charge",
+  "modality": "MRS",
+  "model_sensitivity": 135.17224849587166,
+  "normalization_method": "none",
+  "nucleus": "23Na",
+  "observable": "eoc_metal_area",
+  "origin": "SIMULATED",
+  "packet_id": "E-t7-eoc_metal_area",
+  "packet_version": "1.0",
+  "processing": {
+    "config_sha256": "44e61fc21cfe686d26e4c4493553ca49de7387f06942a99f5b2381f4f31cc6d9",
+    "config_version": "0.2.0",
+    "pipeline": "standalone-na23-rmdi",
+    "version": "0.1.0"
+  },
+  "protocol_match": true,
+  "provenance": {
+    "activities": [
+      {
+        "artifact": {
+          "path": "../evidence/rmdi-replay/trace/ses-7E/preprocessing.json",
+          "sha256": "ea5d6d93f759ebca298532df128fb3374bfed549c167bd3a8156df72cab3f562"
+        },
+        "step": "preprocessing"
+      },
+      {
+        "artifact": {
+          "path": "../evidence/rmdi-replay/trace/ses-7E/fit.json",
+          "sha256": "9657956b0779f2679af99a0ce167590d2c1c9a99bbb3460c03df9bd6c142bf01"
+        },
+        "step": "fit"
+      },
+      {
+        "artifact": {
+          "path": "../evidence/rmdi-replay/trace/ses-7E/area.json",
+          "sha256": "d6142c4ad9bc17f078b3f1dd83d0ed6f783a48ed056798322c1c2ad7e882acb2"
+        },
+        "step": "area"
+      },
+      {
+        "artifact": {
+          "path": "../evidence/rmdi-replay/trace/ses-7E/qc.json",
+          "sha256": "08db873a667722b46887506a17884d6ed1f128194fcad6f716ad9ed1d5914cab"
+        },
+        "step": "qc"
+      }
+    ],
+    "parents": [
+      {
+        "path": "../evidence/rmdi-replay/spectra/ses-7E.json",
+        "sha256": "8635a4e0ac5cb07a98969e9ca6dc096e1bef507c8fd7e103cf6dca93e19a64f1"
+      }
+    ]
+  },
+  "qc_checks": [
+    {
+      "name": "metadata_completeness",
+      "owner": "PM",
+      "status": "PASS",
+      "threshold": "Required acquisition and cell-condition fields present",
+      "unit": "1",
+      "value": "complete"
+    },
+    {
+      "name": "protocol_comparability",
+      "owner": "PM",
+      "status": "PASS",
+      "threshold": "Exact match to baseline protocol fields when baseline evidence is available",
+      "unit": "1",
+      "value": true
+    },
+    {
+      "name": "fit_convergence",
+      "owner": "QE",
+      "status": "PASS",
+      "threshold": "Optimizer converged",
+      "unit": "1",
+      "value": true
+    },
+    {
+      "name": "fitted_snr",
+      "owner": "QE",
+      "status": "PASS",
+      "threshold": "Finite nonnegative SNR, with detection thresholds 3 and 5",
+      "unit": "1",
+      "value": 66.70655125325224
+    },
+    {
+      "name": "peak_position",
+      "owner": "QE",
+      "status": "PASS",
+      "threshold": "Within fit window and between 1050 and 1115 ppm at SNR ≥ 3",
+      "unit": "ppm",
+      "value": 1109.7501736102276
+    },
+    {
+      "name": "baseline_residual_lag1",
+      "owner": "QE",
+      "status": "PASS",
+      "threshold": "Absolute lag-1 correlation ≤ 0.4 on the native fit grid",
+      "unit": "1",
+      "value": -0.062009385206549014
+    }
+  ],
+  "qc_reasons": [],
+  "qc_status": "PASS",
+  "relative_time": {
+    "unit": "s",
+    "value": 561720.0
+  },
+  "session_id": "ses-7E",
+  "source_object": "../evidence/rmdi-replay/spectra/ses-7E.json",
+  "source_sha256": "8635a4e0ac5cb07a98969e9ca6dc096e1bef507c8fd7e103cf6dca93e19a64f1",
+  "spatial_reference": {
+    "frame": "named_region",
+    "region": "coil-sensitive cell"
+  },
+  "subject_id": "sub-cellna23sim",
+  "system_qc_id": "simulated-system-qc",
+  "thresholds_ref": "config:0.2.0#qc",
+  "twin_action": {
+    "reason": "End-of-charge context for the post-discharge twin",
+    "recommended": "reject"
+  },
+  "uncertainty": {
+    "budget_ref": "docs/uncertainty.md",
+    "type": "SD",
+    "value": 9.744089190740238
+  },
+  "unit": "[arb'U].ppm",
+  "upper_limit": null,
+  "upper_limit_method": null,
+  "value": 263.4283890201765,
+  "value_epistemic": "DERIVED"
+}
