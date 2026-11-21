@@ -19,13 +19,13 @@ The measured basis is Bray et al., *Nat. Commun.* 11, 2083 (2020): operando ²³
 | --- | --- |
 | System architecture | [Architecture](rmdi-dashboard/docs/architecture.md) |
 | Machine-readable evidence packets (schema v1.0) | [Packet schema](rmdi-dashboard/schema/evidence_packet_v1.0.schema.json) and 24 [example packets](evidence/rmdi-replay/packets/) |
-| Data dictionary | Exported as `data-dictionary.json` from the Explorer's **Provenance & export** view |
+| Data dictionary | [data-dictionary.json](evidence/data-dictionary.json), generated from the packet schema by `scripts/build_data_dictionary.py` |
 | Measurement card | [Measurement model](rmdi-dashboard/docs/measurement.md) |
 | Uncertainty card | [Uncertainty budget](rmdi-dashboard/docs/uncertainty.md) |
 | Prototype with a baseline-to-follow-up update | Both demonstrators. Update logic: [twin](rmdi-dashboard/docs/twin.md) |
 | Provenance view | Dashboard **Trust & provenance** and **Trace this result**; Explorer **Provenance & export** |
 | Uncertainty and competing explanations | [Quality control and detection](rmdi-dashboard/docs/qc.md) and the dashboard's fit diagnostics and quality checks |
-| Next-evidence proposal | Dashboard **Twin decision**; Explorer **What to measure next** |
+| Next-evidence proposal | Dashboard **What to measure next**; Explorer **Next evidence (Level 5)** |
 | Five-minute pitch | [Pitch deck](pitch/Battery-Twin%5FPitch.odp), [workflow slides](pitch/Battery-Twin%5FWorkflow.pptx), [pitch outline](rmdi-dashboard/docs/business.md) |
 | Limitations statement | [Scientific limitations](rmdi-dashboard/docs/limitations.md) |
 
@@ -51,7 +51,7 @@ The suite has 41 tests. To check the stored run instead of a new one, use `--out
 | --- | --- |
 | `rmdi-dashboard/` | Pipeline source, schema, tests and scientific documentation |
 | `battery-twin-explorer-v1.1.html` | Self-contained browser Explorer |
-| `evidence/` | Verified replay, offline dashboard and Explorer input packets |
+| `evidence/` | Verified replay, data dictionary, offline dashboard and Explorer input packets |
 | `pitch/` | Pitch deck and workflow slides |
 | `references/` | Bray et al. (2020), [case walkthrough](references/en/birmingham_digital_twin_explained.md), [figure guide](references/en/birmingham_bray_2020_data_guide.md) and [background references](references/en/battery_mr_references_en.md) |
 | `docs/` | [Decision log](docs/DECISIONS.md) and preparation notes from before the event |

@@ -1,0 +1,604 @@
+{
+  "dictionary_version": "1.0",
+  "title": "Evidence-packet data dictionary, standalone 23Na RMDI demonstrator",
+  "schema": "rmdi-dashboard/schema/evidence_packet_v1.0.schema.json",
+  "schema_id": "urn:standalone-na23-rmdi:evidence-packet:1.0",
+  "example_packet": "evidence/rmdi-replay/packets/E-t5-rmdi.json",
+  "origin_of_example": "SIMULATED",
+  "generated": "2026-11-21T15:42:25+01:00",
+  "generator": "scripts/build_data_dictionary.py",
+  "scope_note": "Lists top-level and nested object fields with their schema constraints. Array item structures and the conditional rules in the schema's allOf are defined in the schema itself.",
+  "groups": [
+    {
+      "group": "Identification",
+      "fields": [
+        {
+          "field": "packet_version",
+          "required": true,
+          "const": "1.0",
+          "example": "1.0"
+        },
+        {
+          "field": "packet_id",
+          "required": true,
+          "type": "string",
+          "pattern": "^E-t[0-9]+-(rmdi|eoc_metal_area)$",
+          "example": "E-t5-rmdi"
+        },
+        {
+          "field": "subject_id",
+          "required": true,
+          "type": "string",
+          "pattern": "^sub-[A-Za-z0-9]+$",
+          "example": "sub-cellna23sim"
+        },
+        {
+          "field": "cell_id",
+          "required": true,
+          "type": "string",
+          "pattern": "\\S",
+          "example": "cell-na23-sim"
+        },
+        {
+          "field": "session_id",
+          "required": true,
+          "type": "string",
+          "pattern": "^ses-[A-Za-z0-9]+$",
+          "example": "ses-5P"
+        },
+        {
+          "field": "cycle_n",
+          "required": true,
+          "type": "integer",
+          "minimum": 1,
+          "example": 5
+        },
+        {
+          "field": "relative_time",
+          "required": true,
+          "type": "object",
+          "fields": [
+            {
+              "field": "value",
+              "required": true,
+              "type": "number",
+              "minimum": 0,
+              "example": 432120
+            },
+            {
+              "field": "unit",
+              "required": true,
+              "const": "s",
+              "example": "s"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Measurement",
+      "fields": [
+        {
+          "field": "modality",
+          "required": true,
+          "const": "MRS",
+          "example": "MRS"
+        },
+        {
+          "field": "nucleus",
+          "required": true,
+          "const": "23Na",
+          "example": "23Na"
+        },
+        {
+          "field": "measurement_stage",
+          "required": true,
+          "enum": [
+            "end_of_charge",
+            "post_discharge"
+          ],
+          "example": "post_discharge"
+        },
+        {
+          "field": "observable",
+          "required": true,
+          "enum": [
+            "rmdi",
+            "eoc_metal_area"
+          ],
+          "example": "rmdi"
+        },
+        {
+          "field": "value",
+          "required": true,
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "example": 0.30559204283816405
+        },
+        {
+          "field": "unit",
+          "required": true,
+          "enum": [
+            "1",
+            "[arb'U].ppm"
+          ],
+          "example": "1"
+        },
+        {
+          "field": "valid_range",
+          "required": false,
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2
+        },
+        {
+          "field": "detection_class",
+          "required": true,
+          "enum": [
+            "detected",
+            "uncertain",
+            "censored",
+            "invalid"
+          ],
+          "example": "detected"
+        },
+        {
+          "field": "upper_limit",
+          "required": true,
+          "type": [
+            "number",
+            "null"
+          ],
+          "exclusiveMinimum": 0
+        },
+        {
+          "field": "upper_limit_method",
+          "required": true,
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        {
+          "field": "model_sensitivity",
+          "required": false,
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "description": "Separate estimated area or ratio sensitivity, in the observable unit. It is not a standard uncertainty.",
+          "example": 0.6449300943440017
+        }
+      ]
+    },
+    {
+      "group": "Acquisition",
+      "fields": [
+        {
+          "field": "acquisition_context",
+          "required": true,
+          "type": "object",
+          "fields": [
+            {
+              "field": "field_strength_T",
+              "required": false,
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "example": 9.4
+            },
+            {
+              "field": "spectrometer_frequency_MHz",
+              "required": false,
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "example": 105.9
+            },
+            {
+              "field": "sequence",
+              "required": false,
+              "type": "string",
+              "pattern": "\\S",
+              "example": "spin_echo"
+            },
+            {
+              "field": "TE_s",
+              "required": false,
+              "type": "number",
+              "minimum": 0,
+              "example": 0.001
+            },
+            {
+              "field": "TR_s",
+              "required": false,
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "example": 0.05
+            },
+            {
+              "field": "averages",
+              "required": false,
+              "type": "integer",
+              "minimum": 1,
+              "example": 1024
+            },
+            {
+              "field": "spectral_width_ppm",
+              "required": false,
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "example": 2360
+            },
+            {
+              "field": "spectral_reference",
+              "required": false,
+              "type": "string",
+              "pattern": "\\S",
+              "example": "simulated external aqueous NaCl"
+            },
+            {
+              "field": "measurement_delay_s",
+              "required": false,
+              "type": "number",
+              "minimum": 0,
+              "example": 120
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Cell conditions",
+      "fields": [
+        {
+          "field": "cell_conditions",
+          "required": true,
+          "type": "object",
+          "fields": [
+            {
+              "field": "charge_current_mA",
+              "required": true,
+              "type": [
+                "number",
+                "null"
+              ],
+              "exclusiveMinimum": 0,
+              "example": 1
+            },
+            {
+              "field": "discharge_protocol",
+              "required": true,
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1,
+              "example": "standardized_simulated_discharge"
+            },
+            {
+              "field": "soc_start_pct",
+              "required": true,
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0,
+              "example": 0
+            },
+            {
+              "field": "soc_end_pct",
+              "required": true,
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0,
+              "example": 0
+            },
+            {
+              "field": "temperature_C",
+              "required": true,
+              "type": [
+                "number",
+                "null"
+              ],
+              "example": 25
+            },
+            {
+              "field": "voltage_limits_V",
+              "required": true,
+              "type": [
+                "array",
+                "null"
+              ],
+              "minItems": 2,
+              "maxItems": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Sample support",
+      "fields": [
+        {
+          "field": "spatial_reference",
+          "required": true,
+          "type": "object",
+          "fields": [
+            {
+              "field": "frame",
+              "required": true,
+              "const": "named_region",
+              "example": "named_region"
+            },
+            {
+              "field": "region",
+              "required": true,
+              "type": "string",
+              "pattern": "\\S",
+              "example": "coil-sensitive cell"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Trust",
+      "fields": [
+        {
+          "field": "uncertainty",
+          "required": true,
+          "type": "object",
+          "fields": [
+            {
+              "field": "type",
+              "required": true,
+              "enum": [
+                "SD",
+                "category"
+              ],
+              "example": "SD"
+            },
+            {
+              "field": "value",
+              "required": true,
+              "type": [
+                "number",
+                "string",
+                "null"
+              ],
+              "example": 0.044277116395771775
+            },
+            {
+              "field": "budget_ref",
+              "required": true,
+              "type": "string",
+              "pattern": "\\S",
+              "example": "docs/uncertainty.md"
+            }
+          ]
+        },
+        {
+          "field": "qc_checks",
+          "required": true,
+          "type": "array",
+          "minItems": 5
+        },
+        {
+          "field": "qc_status",
+          "required": true,
+          "enum": [
+            "PASS",
+            "WARN",
+            "FAIL"
+          ],
+          "example": "PASS"
+        },
+        {
+          "field": "qc_reasons",
+          "required": true,
+          "type": "array"
+        },
+        {
+          "field": "system_qc_id",
+          "required": true,
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "example": "simulated-system-qc"
+        },
+        {
+          "field": "calibration_id",
+          "required": true,
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "example": "simulated-reference"
+        },
+        {
+          "field": "thresholds_ref",
+          "required": true,
+          "type": "string",
+          "pattern": "\\S",
+          "example": "config:0.2.0#qc"
+        }
+      ]
+    },
+    {
+      "group": "Comparability",
+      "fields": [
+        {
+          "field": "protocol_match",
+          "required": true,
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "example": true
+        },
+        {
+          "field": "comparable",
+          "required": true,
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "example": true
+        },
+        {
+          "field": "normalization_method",
+          "required": true,
+          "enum": [
+            "external_reference_area",
+            "none"
+          ],
+          "example": "external_reference_area"
+        }
+      ]
+    },
+    {
+      "group": "Provenance",
+      "fields": [
+        {
+          "field": "source_object",
+          "required": true,
+          "type": "string",
+          "pattern": "\\S",
+          "example": "../evidence/rmdi-replay/spectra/ses-5P.json"
+        },
+        {
+          "field": "source_sha256",
+          "required": true,
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "example": "98db52ccb45db5070153a1633f87df1621bf4ab3cbda5fd74d2c7db382a2d299"
+        },
+        {
+          "field": "processing",
+          "required": true,
+          "type": "object",
+          "fields": [
+            {
+              "field": "pipeline",
+              "required": true,
+              "type": "string",
+              "pattern": "\\S",
+              "example": "standalone-na23-rmdi"
+            },
+            {
+              "field": "version",
+              "required": true,
+              "type": "string",
+              "pattern": "\\S",
+              "example": "0.1.0"
+            },
+            {
+              "field": "config_version",
+              "required": true,
+              "type": "string",
+              "pattern": "\\S",
+              "example": "0.2.0"
+            },
+            {
+              "field": "config_sha256",
+              "required": false,
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$",
+              "example": "44e61fc21cfe686d26e4c4493553ca49de7387f06942a99f5b2381f4f31cc6d9"
+            }
+          ]
+        },
+        {
+          "field": "provenance",
+          "required": true,
+          "type": "object",
+          "fields": [
+            {
+              "field": "parents",
+              "required": true,
+              "type": "array",
+              "minItems": 1
+            },
+            {
+              "field": "activities",
+              "required": true,
+              "type": "array",
+              "minItems": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Interpretation",
+      "fields": [
+        {
+          "field": "origin",
+          "required": true,
+          "enum": [
+            "MEASURED",
+            "SIMULATED"
+          ],
+          "example": "SIMULATED"
+        },
+        {
+          "field": "value_epistemic",
+          "required": true,
+          "const": "DERIVED",
+          "example": "DERIVED"
+        },
+        {
+          "field": "decision_epistemic",
+          "required": true,
+          "const": "INFERRED",
+          "example": "INFERRED"
+        },
+        {
+          "field": "interpretation_limit",
+          "required": true,
+          "type": "string",
+          "pattern": "\\S",
+          "example": "Derived from a simulated spectrum. The observable describes relative NMR signal."
+        }
+      ]
+    },
+    {
+      "group": "Twin response",
+      "fields": [
+        {
+          "field": "twin_action",
+          "required": true,
+          "type": "object",
+          "fields": [
+            {
+              "field": "recommended",
+              "required": true,
+              "enum": [
+                "update",
+                "update_with_warning",
+                "reject"
+              ],
+              "example": "update"
+            },
+            {
+              "field": "reason",
+              "required": true,
+              "type": "string",
+              "pattern": "\\S",
+              "example": "Fitted SNR at least 5 with quantifiable area."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
