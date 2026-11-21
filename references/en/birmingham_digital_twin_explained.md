@@ -1,6 +1,6 @@
 # A battery digital twin from Birmingham NMR data
 
-A practical guide to using Bray et al.'s sodium-ion full-cell data for the NMR Hackathon. [中文版本](../zh/birmingham%5Fdigital%5Ftwin%5Fexplained%5Fzh.html) · [Archive catalogue and file guide](birmingham%5Fbray%5F2020%5Fdata%5Fguide.html)
+A practical guide to using Bray et al.'s sodium-ion full-cell data for the NMR Hackathon. [Archive catalogue and file guide](birmingham%5Fbray%5F2020%5Fdata%5Fguide.md)
 
 ## Quick answers
 
@@ -32,14 +32,14 @@ Acquisition numbers 60–75 label NMR observations of the same cell. Each spectr
 
 ### A real update in the Explorer
 
-The current Explorer compares acquisition **61** with **63**. Using its processing number 2 and the same integration rule, the result can be reproduced from the supplied Bruker files. [Birmingham Explorer](../../MRI%5FData%5FExplorer%5FBirmingham.html)
+The earlier Figure 5 Explorer compared acquisition **61** with **63**. The saved audit exports record the result from the supplied Bruker files using processing number 2 and the integration rule described below.
 
 | Acquisition | Signed area (×10⁶ a.u.·ppm) | Method sensitivity allowance (×10⁶ a.u.·ppm) | Detection |
 |---|---:|---:|---|
 | 61 | −3.96 | 5.85 | Unresolved |
 | 63 | 8.51 | 4.07 | Detected by the Explorer's rule |
 
-The increase is **12.47 × 10⁶ a.u.·ppm**, above the combined allowance of **9.92 × 10⁶ a.u.·ppm**. The Explorer flags the unresolved baseline and the difference in stored phase, so the update carries a warning and requires explicit acceptance. The negative baseline is the signed result after background correction. The allowance is a method-sensitivity measure, so statistical coverage would require separate calibration. The current state takes the latest accepted observation. Forecasting would add a separate rule for how that state evolves before a measurement arrives. [Hackathon Dossier v1.6, §8.5, §9.7 and Appendix J.6](../../MRI%5FLocal%5FSpectroscopy%5FHealth%5FDigital%5FTwin%5FHackathon%5FDossier%5Fv1.6.pdf)
+The increase is **12.47 × 10⁶ a.u.·ppm**, above the combined allowance of **9.92 × 10⁶ a.u.·ppm**. The Explorer flags the unresolved baseline and the difference in stored phase, so the update carries a warning and requires explicit acceptance. The negative baseline is the signed result after background correction. The allowance is a method-sensitivity measure, so statistical coverage would require separate calibration. The current state takes the latest accepted observation. Forecasting would add a separate rule for how that state evolves before a measurement arrives. [Hackathon Dossier v1.6, §8.5, §9.7 and Appendix J.6](../../materials/organizer/MRI%5FLocal%5FSpectroscopy%5FHealth%5FDigital%5FTwin%5FHackathon%5FDossier%5Fv1.6.pdf)
 
 ## 3. How to forecast and check the result
 

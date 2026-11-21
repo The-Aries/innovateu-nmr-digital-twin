@@ -1,6 +1,6 @@
 # Confirmed challenge brief
 
-For current requirements and the selected battery case, see [PROJECT_PLAN.md](../PROJECT_PLAN.md) and the [organizer's dossier v1.6](../MRI_Local_Spectroscopy_Health_Digital_Twin_Hackathon_Dossier_v1.6.pdf). This page records the early event brief.
+For current requirements and the selected battery case, see [PROJECT_PLAN.md](PROJECT_PLAN.md) and the [organizer's dossier v1.6](../materials/organizer/MRI_Local_Spectroscopy_Health_Digital_Twin_Hackathon_Dossier_v1.6.pdf). This page records the early event brief.
 
 Source (Ulm University official page, last modified 2026-11-06):
 https://www.uni-ulm.de/en/io/degree-phd/students/fit4u/community/vernetzung/hackathon/

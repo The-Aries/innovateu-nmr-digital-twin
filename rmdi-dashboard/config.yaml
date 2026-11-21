@@ -1,0 +1,59 @@
+{
+  "config_version": {"value": "0.2.0", "status": "PROPOSED", "source": "M1–M4 synthetic demonstration configuration based on the approved M0 contract"},
+  "pipeline_version": {"value": "0.1.0", "status": "PROPOSED", "source": "Standalone pipeline first implementation"},
+  "simulation": {
+    "seed": {"value": 20261121, "status": "SIMULATED", "source": "Fixed reproducibility seed"},
+    "cycle_count": {"value": 12, "status": "SIMULATED", "source": "Illustrative sequence with enough cycles to exercise a short-horizon forecast"},
+    "spectral_width_ppm": {"value": 2360, "status": "SIMULATED", "source": "Bray et al. Methods, full-cell spectroscopy"},
+    "acquired_complex_points": {"value": 512, "status": "SIMULATED", "source": "Simulator convention inspired by the paper's reported point count"},
+    "fourier_points": {"value": 2048, "status": "SIMULATED", "source": "Bray et al. Methods, zero-filled spectrum size"},
+    "metal_center_ppm": {"value": 1109, "status": "SIMULATED", "source": "Bray et al. Supplementary Table 6, 1.5 h fit"},
+    "metal_fwhm_ppm": {"value": 119.3, "status": "SIMULATED", "source": "Bray et al. Supplementary Table 6 linewidth of 12632 Hz, converted at about 105.9 MHz"},
+    "line_shape_cases": {"value": ["gaussian", "lorentzian"], "status": "SIMULATED", "source": "Ideal-model coverage case and Bray-informed shape mismatch case"},
+    "reference_center_ppm": {"value": 0, "status": "SIMULATED", "source": "External NaCl reference scenario from team specification §3.3"},
+    "trajectory_protocol_and_noise": {
+      "value": {
+        "ppm_axis_center": 300, "correlated_noise": true, "noise_sd_au": 0.04,
+        "baseline_offset_au": 0.15, "baseline_slope_au_per_ppm": 0.0001,
+        "reference_area_au_ppm": 250, "reference_fwhm_ppm": 20,
+        "post_snr": [0, 8, 11, 17, 17, 4, 27, 29, 36, 46, 58, 73],
+        "eoc_snr": [18, 24, 30, 36, 40, 46, 51, 57, 65, 75, 88, 100],
+        "ambiguous_cycle": 6, "invalid_cycle": 8, "cycle_period_s": 86400, "measurement_delay_s": 120,
+        "field_strength_T": 9.4, "spectrometer_frequency_MHz": 105.9, "sequence": "spin_echo",
+        "TE_s": 0.001, "TR_s": 0.05, "averages": 1024, "charge_current_mA": 1,
+        "discharge_protocol": "standardized_simulated_discharge", "soc_start_pct": 0,
+        "charge_end_soc_pct": 100, "discharge_end_soc_pct": 0, "temperature_C": 25,
+        "voltage_limits_V": [2, 4]
+      },
+      "status": "ASSUMED",
+      "source": "Invented single-cell schedule, acquisition protocol and SNR targets for the requested demonstration cases. The field and frequency are representative of Bray et al., not a reproduction of their settings."
+    }
+  },
+  "fit": {
+    "metal_window_ppm": {"value": [1000, 1200], "status": "PROPOSED", "source": "Team specification §3.1. Audit tail and baseline sensitivity for the broad Table 6 line."},
+    "reference_window_ppm": {"value": [-40, 40], "status": "PROPOSED", "source": "Window for the simulated 20 ppm reference and flanking background"},
+    "window_sensitivity_fraction": {"value": 0.1, "status": "PROPOSED", "source": "Change the fitted window width by this fraction in both directions"},
+    "coverage_trials_per_case": {"value": 1000, "status": "PROPOSED", "source": "Pasted M1 work brief"},
+    "coverage_targets": {"value": [0.68, 0.95], "status": "PROPOSED", "source": "Pasted M1 work brief. Report Monte Carlo sampling uncertainty and failures."}
+  },
+  "qc": {
+    "censor_snr_candidate": {"value": 3, "status": "PROPOSED", "source": "Team specification §3.2 and pasted M2 brief. Evaluate with the full peak search."},
+    "detect_snr_candidate": {"value": 5, "status": "PROPOSED", "source": "Team specification §3.2 and pasted M2 brief. Evaluate with the full peak search."},
+    "metal_center_bounds_ppm": {"value": [1050, 1115], "status": "PROPOSED", "source": "Approximate metallic-sodium shift range reported by Bray et al., Figure 5"},
+    "reference_min_snr": {"value": 5, "status": "PROPOSED", "source": "Screen synthetic reference usability before normalizing"},
+    "residual_lag1_max": {"value": 0.4, "status": "PROPOSED", "source": "Screen substantial lag-one residual correlation on native bins"},
+    "calibration_trials": {"value": 1000, "status": "PROPOSED", "source": "Repeated trials for rate estimates on each synthetic case"},
+    "calibration_peak_snrs": {"value": [0, 3, 5, 8], "status": "SIMULATED", "source": "No-peak and known-signal tests bracketing the proposed SNR thresholds"},
+    "upper_limit_method": {"value": "gaussian_template_bank_t_bound", "status": "PROPOSED", "source": "M2 fixed-width Gaussian linear templates and residual Student-t uncertainty; scope limited to the simulated noise model"},
+    "upper_limit_confidence": {"value": 0.95, "status": "PROPOSED", "source": "Nominal one-sided confidence for the configured synthetic upper-limit construction"},
+    "upper_limit_center_step_ppm": {"value": 5, "status": "PROPOSED", "source": "Center grid spacing for the M2 finite template bank"},
+    "comparability_and_residual_limits": {"value": "matched_protocol_and_noise_screen", "status": "PROPOSED", "source": "Compare acquisition and operating conditions and screen residual lag-one correlation"}
+  },
+  "twin": {
+    "increase_z": {"value": 1.96, "status": "PROPOSED", "source": "Team specification §4.3 demonstrator rule. Positive-side gate under approximate independent Gaussian errors."},
+    "forecast_min_points": {"value": 3, "status": "PROPOSED", "source": "Team specification §5.1 and the residual degrees of freedom of a local line"},
+    "forecast_window": {"value": 4, "status": "PROPOSED", "source": "M0 starting choice for recent observations. Audit sensitivity in M3."},
+    "forecast_interval_level": {"value": 0.95, "status": "PROPOSED", "source": "M0 nominal coverage target. Include next-observation uncertainty and state assumptions."},
+    "adequate_sensitivity_margin": {"value": 0.05, "status": "PROPOSED", "source": "Dimensionless illustrative RMDI resolution margin. Includes observed change, random allowance and model sensitivity in the stability rule."}
+  }
+}

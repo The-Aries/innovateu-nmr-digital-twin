@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="An interactive, simulated sodium-ion cell twin from ²³Na NMR evidence.">
+  <title>Sodium-ion Cell Twin · InnovateU</title>
+  <style><!-- dashboard-css --></style>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to dashboard</a>
+  <header class="topbar">
+    <div class="shell masthead">
+      <div class="wordmark"><span class="signal-icon" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span><strong>Battery NMR</strong><small>InnovateU · Digital Twin</small></span></div>
+      <div class="mode" role="group" aria-label="Experience mode">
+        <button id="explore" type="button" aria-pressed="true">Explore</button>
+        <button id="guide" type="button" aria-pressed="false">Guided demo</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="shell">
+    <section class="intro" aria-labelledby="page-title">
+      <div>
+        <div class="eyebrow"><span class="eyebrow-dot"></span> SIMULATED CELL STUDY</div>
+        <h1 id="page-title">Sodium-ion cell twin</h1>
+        <p>When does the residual sodium signal justify updating the twin?</p>
+      </div>
+      <div class="cell-meta">
+        <span class="mono" id="cell-id"></span>
+        <span id="study-size"></span>
+      </div>
+    </section>
+
+    <section id="guide-panel" class="guide-panel" hidden aria-label="Guided demonstration">
+      <div><span class="guide-progress" id="guide-progress"></span><h2 id="guide-title"></h2><p id="guide-text"></p></div>
+      <div class="guide-buttons"><button id="guide-back" type="button">Previous</button><button id="guide-next" type="button" class="primary">Next step</button></div>
+    </section>
+
+    <section class="overview" aria-label="Trajectory and twin decision">
+      <article class="card trajectory">
+        <header class="card-head">
+          <div><h2>Residual sodium signal</h2><p>Post-discharge metal peak area ÷ reference peak area</p></div>
+          <span class="badge neutral" id="chart-selection">Cycle</span>
+        </header>
+        <p class="chart-note sr-only" id="chart-description"></p>
+        <canvas id="trajectory-plot" aria-label="RMDI by cycle with fit uncertainty and forecast" aria-describedby="chart-description" role="img"></canvas>
+        <div class="legend" aria-label="Chart legend">
+          <span><i class="dot accepted"></i>Accepted · ±1 fit SD</span>
+          <span><i class="triangle"></i>Upper limit</span>
+          <span><i class="dot prediction"></i><span id="forecast-legend">Forecast interval</span></span>
+        </div>
+        <div class="cycle-control">
+          <div class="cycle-heading"><label for="cycle-select">Explore a cycle</label><select id="cycle-select"></select></div>
+          <div id="cycle-buttons" class="cycle-buttons" role="group" aria-label="Select a cycle"></div>
+          <div class="cycle-key">Outlined · qualified evidence <span>× · QC rejected</span></div>
+        </div>
+      </article>
+
+      <aside class="card decision" aria-labelledby="decision-heading">
+        <header class="card-head"><h2 id="decision-heading">Twin decision</h2><span id="decision-badge" class="badge"></span></header>
+        <div class="state-readout">
+          <span class="small-label">Accepted RMDI after this cycle</span>
+          <div class="primary-value" id="accepted-value"></div>
+          <p id="accepted-detail"></p>
+        </div>
+        <p class="decision-summary" id="decision-summary" aria-live="polite"></p>
+        <dl class="state-flow">
+          <div><dt>Prior state</dt><dd id="prior-value"></dd></div>
+          <div><dt>Cycle evidence</dt><dd id="observation-value"></dd></div>
+          <div><dt>Recorded action</dt><dd id="action-value"></dd></div>
+          <div><dt>Next-cycle forecast</dt><dd id="forecast-value"></dd></div>
+        </dl>
+        <div class="next-card"><span class="small-label">What to measure next</span><p id="next-evidence"></p></div>
+      </aside>
+    </section>
+
+    <section class="card workbench" aria-labelledby="workbench-title">
+      <header class="card-head">
+        <div><h2 id="workbench-title">Evidence behind the decision</h2><p id="evidence-context"></p></div>
+        <div class="tabs" role="tablist" aria-label="Evidence views">
+          <button id="evidence-tab" role="tab" aria-selected="true" aria-controls="spectrum-panel">Spectrum</button>
+          <button id="trust-tab" role="tab" aria-selected="false" aria-controls="trust-panel" tabindex="-1">Trust &amp; provenance</button>
+        </div>
+      </header>
+      <div id="spectrum-panel" role="tabpanel" aria-labelledby="evidence-tab">
+        <div class="evidence-controls">
+          <label>Measurement stage <select id="stage-select"><option value="post_discharge">Post-discharge</option><option value="end_of_charge">End of charge</option></select></label>
+          <label>Spectral region <select id="region-select"><option value="metal">Metallic-sodium peak</option><option value="reference">External reference</option></select></label>
+        </div>
+        <div class="spectrum-layout">
+          <div class="spectral-plots">
+            <canvas id="spectrum-plot" role="img" aria-label="Simulated ²³Na spectral samples and fitted Gaussian peak"></canvas>
+            <canvas id="residual-plot" role="img" aria-label="Fit residuals on independent spectral bins"></canvas>
+            <div class="legend"><span><i class="line observed"></i>Simulated spectrum</span><span><i class="line fit"></i>Gaussian model</span><span><i class="dot accepted"></i>Residuals · native bins</span></div>
+          </div>
+          <div class="fit-details">
+            <h3>Fit diagnostics</h3>
+            <dl id="fit-metrics" class="detail-list"></dl>
+            <p id="fit-note" class="context-note"></p>
+          </div>
+        </div>
+      </div>
+      <div id="trust-panel" role="tabpanel" aria-labelledby="trust-tab" hidden>
+        <div class="trust-layout">
+          <section>
+            <h3>Quality checks</h3>
+            <table><thead><tr><th scope="col">Check</th><th scope="col">Observed</th><th scope="col">Status</th></tr></thead><tbody id="qc-rows"></tbody></table>
+          </section>
+          <section>
+            <h3>Trace this result</h3>
+            <dl id="trust-metrics" class="detail-list"></dl>
+            <details><summary>Source and processing chain</summary><ol id="trace-list"></ol></details>
+            <button id="download" type="button" class="primary">Download evidence packet</button>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div><strong>Interpretation</strong><p>The Residual Metallic Deposition Index (RMDI) is a dimensionless NMR signal ratio. This single-cell replay tests the evidence workflow on simulated spectra. Real-cell calibration and repeat measurements are needed for physical or operational conclusions.</p></div>
+      <span class="mono" id="config-version"></span>
+    </footer>
+  </main>
+  <script type="application/json" id="study-data"><!-- dashboard-data --></script>
+  <script><!-- dashboard-js --></script>
+</body>
+</html>

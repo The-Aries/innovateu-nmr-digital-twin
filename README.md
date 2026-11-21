@@ -4,38 +4,39 @@ Private project workspace for the NMR Quantum Engineering challenge (20–21 Nov
 
 ## Scope
 
-The challenge asks teams to demonstrate a traceable baseline-to-follow-up update, distinguish physical change from measurement effects, communicate uncertainty, and propose the next measurement. The organizer's [dossier v1.6](MRI_Local_Spectroscopy_Health_Digital_Twin_Hackathon_Dossier_v1.6.pdf) specifies the deliverables and permits public and synthetic data.
+The challenge asks teams to demonstrate a traceable baseline-to-follow-up update, distinguish physical change from measurement effects, communicate uncertainty, and propose the next measurement. The organizer's [dossier v1.6](materials/organizer/MRI_Local_Spectroscopy_Health_Digital_Twin_Hackathon_Dossier_v1.6.pdf) specifies the deliverables and permits public and synthetic data.
 
-[Project plan and decisions](PROJECT_PLAN.md) maps the four tracks and submission tasks to the Birmingham Figure 5 case.
-
-## Offline documents
-
-Open [README.html](README.html) in a browser after cloning or downloading the repository. Each Markdown document has a companion HTML file in the same folder. Use [the project plan in HTML](PROJECT_PLAN.html) or the [Chinese materials index](translations/zh/index.html) for reading. The bundled [document viewer](assets/document-viewer/viewer.js) and [stylesheet](assets/document-viewer/viewer.css) supply the contents and document switcher offline.
+[Project plan and decisions](docs/PROJECT_PLAN.md) maps the four tracks and submission tasks to the Birmingham Figure 5 case.
 
 ## Project files
 
-- [Birmingham Explorer](MRI_Data_Explorer_Birmingham.html) follows the measured ²³Na series and the corresponding electrochemical record for the main case. The cross-device time offset is provisional.
-- [Organizer's MRI Data Explorer](MRI_Data_Explorer_v1.0-rc5.html) opens the synthetic MRI/MRS teaching case.
-- [Chinese materials index](translations/zh/index.html) links the translations to the organizer's original documents.
-- [Organizer's StarterPack archive](MRI_Hackathon_DataScience_StarterPack_v0.3.zip) contains the full synthetic teaching package. Extract it to restore the MRI and MRS example files alongside those already in the StarterPack directory.
-- [Bray et al. (2020)](references/papers/Bray_et_al_2020_Operando_Sodium_Ion_Battery_NMR.pdf) is the paper for the main case. See the [Birmingham case walkthrough](references/zh/birmingham_digital_twin_explained_zh.md) and [background references](references/zh/battery_mr_references_zh.md).
+- [Battery Twin Explorer v1.1](battery-twin-explorer-v1.1.html) explores simulated cycles and displays published ²³Na spectra from Bray et al. Figures 6 and 7. Use **Load data** to select `generated_data_set`, `Figure_6`, `Figure_7`, or their shared parent folder.
+- Open the [Standalone ²³Na RMDI dashboard online](https://innovateu-sodium-ion-twin.rusticarbor4.chatgpt.site) or use the [offline dashboard](outputs/rmdi-dashboard/rmdi-dashboard.html) with the synthetic replay embedded. For a fresh checkout, see the [build and verification instructions](rmdi-dashboard/README.md).
+- The [pitch deck](pitch/Battery-Twin%5FPitch.odp) is stored in OpenDocument Presentation format. The [workflow slides](pitch/Battery-Twin%5FWorkflow.pptx) walk through the six twin steps: Measure, Validate, Trace, Update, Predict and Steer.
+- [Organizer materials](materials/organizer/) holds the dossiers, slides and the [StarterPack v0.3](materials/organizer/MRI_Hackathon_DataScience_StarterPack_v0.3/00_START_HERE/README.md). Git ignores the StarterPack's NIfTI example images. Restore them from the organizer's StarterPack archive if needed.
+- [Bray et al. (2020)](references/papers/Bray_et_al_2020_Operando_Sodium_Ion_Battery_NMR.pdf) describes the measured study. See the [Birmingham case walkthrough](references/en/birmingham_digital_twin_explained.md) and [background references](references/en/battery_mr_references_en.md).
 
 ## Experimental data downloads
 
-Keep downloaded archives and extracted third-party experiment data under `online downloaded data/`. Git ignores that directory. Open the Explorer HTML in a local browser and select the corresponding extracted directory.
+Keep downloaded archives and extracted third-party experiment data under `online downloaded data/`. Git ignores that directory. Extract the Figure 6 and Figure 7 archives before loading them in Battery Twin Explorer v1.1.
 
 | Dataset | Official download | Local location |
 | --- | --- | --- |
-| Birmingham ²³Na time series and electrochemistry (main case) | [Figure_5.zip](https://edata.bham.ac.uk/456/4/Figure_5.zip) | `online downloaded data/Figure_5/`, with `Na_fullSpectrum_60` through `Na_fullSpectrum_75` and the electrochemical text file directly inside |
-| Birmingham paper and supplementary figure archives | [Birmingham data record](https://edata.bham.ac.uk/456/) | `online downloaded data/Birmingham_Bray_2020/` |
+| Birmingham ²³Na time series and electrochemistry (earlier Figure 5 analysis) | [Figure_5.zip](https://edata.bham.ac.uk/456/4/Figure%5F5.zip) | `online downloaded data/Figure_5/` |
+| Bray et al. Figure 6 spectra (Explorer v1.1) | [Figure_6.zip](https://edata.bham.ac.uk/456/5/Figure%5F6.zip) | `online downloaded data/Figure_6/` |
+| Bray et al. Figure 7 spectra (Explorer v1.1) | [Figure_7.zip](https://edata.bham.ac.uk/456/6/Figure%5F7.zip) | `online downloaded data/Figure_7/` |
+| Synthetic Na23 RMDI replay v3; Explorer v1.1 uses `evidence_packets/MAIN/` | [Na23_RMDI_Replay_v3.zip](https://github.com/The-Aries/innovateu-nmr-digital-twin/raw/d143100a6ab5dbd1502b37e15a48d357d2eec33a/Na23%5FRMDI%5FReplay%5Fv3.zip) (Git history, commit `d143100`) | `online downloaded data/Na23_RMDI_Replay_v3/`; packets copied to `online downloaded data/generated_data_set/MAIN/` |
+| Measure review: Figures 6–7, Supplementary Figures 3 and 8 | [SupplementaryFigure_3.zip](https://edata.bham.ac.uk/456/14/SupplementaryFigure%5F3.zip), [SupplementaryFigure_8.zip](https://edata.bham.ac.uk/456/10/SupplementaryFigure%5F8.zip), Figures 6–7 as above | `online downloaded data/Bray_2020_Measure_review/` |
+| Supplementary information PDF | [41467_2020_15938_MOESM1_ESM.pdf](https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-020-15938-x/MediaObjects/41467_2020_15938_MOESM1_ESM.pdf) | `online downloaded data/Bray_2020_SI/` |
+| Other Birmingham figure archives (not used) | [Birmingham data record](https://edata.bham.ac.uk/456/) | `online downloaded data/Birmingham_Bray_2020/` |
 
-Figure 5 alone is sufficient to replay the Birmingham Explorer. Keep the other Birmingham archives with the paper for checking its figures and methods. The [full Birmingham figure guide](references/en/birmingham_bray_2020_data_guide.md) lists each archive and its purpose.
+`online downloaded data/SOURCES.md` repeats this table next to the data.
 
-The [Bruker Explorer](MRI_Data_Explorer_Bruker.html) remains available as a general TopSpin tool. Its former Cambridge comparison is outside the current case. The [Cambridge Apollo record](https://www.repository.cam.ac.uk/items/a5ed5aab-5881-4e09-bcc1-89cb03df66e9) provides the source data if that case is resumed.
+The [full Birmingham figure guide](references/en/birmingham_bray_2020_data_guide.md) lists each archive and its purpose. The Figure 5 audit exports are under `outputs/birmingham-handoff/` in the preparation workspace.
 
 ## Repository updates
 
-Make changes in the local project checkout, regenerate any affected companion HTML, and verify the changes locally. Commit and push through Git. For another checkout of the same branch, use `git pull --ff-only origin main` to receive the tracked updates. Download the experimental data separately in each checkout that needs it.
+Make changes in the local project checkout and verify them locally. Commit and push through Git. For another checkout of the same branch, use `git pull --ff-only origin main` to receive the tracked updates. Download the experimental data separately in each checkout that needs it.
 
 ## Local environment
 

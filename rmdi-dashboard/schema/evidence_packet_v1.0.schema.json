@@ -1,0 +1,201 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:standalone-na23-rmdi:evidence-packet:1.0",
+  "title": "Standalone sodium-ion cycling evidence packet",
+  "description": "Battery MRS evidence based on the InnovateU dossier v1.0 packet. Educational, non-clinical.",
+  "type": "object",
+  "required": [
+    "packet_version", "packet_id", "subject_id", "cell_id", "session_id", "cycle_n",
+    "relative_time", "modality", "nucleus", "measurement_stage", "observable", "value", "unit",
+    "detection_class", "upper_limit", "upper_limit_method", "uncertainty", "qc_checks",
+    "qc_status", "qc_reasons", "protocol_match", "comparable", "normalization_method",
+    "origin", "value_epistemic", "decision_epistemic", "source_object", "source_sha256",
+    "spatial_reference", "acquisition_context", "cell_conditions", "system_qc_id",
+    "calibration_id", "thresholds_ref", "processing", "provenance", "twin_action",
+    "interpretation_limit"
+  ],
+  "properties": {
+    "packet_version": {"const": "1.0"},
+    "packet_id": {"type": "string", "pattern": "^E-t[0-9]+-(rmdi|eoc_metal_area)$"},
+    "subject_id": {"type": "string", "pattern": "^sub-[A-Za-z0-9]+$"},
+    "cell_id": {"$ref": "#/$defs/text"},
+    "session_id": {"type": "string", "pattern": "^ses-[A-Za-z0-9]+$"},
+    "cycle_n": {"type": "integer", "minimum": 1},
+    "relative_time": {
+      "type": "object",
+      "required": ["value", "unit"],
+      "properties": {"value": {"type": "number", "minimum": 0}, "unit": {"const": "s"}}
+    },
+    "modality": {"const": "MRS"},
+    "nucleus": {"const": "23Na"},
+    "measurement_stage": {"enum": ["end_of_charge", "post_discharge"]},
+    "observable": {"enum": ["rmdi", "eoc_metal_area"]},
+    "value": {"type": ["number", "null"], "minimum": 0},
+    "unit": {"enum": ["1", "[arb'U].ppm"]},
+    "valid_range": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "number"}},
+    "detection_class": {"enum": ["detected", "uncertain", "censored", "invalid"]},
+    "upper_limit": {"type": ["number", "null"], "exclusiveMinimum": 0},
+    "upper_limit_method": {"type": ["string", "null"], "minLength": 1},
+    "model_sensitivity": {
+      "type": ["number", "null"], "minimum": 0,
+      "description": "Separate estimated area or ratio sensitivity, in the observable unit. It is not a standard uncertainty."
+    },
+    "uncertainty": {
+      "type": "object",
+      "required": ["type", "value", "budget_ref"],
+      "properties": {
+        "type": {"enum": ["SD", "category"]},
+        "value": {"type": ["number", "string", "null"]},
+        "budget_ref": {"$ref": "#/$defs/text"}
+      }
+    },
+    "qc_checks": {"type": "array", "minItems": 5, "items": {"$ref": "#/$defs/qc_check"}},
+    "qc_status": {"enum": ["PASS", "WARN", "FAIL"]},
+    "qc_reasons": {"type": "array", "items": {"$ref": "#/$defs/text"}},
+    "protocol_match": {"type": ["boolean", "null"]},
+    "comparable": {"type": ["boolean", "null"]},
+    "normalization_method": {"enum": ["external_reference_area", "none"]},
+    "origin": {"enum": ["MEASURED", "SIMULATED"]},
+    "value_epistemic": {"const": "DERIVED"},
+    "decision_epistemic": {"const": "INFERRED"},
+    "source_object": {"$ref": "#/$defs/text"},
+    "source_sha256": {"$ref": "#/$defs/digest"},
+    "spatial_reference": {
+      "type": "object",
+      "required": ["frame", "region"],
+      "properties": {"frame": {"const": "named_region"}, "region": {"$ref": "#/$defs/text"}}
+    },
+    "acquisition_context": {
+      "type": "object",
+      "properties": {
+        "field_strength_T": {"type": "number", "exclusiveMinimum": 0},
+        "spectrometer_frequency_MHz": {"type": "number", "exclusiveMinimum": 0},
+        "sequence": {"$ref": "#/$defs/text"},
+        "TE_s": {"type": "number", "minimum": 0},
+        "TR_s": {"type": "number", "exclusiveMinimum": 0},
+        "averages": {"type": "integer", "minimum": 1},
+        "spectral_width_ppm": {"type": "number", "exclusiveMinimum": 0},
+        "spectral_reference": {"$ref": "#/$defs/text"},
+        "measurement_delay_s": {"type": "number", "minimum": 0}
+      }
+    },
+    "cell_conditions": {
+      "type": "object",
+      "required": ["charge_current_mA", "discharge_protocol", "soc_start_pct", "soc_end_pct",
+                   "temperature_C", "voltage_limits_V"],
+      "properties": {
+        "charge_current_mA": {"type": ["number", "null"], "exclusiveMinimum": 0},
+        "discharge_protocol": {"type": ["string", "null"], "minLength": 1},
+        "soc_start_pct": {"$ref": "#/$defs/soc_pct"},
+        "soc_end_pct": {"$ref": "#/$defs/soc_pct"},
+        "temperature_C": {"type": ["number", "null"]},
+        "voltage_limits_V": {"type": ["array", "null"], "minItems": 2, "maxItems": 2,
+                             "items": {"type": "number"}}
+      }
+    },
+    "system_qc_id": {"type": ["string", "null"], "minLength": 1},
+    "calibration_id": {"type": ["string", "null"], "minLength": 1},
+    "thresholds_ref": {"$ref": "#/$defs/text"},
+    "processing": {
+      "type": "object",
+      "required": ["pipeline", "version", "config_version"],
+      "properties": {
+        "pipeline": {"$ref": "#/$defs/text"},
+        "version": {"$ref": "#/$defs/text"},
+        "config_version": {"$ref": "#/$defs/text"},
+        "config_sha256": {"$ref": "#/$defs/digest"}
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["parents", "activities"],
+      "properties": {
+        "parents": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/object_ref"}},
+        "activities": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["step", "artifact"],
+            "properties": {
+              "step": {"enum": ["preprocessing", "fit", "area", "qc"]},
+              "artifact": {"$ref": "#/$defs/object_ref"}
+            }
+          }
+        }
+      }
+    },
+    "twin_action": {
+      "type": "object",
+      "required": ["recommended", "reason"],
+      "properties": {
+        "recommended": {"enum": ["update", "update_with_warning", "reject"]},
+        "reason": {"$ref": "#/$defs/text"}
+      }
+    },
+    "interpretation_limit": {"$ref": "#/$defs/text"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"measurement_stage": {"const": "post_discharge"}}},
+      "then": {"properties": {"observable": {"const": "rmdi"}, "unit": {"const": "1"},
+                              "normalization_method": {"const": "external_reference_area"}}},
+      "else": {"properties": {"observable": {"const": "eoc_metal_area"}, "unit": {"const": "[arb'U].ppm"},
+                              "normalization_method": {"const": "none"},
+                              "twin_action": {"properties": {"recommended": {"const": "reject"}}}}}
+    },
+    {
+      "if": {"properties": {"detection_class": {"const": "detected"}}},
+      "then": {"properties": {"value": {"type": "number", "exclusiveMinimum": 0},
+                              "uncertainty": {"properties": {"type": {"const": "SD"},
+                                                            "value": {"type": "number", "exclusiveMinimum": 0}}}}},
+      "else": {"properties": {"value": {"type": "null"},
+                              "uncertainty": {"properties": {"type": {"const": "category"},
+                                                            "value": {"type": ["string", "null"]}}}}}
+    },
+    {
+      "if": {"properties": {"detection_class": {"const": "censored"}, "upper_limit": {"type": "number"}}},
+      "then": {"properties": {"upper_limit_method": {"$ref": "#/$defs/text"}}},
+      "else": {"properties": {"upper_limit": {"type": "null"}, "upper_limit_method": {"type": "null"}}}
+    },
+    {
+      "if": {"properties": {"qc_status": {"const": "FAIL"}}},
+      "then": {"properties": {"detection_class": {"const": "invalid"},
+                               "twin_action": {"properties": {"recommended": {"const": "reject"}}}}},
+      "else": {"properties": {"detection_class": {"enum": ["detected", "censored", "uncertain"]}}}
+    },
+    {
+      "if": {"properties": {"qc_status": {"const": "WARN"}}},
+      "then": {"properties": {"twin_action": {"properties": {
+        "recommended": {"enum": ["update_with_warning", "reject"]}
+      }}}}
+    },
+    {
+      "if": {"properties": {"twin_action": {"properties": {"recommended": {"const": "update"}}}}},
+      "then": {"properties": {"qc_status": {"const": "PASS"}, "comparable": {"const": true},
+                              "protocol_match": {"const": true}, "detection_class": {"const": "detected"}}}
+    }
+  ],
+  "$defs": {
+    "text": {"type": "string", "pattern": "\\S"},
+    "digest": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "soc_pct": {"type": ["number", "null"], "minimum": 0, "maximum": 100},
+    "object_ref": {
+      "type": "object",
+      "required": ["path", "sha256"],
+      "properties": {"path": {"$ref": "#/$defs/text"}, "sha256": {"$ref": "#/$defs/digest"}}
+    },
+    "qc_check": {
+      "type": "object",
+      "required": ["name", "status", "owner", "value", "unit", "threshold"],
+      "properties": {
+        "name": {"$ref": "#/$defs/text"},
+        "status": {"enum": ["PASS", "WARN", "FAIL"]},
+        "owner": {"enum": ["QE", "PM", "DS", "DT", "shared"]},
+        "value": {"type": ["string", "number", "boolean", "null"]},
+        "unit": {"$ref": "#/$defs/text"},
+        "threshold": {"$ref": "#/$defs/text"}
+      }
+    }
+  }
+}
