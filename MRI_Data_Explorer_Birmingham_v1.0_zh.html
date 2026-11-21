@@ -101,6 +101,7 @@ code { font-family: var(--font-mono); font-size: 11.5px; overflow-wrap: anywhere
 .chip.ep.MEASURED { border-color: var(--ink); color: var(--ink); }
 .chip.ep.DERIVED { border-color: var(--violet); color: var(--violet-deep); }
 .chip.ep.INFERRED { border-color: var(--blue); color: var(--blue-text); }
+.chip.ep.SIMULATED { border-style: dashed; border-color: var(--orange); color: var(--orange-text); }
 .chip.ep.SCENARIO { border-style: dashed; border-color: var(--orange); color: var(--orange-text); }
 .chip.ep.REPORTED { border-style: dotted; border-color: var(--teal); color: var(--teal-text); }
 .chip.trk { color: #fff; font-size: 10px; padding: 0 6px; }
@@ -296,6 +297,7 @@ canvas.chart { width: 100%; display: block; background: var(--surface); border-r
       <a href="#home" data-route="home">开始</a>
       <a href="#tour/1" data-route="tour">导览</a>
       <a href="#viz" data-route="viz">可视化</a>
+      <a href="#cycle" data-route="cycle">循环孪生</a>
       <a href="#work/spectra" data-route="work">工作台</a>
     </nav>
     <div class="top-spacer"></div>
@@ -310,6 +312,7 @@ canvas.chart { width: 100%; display: block; background: var(--surface); border-r
     <section class="home" id="homeView" aria-label="Start page" hidden></section>
     <section class="tour" id="tourView" aria-label="Guided tour" hidden></section>
     <section class="viz" id="vizView" aria-label="Visualize" hidden></section>
+    <section class="cycle" id="cycleView" aria-label="Cycling twin" hidden></section>
     <section class="work stack" id="workView" aria-label="Workbench" hidden></section>
   </main>
   <footer class="footer">
@@ -501,8 +504,9 @@ canvas.chart { width: 100%; display: block; background: var(--surface); border-r
   };
   const defaultThresholds = Object.freeze({
     peak_ratio_min: method.peak_to_residual_sd_minimum, area_allowance_factor: 1, increase_allowance_factor: 1,
-    two_sided: 1, unresolved_followup_warn: 1
+    two_sided: 1, phase_mismatch: 1, baseline_unresolved: 1, followup_unresolved: 1
   });
+  const GATE_ST = ['PASS', 'WARN', 'FAIL'];
   const thresholdKeys = Object.keys(defaultThresholds);
   const validThresholds = (profile) => profile && typeof profile === 'object' &&
     Object.keys(profile).length === thresholdKeys.length &&
@@ -834,11 +838,11 @@ canvas.chart { width: 100%; display: block; background: var(--surface); border-r
       { name: 'matched_processing', value: processDifferences.length, unit: '1', threshold: '0 differing non-phase parameters',
         status: processDifferences.length ? 'FAIL' : 'PASS', reason: processDifferences.length ? 'Non-phase processing parameters differ: ' + processDifferences.join(', ') + '.' : 'Checked non-phase processing parameters match.' },
       { name: 'stored_phase', value: phaseDifferences.length, unit: '1', threshold: '0 differing phase parameters',
-        status: phaseDifferences.length ? 'WARN' : 'PASS', reason: phaseDifferences.length ? 'Stored phase differs (' + phaseDifferences.join(', ') + '). Local rotation tests do not resolve the full phase uncertainty.' : 'Stored phase parameters match.' },
+        status: phaseDifferences.length ? GATE_ST[thresholds.phase_mismatch] ?? 'WARN' : 'PASS', reason: phaseDifferences.length ? 'Stored phase differs (' + phaseDifferences.join(', ') + '). Local rotation tests do not resolve the full phase uncertainty.' : 'Stored phase parameters match.' },
       { name: 'baseline_signal', value: baselineDetected, unit: '1', threshold: signalRule,
-        status: baselineDetected ? 'PASS' : 'WARN', reason: baselineDetected ? 'Baseline passes the exploratory signal rule.' : 'Baseline is background or unresolved under the rule. The signed area is retained with its allowance.' },
+        status: baselineDetected ? 'PASS' : GATE_ST[thresholds.baseline_unresolved] ?? 'WARN', reason: baselineDetected ? 'Baseline passes the exploratory signal rule.' : 'Baseline is background or unresolved under the rule. The signed area is retained with its allowance.' },
       { name: 'followup_signal', value: followupDetected, unit: '1', threshold: signalRule,
-        status: followupDetected ? 'PASS' : thresholds.unresolved_followup_warn ? 'WARN' : 'FAIL', reason: followupDetected ? 'Follow-up passes the exploratory signal rule.' : thresholds.unresolved_followup_warn ? 'Follow-up does not pass the exploratory peak and area rule; it is recorded as a signal at or below the detection rule.' : 'Follow-up does not pass the exploratory peak and area rule.' },
+        status: followupDetected ? 'PASS' : GATE_ST[thresholds.followup_unresolved] ?? 'FAIL', reason: followupDetected ? 'Follow-up passes the exploratory signal rule.' : thresholds.followup_unresolved === 2 ? 'Follow-up does not pass the exploratory peak and area rule.' : 'Follow-up does not pass the exploratory peak and area rule; it is recorded as a signal at or below the detection rule (' + GATE_ST[thresholds.followup_unresolved] + ' by threshold setting).' },
       thresholds.two_sided ? { name: 'change_exceeds_allowance', value: delta, unit, threshold: '|Δ| > ' + increaseLimit,
         status: Math.abs(delta) > increaseLimit ? 'PASS' : 'FAIL',
         reason: (delta >= 0 ? 'Increase' : 'Decrease') + ' of the signed area; the change in either direction must exceed ' + (thresholds.increase_allowance_factor === 1 ? '' : thresholds.increase_allowance_factor + ' × ') + 'the sum of both allowances.' }
@@ -1036,6 +1040,7 @@ canvas.chart { width: 100%; display: block; background: var(--surface); border-r
   const exporters = {
     bundle: () => downloadJson(`Birmingham-Figure5-${S.study.base.id}-to-${S.study.follow.id}.json`, buildBundle()),
     packet: () => downloadJson(`${packetId(S.study.follow)}.json`, packet(S.study.follow, S.study.gate, S.thresholds)),
+    twin: () => { const run = runTwin(); downloadJson('RMDI-twin-state-and-log.json', { origin: 'SIMULATED', rules: 'team specification §4–§5, rule-based', config: S.tw.cfg, packets_ingested: S.tw.cursor, state: run.state, events: run.events.map(({ prior, ...e }) => e) }); },
     thresholds: () => downloadJson(`${thresholdsRef(S.thresholds)}.json`, { id: thresholdsRef(S.thresholds), case_id: caseId, method_version: method.version, thresholds: S.thresholds, status: 'INFERRED (team choice)' }),
     dictionary: () => downloadJson('Birmingham-Figure5-data-dictionary.json', dictionary),
     update: () => downloadJson('Birmingham-Figure5-audit-log.json', { case_id: caseId, policy, current_state: currentState(), events: S.history })
@@ -1581,7 +1586,7 @@ canvas.chart { width: 100%; display: block; background: var(--surface); border-r
       <h1>自上次测量以来，电池变了吗？我们有多确定？</h1>
       <p class="hero-lead">电池充电时，钠可能以金属形式沉积在负极表面，而不是进入负极。金属沉积会损失容量，也是安全隐患。²³Na NMR 能在不拆电池的情况下看到这一点。本页沿着两张谱，从原始文件走到一个经过检查的数，再从这个数走到一个数字孪生，由它决定该相信这个数多少。</p>
       <p class="hero-example"><b>使用的数据：真实、实测、公开。</b>一颗硬碳 / NaNFMSO 钠离子全电池在 30 mA g⁻¹ 下的首次（化成）充电：16 张工况 ²³Na 谱，每张约 30 分钟，加上电压记录（Bray 等，Nat. Commun. 2020，Figure 5）。</p>
-      <div class="hero-actions"><a class="btn primary big" href="#tour/1">开始导览</a><a class="btn big" href="#viz">可视化谱图</a><a class="btn big" href="#work/spectra">打开工作台</a></div>
+      <div class="hero-actions"><a class="btn primary big" href="#tour/1">开始导览</a><a class="btn big" href="#viz">可视化谱图</a><a class="btn big" href="#cycle">循环孪生</a><a class="btn big" href="#work/spectra">打开工作台</a></div>
       <p class="hero-note">导览共 9 站，与组织方 Explorer 的链条相同。需要本地 <code>Figure_5</code> 文件夹：${S.data ? '<b>已载入</b>。' : '<button class="btn small primary" type="button" data-load>载入数据</button>'}</p>
       </div><figure class="hero-art">${heroArt()}<figcaption>仅为示意图。线圈、电池和谱形都是示意；实测谱在导览中。</figcaption></figure></div>
       <section><h2>四个问题，四个赛道</h2><p>同样两张谱，从四个角度看。挑战赛每个赛道负责一个问题。</p>
@@ -1778,9 +1783,10 @@ canvas.chart { width: 100%; display: block; background: var(--surface); border-r
   };
   const THR_PRESETS = {
     default: { label: '团队默认 v1.1', v: { ...defaultThresholds } },
-    plan: { label: '计划规则 v1.0（只算增加）', v: { ...defaultThresholds, two_sided: 0, unresolved_followup_warn: 0 } },
+    plan: { label: '计划规则 v1.0（只算增加）', v: { ...defaultThresholds, two_sided: 0, followup_unresolved: 2 } },
     strict: { label: '严格', v: { ...defaultThresholds, peak_ratio_min: 8, area_allowance_factor: 1.5, increase_allowance_factor: 1.5 } },
-    lenient: { label: '宽松', v: { ...defaultThresholds, peak_ratio_min: 3, increase_allowance_factor: 0.75 } }
+    lenient: { label: '宽松', v: { ...defaultThresholds, peak_ratio_min: 3, increase_allowance_factor: 0.75 } },
+    permissive: { label: '宽松到全部通过', v: { ...defaultThresholds, peak_ratio_min: 0, area_allowance_factor: 0, increase_allowance_factor: 0, two_sided: 1, phase_mismatch: 0, baseline_unresolved: 0, followup_unresolved: 0 } }
   };
   const det = (spec) => signalDetected(spec.measurement, S.thresholds);
 
@@ -1794,14 +1800,14 @@ canvas.chart { width: 100%; display: block; background: var(--surface); border-r
     return `<div class="card"><h3>${trk('PM')} 质量阈值（所有闸门共用一套） ${ep('INFERRED')} <span class="chip INFO">${esc(thresholdsRef(thr))}</span></h3>
       <p>每个闸门都从这套阈值读取限值。修改一个限值，所有比较都会重新评估，阈值选择的后果因此可见，而不是被隐藏。已记录的决定保留做出决定时的阈值。</p>
       ${Object.entries(THR_INFO).map(([k, [label, owner, doc]]) => `<div style="padding:6px 0;border-bottom:1px solid var(--line)"><div class="row">${trk(owner)} <b>${label}</b> <input type="number" min="0" step="0.05" value="${thr[k]}" data-thr="${k}" aria-label="${esc(label)}" style="width:80px"> <span class="small">default ${defaultThresholds[k]}</span></div><div class="small">${doc}</div></div>`).join('')}
-      ${[['two_sided', '变化方向', 'DT', [[1, '双向：增加或减少只要大于容差都算'], [0, '只算增加（计划规则 v1.0）：任何减少都 FAIL']]], ['unresolved_followup_warn', '后续信号未分辨', 'QE', [[1, 'WARN：记为处于或低于检测规则，需明确接受'], [0, 'FAIL（计划规则 v1.0）']]]].map(([k, label, owner, opts]) => `<div style="padding:6px 0;border-bottom:1px solid var(--line)"><div class="row">${trk(owner)} <b>${label}</b> <select data-thr="${k}" aria-label="${label}">${opts.map(([v, l]) => `<option value="${v}" ${thr[k] === v ? 'selected' : ''}>${l}</option>`).join('')}</select></div></div>`).join('')}
+      ${[['two_sided', '变化方向', 'DT', [[1, '双向：增加或减少只要大于容差都算'], [0, '只算增加（计划规则 v1.0）：任何减少都 FAIL']]], ['phase_mismatch', '存储相位不同', 'QE', [[0, 'PASS'], [1, 'WARN (default)'], [2, 'FAIL']]], ['baseline_unresolved', '基线信号未分辨', 'QE', [[0, 'PASS'], [1, 'WARN (default)'], [2, 'FAIL']]], ['followup_unresolved', '后续信号未分辨', 'QE', [[0, 'PASS'], [1, 'WARN (default): record it as at or below detection'], [2, 'FAIL (plan rule v1.0)']]]].map(([k, label, owner, opts]) => `<div style="padding:6px 0;border-bottom:1px solid var(--line)"><div class="row">${trk(owner)} <b>${label}</b> <select data-thr="${k}" aria-label="${label}">${opts.map(([v, l]) => `<option value="${v}" ${thr[k] === v ? 'selected' : ''}>${l}</option>`).join('')}</select></div></div>`).join('')}
       <div class="row" style="margin-top:8px">${Object.entries(THR_PRESETS).map(([k, p]) => `<button class="btn small ${JSON.stringify(p.v) === JSON.stringify(thr) ? 'primary' : ''}" type="button" data-thrpreset="${k}">${p.label}</button>`).join('')}<button class="btn small ghost" type="button" data-export="thresholds">导出阈值 JSON</button></div>
       <h4>固定的方法规则（此处不可编辑）</h4><ul class="small"><li>时间顺序：后续谱在基线结束前开始则 FAIL。</li><li>采集 / 处理（相位除外）必须一致，否则 FAIL。</li><li>存储相位不同：WARN。</li><li>基线未分辨：WARN。后续未分辨：WARN 或 FAIL，由上面的选项决定。</li></ul>
       <h4>对闸门的影响：基线 #${base.id} 对之后每次采集</h4>
       <div class="tbl-wrap"><table class="tbl"><thead><tr><th>follow-up</th><th>计划规则 v1.0</th><th>当前阈值</th><th></th></tr></thead><tbody>${rows.map((x) => `<tr class="clickable ${x.r.id === S.study.follow.id ? 'sel' : ''}" data-pair="${base.id},${x.r.id}"><td>#${x.r.id}</td><td>${status(x.a)}</td><td>${status(x.b)}</td><td>${x.a !== x.b ? '<b>已改变</b>' : ''}</td></tr>`).join('')}</tbody></table></div>
       <h4>对闸门的影响：之前每个参考对后续 #${S.study.follow.id}</h4>
       <div class="tbl-wrap"><table class="tbl"><thead><tr><th>reference</th><th>计划规则 v1.0</th><th>当前阈值</th><th></th></tr></thead><tbody>${refRows.map((x) => `<tr class="clickable ${x.r.id === base.id ? 'sel' : ''}" data-pair="${x.r.id},${S.study.follow.id}"><td>#${x.r.id}</td><td>${status(x.a)}</td><td>${status(x.b)}</td><td>${x.a !== x.b ? '<b>已改变</b>' : ''}</td></tr>`).join('')}</tbody></table></div>
-      <p class="small">${flips.length ? `${flips.length} comparison(s) from #${base.id} change status compared with the plan rule.` : 'No comparison from this baseline changes status compared with the plan rule.'} Thresholds are exploratory team choices; no detection-limit or repeatability study supports any set.</p></div>`;
+      <p class="small">${thr.increase_allowance_factor === 0 && !thr.phase_mismatch && !thr.baseline_unresolved && !thr.followup_unresolved ? '<b>全部通过模式：闸门不再过滤证据。只用于演示更新流程，不能用来支持结论。</b> ' : ''}${flips.length ? `${flips.length} comparison(s) from #${base.id} change status compared with the plan rule.` : 'No comparison from this baseline changes status compared with the plan rule.'} Thresholds are exploratory team choices; no detection-limit or repeatability study supports any set.</p></div>`;
   }
 
   /* ================================================================ validator playground (organizer DS-1 equivalent) */
@@ -2101,6 +2107,242 @@ canvas.chart { width: 100%; display: block; background: var(--surface); border-r
   }
 
 
+
+  /* ================================================================ cycling twin (RMDI, synthetic packets) — team spec §4–§5, rule-based */
+  const TW_DEFAULT = { z: 1.96, window: 4, min_points: 3, qc_policy: 'packet' };
+  S.tw = { rmdi: [], eoc: [], files: {}, cursor: 0, cfg: { ...TW_DEFAULT }, invalid: [] };
+  const twKey = 'mdx-team-v1.0:rmdi-twin:v1';
+
+  function loadPackets(list) {
+    return Promise.all(list.map(async (f) => {
+      const path = f.webkitRelativePath || f.name;
+      if (!/(^|\/)E-t\d+-(rmdi|eoc_metal_area)\.json$/.test(path) || path.includes('__MACOSX')) return null;
+      try { return { path, pk: JSON.parse(await f.text()) }; } catch (e) { return { path, error: e.message }; }
+    })).then((rows) => rows.filter(Boolean));
+  }
+  function ingestPacketFiles(rows) {
+    const rmdi = [], eoc = [], invalid = [];
+    for (const r of rows) {
+      if (r.error) { invalid.push({ path: r.path, errors: ['not valid JSON: ' + r.error] }); continue; }
+      const pk = r.pk;
+      const errs = [...(PACKET_SCHEMA ? schemaErrors(PACKET_SCHEMA, pk) : []), ...semanticErrors(pk)];
+      if (pk.observable === 'rmdi' && pk.unit !== '1') errs.push('rmdi must have unit 1');
+      if (!pk.source_object) errs.push('source_object missing');
+      const item = { pk, path: r.path, cycle: pk.cycle_n, valid: !errs.length, errors: errs };
+      (pk.observable === 'rmdi' ? rmdi : pk.observable === 'eoc_metal_area' ? eoc : invalid).push(item);
+    }
+    rmdi.sort((a, b) => a.cycle - b.cycle); eoc.sort((a, b) => a.cycle - b.cycle);
+    S.tw.rmdi = rmdi; S.tw.eoc = eoc; S.tw.invalid = invalid;
+    let saved = null; try { saved = JSON.parse(localStorage.getItem(twKey) || 'null'); } catch { saved = null; }
+    S.tw.cursor = saved && Number.isInteger(saved.cursor) && saved.cursor <= rmdi.length ? saved.cursor : 1;
+    if (saved?.cfg) S.tw.cfg = { ...TW_DEFAULT, ...saved.cfg };
+    return rmdi.length + eoc.length;
+  }
+  function twSave() { try { localStorage.setItem(twKey, JSON.stringify({ cursor: S.tw.cursor, cfg: S.tw.cfg })); } catch { /* per-viewer convenience only */ } }
+
+  const numU = (pk) => typeof pk.uncertainty?.value === 'number' ? pk.uncertainty.value : null;
+  // Weighted least-squares line through (x, y, u); returns slope, intercept and covariance.
+  function wls(pts) {
+    let sw = 0, sx = 0, sy = 0, sxx = 0, sxy = 0;
+    for (const p of pts) { const w = 1 / (p.u * p.u); sw += w; sx += w * p.x; sy += w * p.y; sxx += w * p.x * p.x; sxy += w * p.x * p.y; }
+    const D = sw * sxx - sx * sx; if (!(D > 0)) return null;
+    const b = (sw * sxy - sx * sy) / D, a = (sy - b * sx) / sw;
+    return { a, b, vaa: sxx / D, vbb: sw / D, vab: -sx / D };
+  }
+  function forecastFrom(reliable, cfg, xNext) {
+    if (reliable.length < cfg.min_points) return { available: false, reason: `insufficient evidence: ${reliable.length} reliable value(s), ${cfg.min_points} needed` };
+    const pts = reliable.slice(-cfg.window).map((r) => ({ x: r.cycle, y: r.value, u: r.u }));
+    const f = wls(pts); if (!f) return { available: false, reason: 'trend fit not possible' };
+    const pred = f.a + f.b * xNext;
+    const seFit = Math.sqrt(Math.max(0, f.vaa + 2 * xNext * f.vab + xNext * xNext * f.vbb));
+    const uObs = pts.reduce((s, p) => s + p.u, 0) / pts.length;
+    const half = cfg.z * Math.sqrt(seFit * seFit + uObs * uObs);
+    return { available: true, cycle: xNext, pred, lo: pred - half, hi: pred + half, slope: f.b, seSlope: Math.sqrt(f.vbb), n: pts.length, uObs };
+  }
+
+  // Replays the first `upto` rmdi packets through the declared rules and returns every event and the final state.
+  function runTwin(upto = S.tw.cursor, cfg = S.tw.cfg) {
+    const reliable = [], events = [];
+    let state = { cell_id: S.tw.rmdi[0]?.pk.cell_id ?? null, cycle_n: null, rmdi_current: null, rmdi_uncertainty: null, last_valid_cycle: null, health_trend: 'undetermined', safety_warning: 'Assessment unavailable', forecast_next_cycle: null, evidence_ids: [], state_version: 0 };
+    for (const item of S.tw.rmdi.slice(0, upto)) {
+      const pk = item.pk, prior = { ...state };
+      const forecastBefore = forecastFrom(reliable, cfg, item.cycle);
+      let qc = pk.qc_status, action, reasons = [...(pk.qc_reasons || [])], kind;
+      if (!item.valid) { qc = 'FAIL'; reasons = ['packet validation failed: ' + item.errors.slice(0, 2).join('; ')]; }
+      if (cfg.qc_policy === 'permissive' && qc !== 'PASS' && item.valid) { reasons.push(`QC ${qc} accepted by the permissive policy`); qc = 'WARN'; }
+      const value = typeof pk.value === 'number' ? pk.value : null, u = numU(pk);
+      const quantitative = pk.detection_class === 'detected' && value !== null && u !== null && u > 0;
+      if (qc === 'FAIL') { action = 'reject'; kind = 'rejected'; }
+      else {
+        action = qc === 'WARN' ? 'update_with_warning' : 'update';
+        kind = quantitative ? 'value' : pk.detection_class === 'uncertain' ? 'ambiguous' : 'upper_limit';
+      }
+      const ev = { cycle: item.cycle, packet_id: pk.packet_id, path: item.path, qc_packet: pk.qc_status, qc_used: qc, detection: pk.detection_class, value, u, upper_limit: pk.upper_limit ?? null, action, kind, reasons, forecast_before: forecastBefore.available ? forecastBefore : null, prior };
+      if (kind === 'value') {
+        const prev = reliable.at(-1);
+        if (prev) { const d = value - prev.value, ud = Math.sqrt(u * u + prev.u * prev.u); ev.delta = { d, ud, significant: d > cfg.z * ud, from: prev.cycle }; }
+        if (ev.forecast_before) { const fb = ev.forecast_before, half = (fb.hi - fb.lo) / 2; ev.discrepancy = { zscore: (value - fb.pred) / (half / cfg.z), outside: value < fb.lo || value > fb.hi }; }
+        reliable.push({ cycle: item.cycle, value, u, warn: qc === 'WARN' });
+        state = { ...state, rmdi_current: value, rmdi_uncertainty: u, last_valid_cycle: item.cycle };
+      } else if (kind === 'upper_limit' && ev.forecast_before && ev.upper_limit !== null && ev.upper_limit < ev.forecast_before.lo) ev.discrepancy = { outside: true, note: 'upper limit below the forecast interval' };
+      if (action !== 'reject') state.state_version += 1;
+      state.cycle_n = item.cycle;
+      state.evidence_ids = [...state.evidence_ids, pk.packet_id];
+      // trend, warning and forecast after this event
+      const fc = forecastFrom(reliable, cfg, item.cycle + 1);
+      const win = reliable.slice(-cfg.window), prevWin = reliable.slice(-2 * cfg.window, -cfg.window);
+      const fit = win.length >= cfg.min_points ? wls(win.map((r) => ({ x: r.cycle, y: r.value, u: r.u }))) : null;
+      const fitPrev = prevWin.length >= cfg.min_points ? wls(prevWin.map((r) => ({ x: r.cycle, y: r.value, u: r.u }))) : null;
+      const trendSig = fit && fit.b > cfg.z * Math.sqrt(fit.vbb);
+      const accel = fit && fitPrev && (fit.b - fitPrev.b) > cfg.z * Math.sqrt(fit.vbb + fitPrev.vbb);
+      ev.trend = fit ? { slope: fit.b, se: Math.sqrt(fit.vbb), significant: !!trendSig, accelerating: !!accel, prevSlope: fitPrev?.b ?? null } : null;
+      state.health_trend = (ev.delta?.significant || trendSig) ? 'deteriorating' : kind === 'value' ? 'stable' : 'undetermined';
+      state.safety_warning = reliable.length < cfg.min_points ? 'Assessment unavailable' : accel ? 'Elevated concern; further investigation recommended' : trendSig ? 'Accumulation warning' : 'No evidence of increasing residual deposition';
+      state.forecast_next_cycle = fc;
+      ev.after = { ...state };
+      events.push(ev);
+    }
+    return { events, state, reliable };
+  }
+
+  function nextEvidence(run) {
+    const last = run.events.at(-1), st = run.state;
+    if (!last) return { headline: 'Ingest the first packet.', why: '', options: [] };
+    const refFail = (last.reasons.join(' ') + ' ' + (S.tw.rmdi[S.tw.cursor - 1]?.pk.qc_checks || []).filter((c) => c.status !== 'PASS').map((c) => c.name).join(' '));
+    let headline, why;
+    if (last.action === 'reject' && /reference/.test(refFail)) { headline = 'Verify the frequency and sensitivity reference, then repeat the post-discharge spectrum.'; why = 'The last packet failed reference checks; the trend cannot be interpreted until the reference is confirmed.'; }
+    else if (last.kind === 'ambiguous' || /detection_limit/.test(refFail)) { headline = 'Repeat the post-discharge spectrum with more scans.'; why = 'The last measurement was uncertain or near the detection limit.'; }
+    else if (last.discrepancy?.outside) { headline = 'Request a confirmatory measurement and inspect competing explanations.'; why = 'The last value fell outside the forecast made before it.'; }
+    else if (/Elevated/.test(st.safety_warning)) { headline = 'Flag for expert review and confirm with a repeat measurement.'; why = 'The local slope increased significantly (accelerating accumulation).'; }
+    else if (st.health_trend === 'deteriorating') { headline = 'Confirm the increase with a repeat measurement after the next discharge.'; why = 'A significant increase or trend was detected.'; }
+    else { headline = 'Measure again after the next standardized discharge.'; why = last.kind === 'upper_limit' ? 'The last measurement was a non-detection; its upper limit is kept, not a zero.' : last.kind === 'rejected' ? 'The last packet was rejected; the state is unchanged.' : 'The last evidence was reliable and shows no significant change.'; }
+    const us = run.reliable.map((r) => r.u), uLast = st.rmdi_uncertainty ?? (us.at(-1) ?? null), uTyp = us.length ? us.slice(-4).reduce((a, b) => a + b, 0) / Math.min(4, us.length) : null;
+    const tScan = (S.tw.rmdi[0]?.pk.acquisition_context?.averages ?? 32768) * (S.tw.rmdi[0]?.pk.acquisition_context?.TR_s ?? 0.051) / 60;
+    const z = S.tw.cfg.z;
+    const options = uLast && uTyp ? [
+      { name: 'Standard post-discharge measurement next cycle', minutes: tScan, mdi: z * Math.sqrt(uLast ** 2 + uTyp ** 2), note: 'baseline option' },
+      { name: 'Repeat the current spectrum now, average the two', minutes: tScan, mdi: z * Math.sqrt(uLast ** 2 / 2 + uTyp ** 2), note: 'assumes independent repeats' },
+      { name: 'Next measurement with twice the scans', minutes: 2 * tScan, mdi: z * Math.sqrt(uLast ** 2 + uTyp ** 2 / 2), note: 'assumes noise-dominated u (dataset doc §8)' },
+      { name: 'Reference capillary check (frequency + sensitivity)', minutes: 5, mdi: null, note: 'no variance gain; discriminates drift from real change' }
+    ] : [];
+    const base = options[0]?.mdi;
+    for (const o of options) o.gain = o.mdi === null || !base ? null : (base - o.mdi) / o.minutes;
+    const best = options.filter((o) => o.gain !== null && o.gain > 0).sort((a, b) => b.gain - a.gain)[0];
+    return { headline, why, options, best, tScan };
+  }
+
+  const fmtR = (v) => v === null || v === undefined ? '—' : v.toFixed(3);
+  function twChip(s) { return /Elevated/.test(s) ? `<span class="chip FAIL">${esc(s)}</span>` : /Accumulation/.test(s) ? `<span class="chip WARN">${esc(s)}</span>` : /No evidence/.test(s) ? `<span class="chip PASS">${esc(s)}</span>` : `<span class="chip INFO">${esc(s)}</span>`; }
+  function trendChip(t) { return t === 'deteriorating' ? `<span class="chip WARN">deteriorating</span>` : t === 'stable' ? `<span class="chip PASS">stable within resolution</span>` : `<span class="chip INFO">undetermined</span>`; }
+  const actChip = (a) => a === 'reject' ? status('FAIL').replace('FAIL', 'reject') : a === 'update_with_warning' ? status('WARN').replace('WARN', 'update with warning') : status('PASS').replace('PASS', 'update');
+
+  function drawRMDI(cv, run, opts = {}) {
+    const g = setup(cv); if (!g) return;
+    const { ctx, c, w, h: H } = g;
+    const all = S.tw.rmdi, n = all.length;
+    const f = { l: 56, r: w - 16, t: 16, b: H - 34 };
+    const X = lin(0.5, n + 1.5, f.l, f.r);
+    let mx = 0;
+    for (const it of all) { const p = it.pk; mx = Math.max(mx, (typeof p.value === 'number' ? p.value + 1.96 * (numU(p) || 0) : 0), p.upper_limit || 0); }
+    for (const e of run.events) if (e.forecast_before) mx = Math.max(mx, e.forecast_before.hi);
+    if (run.state.forecast_next_cycle?.available) mx = Math.max(mx, run.state.forecast_next_cycle.hi);
+    const Y = lin(0, mx * 1.08 || 1, f.b, f.t);
+    frame(g, f, Array.from({ length: n + 1 }, (_, i) => i + 1), ticks(0, mx * 1.08 || 1, 5), X, Y, String, (v) => v.toFixed(2), 'cycle', 'RMDI (1)');
+    const cur = S.tw.cursor;
+    ctx.fillStyle = c('wash'); ctx.fillRect(X(cur + .5), f.t, f.r - X(cur + .5), f.b - f.t);
+    // forecasts made before each observation
+    for (const e of run.events) if (e.forecast_before) { const fb = e.forecast_before; ctx.fillStyle = c('orange-soft'); ctx.fillRect(X(e.cycle) - 9, Y(fb.hi), 18, Y(fb.lo) - Y(fb.hi)); ctx.strokeStyle = c('orange-text'); ctx.beginPath(); ctx.moveTo(X(e.cycle) - 9, Y(fb.pred)); ctx.lineTo(X(e.cycle) + 9, Y(fb.pred)); ctx.stroke(); }
+    const nf = run.state.forecast_next_cycle;
+    if (nf?.available) { ctx.setLineDash([4, 3]); ctx.strokeStyle = c('orange-text'); ctx.strokeRect(X(nf.cycle) - 10, Y(nf.hi), 20, Y(nf.lo) - Y(nf.hi)); ctx.beginPath(); ctx.moveTo(X(nf.cycle) - 10, Y(nf.pred)); ctx.lineTo(X(nf.cycle) + 10, Y(nf.pred)); ctx.stroke(); ctx.setLineDash([]); ctx.fillStyle = c('orange-text'); ctx.textAlign = 'center'; ctx.textBaseline = 'bottom'; ctx.fillText('forecast', X(nf.cycle), Y(nf.hi) - 3); }
+    // trend line through the fit window
+    const tr = run.events.at(-1)?.trend, win = run.reliable.slice(-S.tw.cfg.window);
+    if (tr && win.length >= 2) { const f2 = wls(win.map((r) => ({ x: r.cycle, y: r.value, u: r.u }))); if (f2) { ctx.strokeStyle = c(tr.significant ? 'orange' : 'line-strong'); ctx.lineWidth = 1.5; ctx.setLineDash([6, 4]); ctx.beginPath(); ctx.moveTo(X(win[0].cycle), Y(f2.a + f2.b * win[0].cycle)); ctx.lineTo(X(cur + 1), Y(f2.a + f2.b * (cur + 1))); ctx.stroke(); ctx.setLineDash([]); ctx.lineWidth = 1; } }
+    all.forEach((it, i) => {
+      const p = it.pk, x = X(it.cycle), done = i < cur, e = run.events[i];
+      ctx.globalAlpha = done ? 1 : 0.25;
+      const val = typeof p.value === 'number' ? p.value : null, u = numU(p);
+      if (e?.action === 'reject' || (!done && p.qc_status === 'FAIL')) { const y = Y(val ?? p.upper_limit ?? mx * .05); ctx.strokeStyle = c('fail'); ctx.lineWidth = 2.2; ctx.beginPath(); ctx.moveTo(x - 5, y - 5); ctx.lineTo(x + 5, y + 5); ctx.moveTo(x + 5, y - 5); ctx.lineTo(x - 5, y + 5); ctx.stroke(); ctx.lineWidth = 1; }
+      else if (p.detection_class === 'detected' && val !== null) {
+        const col = (e?.qc_used ?? p.qc_status) === 'WARN' ? 'orange-text' : 'teal-text';
+        ctx.strokeStyle = c(col); ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(x, Y(val - 1.96 * u)); ctx.lineTo(x, Y(val + 1.96 * u)); ctx.stroke();
+        ctx.fillStyle = c(col); ctx.beginPath(); ctx.arc(x, Y(val), 4.5, 0, 7); ctx.fill(); ctx.lineWidth = 1;
+        if (e?.discrepancy?.outside) { ctx.strokeStyle = c('fail'); ctx.beginPath(); ctx.arc(x, Y(val), 8, 0, 7); ctx.stroke(); }
+      } else if (p.upper_limit !== null && p.upper_limit !== undefined) {
+        const y = Y(p.upper_limit); const col = p.detection_class === 'uncertain' ? 'purple-text' : 'ink-2';
+        ctx.fillStyle = c(col); ctx.beginPath(); ctx.moveTo(x - 6, y - 4); ctx.lineTo(x + 6, y - 4); ctx.lineTo(x, y + 5); ctx.closePath();
+        p.detection_class === 'uncertain' ? (ctx.strokeStyle = c(col), ctx.stroke()) : ctx.fill();
+        ctx.strokeStyle = c(col); ctx.setLineDash([2, 2]); ctx.beginPath(); ctx.moveTo(x, y + 5); ctx.lineTo(x, Y(0)); ctx.stroke(); ctx.setLineDash([]);
+      }
+      ctx.globalAlpha = 1;
+    });
+    ctx.strokeStyle = c('ink'); ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(X(cur), f.t); ctx.lineTo(X(cur), f.b); ctx.stroke(); ctx.lineWidth = 1;
+    cv.onclick = (ev) => { const b = cv.getBoundingClientRect(), x = ev.clientX - b.left; const k = Math.round(0.5 + (x - f.l) / (f.r - f.l) * (n + 1)); if (k >= 1 && k <= n) { S.tw.cursor = k; twSave(); render(); } };
+  }
+
+  function drawEOC(cv) {
+    const g = setup(cv); if (!g) return;
+    const { ctx, c, w, h: H } = g;
+    const all = S.tw.eoc, n = Math.max(all.length, S.tw.rmdi.length);
+    const f = { l: 56, r: w - 16, t: 12, b: H - 30 };
+    const X = lin(0.5, n + 1.5, f.l, f.r);
+    let mx = 0; for (const it of all) mx = Math.max(mx, (it.pk.value ?? 0) + 1.96 * (numU(it.pk) || 0), it.pk.upper_limit || 0);
+    const Y = lin(0, mx * 1.08 || 1, f.b, f.t);
+    frame(g, f, Array.from({ length: n }, (_, i) => i + 1), ticks(0, mx * 1.08 || 1, 4), X, Y, String, (v) => v.toFixed(0), 'cycle', 'area (a.u.)');
+    for (const it of all) {
+      const p = it.pk, x = X(it.cycle);
+      if (p.qc_status === 'FAIL') { const y = Y(p.upper_limit ?? mx * .05); ctx.strokeStyle = c('fail'); ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(x - 4, y - 4); ctx.lineTo(x + 4, y + 4); ctx.moveTo(x + 4, y - 4); ctx.lineTo(x - 4, y + 4); ctx.stroke(); ctx.lineWidth = 1; }
+      else if (typeof p.value === 'number') { const u = numU(p) || 0; ctx.strokeStyle = c('purple-text'); ctx.beginPath(); ctx.moveTo(x, Y(p.value - 1.96 * u)); ctx.lineTo(x, Y(p.value + 1.96 * u)); ctx.stroke(); ctx.fillStyle = c('purple-text'); ctx.beginPath(); ctx.arc(x, Y(p.value), 3.5, 0, 7); ctx.fill(); }
+      else if (p.upper_limit) { const y = Y(p.upper_limit); ctx.fillStyle = c('ink-2'); ctx.beginPath(); ctx.moveTo(x - 5, y - 3); ctx.lineTo(x + 5, y - 3); ctx.lineTo(x, y + 4); ctx.closePath(); ctx.fill(); }
+    }
+  }
+
+  function renderCycling(el) {
+    const tw = S.tw, n = tw.rmdi.length;
+    if (!n) {
+      el.innerHTML = `<div class="stack" style="padding:12px 0"><p class="hero-kicker" style="margin:0">Cycling twin · SIMULATED</p><h2 style="font-family:var(--font-display);font-size:28px">金属钠是否随循环累积？</h2>
+        <div class="card"><div class="missing"><b>载入生成的证据包</b><p>Extract <code>generated_data_set.zip</code> into <code>online downloaded data/generated_data_set/</code> and load that folder (or a parent folder). The twin reads the <code>E-t&lt;n&gt;-rmdi.json</code> and <code>E-t&lt;n&gt;-eoc_metal_area.json</code> evidence packets.</p><button class="btn primary" type="button" data-load>Load a folder</button></div></div></div>`;
+      return;
+    }
+    const run = runTwin(), st = run.state, ev = run.events.at(-1), it = tw.rmdi[tw.cursor - 1], pk = it.pk;
+    const nx = nextEvidence(run), cfg = tw.cfg, fc = st.forecast_next_cycle;
+    later(() => { const cv = $('#tw-rmdi'); if (cv) drawRMDI(cv, run); }, 'tw-rmdi');
+    later(() => { const cv = $('#tw-eoc'); if (cv) drawEOC(cv); }, 'tw-eoc');
+    const kv = (o) => `<dl class="kv">${o.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>`;
+    const stateKV = (s) => kv([['cycle', s.cycle_n ?? '—'], ['RMDI current', s.rmdi_current === null ? '— (no reliable value yet)' : `${fmtR(s.rmdi_current)} ± ${fmtR(s.rmdi_uncertainty)}`], ['last valid cycle', s.last_valid_cycle ?? '—'], ['health trend', trendChip(s.health_trend)], ['warning', twChip(s.safety_warning)], ['state version', s.state_version]]);
+    const kindText = { value: 'quantitative RMDI accepted', upper_limit: 'non-detection stored as an upper limit (not zero)', ambiguous: 'uncertain detection kept as ambiguous; no precise RMDI created', rejected: 'evidence logged; state unchanged' };
+    el.innerHTML = `<div class="stack" style="padding:12px 0">
+      <div><p class="hero-kicker" style="margin:0 0 6px">循环孪生 · Level 4–5 · 基于规则（团队规格书 §4–§5）</p><h2 style="font-family:var(--font-display);font-size:28px">金属钠是否随循环累积？下一步该测什么？</h2>
+      <p class="note" style="margin-top:8px"><b>${ep('SIMULATED')} Synthetic evidence.</b> ${n} post-discharge RMDI packets and ${tw.eoc.length} end-of-charge packets of <code>${esc(st.cell_id || pk.cell_id)}</code> from <code>generated_data_set</code>. The spectra themselves are not in the package; the twin works from the evidence packets. RMDI = metallic-peak area / NaCl reference area: an NMR signal ratio, not deposit mass, thickness or capacity fade.${tw.invalid.length ? ` ${tw.invalid.length} file(s) were not usable.` : ''}</p></div>
+      <div class="grid3">
+        <div class="card"><h3>${trk('DT')} 电池概况 ${ep('INFERRED')}</h3>${stateKV(st)}</div>
+        <div class="card"><h3>${trk('DT')} 下一循环预测（Level 4） ${ep('INFERRED')}</h3>${fc?.available ? `<div class="big-num">${fmtR(fc.pred)}</div><p class="small">cycle ${fc.cycle} · interval ${fmtR(fc.lo)} … ${fmtR(fc.hi)} (z = ${cfg.z}) · weighted linear trend over the last ${fc.n} reliable values · slope ${fmtR(fc.slope)} ± ${fmtR(fc.seSlope)} per cycle</p>` : `<p><b>Forecast unavailable</b></p><p class="small">${esc(fc?.reason || '')}</p>`}<p class="small">A short-horizon statistical expectation, not an ageing model. The forecast made before each value is kept and compared when the value arrives.</p></div>
+        <div class="card"><h3>${trk('DT')} 下一步证据（Level 5） ${ep('INFERRED')}</h3><p><b>${esc(nx.headline)}</b></p><p class="small">${esc(nx.why)}${nx.best ? ` Largest reduction of the minimum detectable increase per minute: <b>${esc(nx.best.name)}</b>.` : ''}</p></div>
+      </div>
+      <div class="card"><h3>${trk('DT')} 健康轨迹</h3>
+        <div class="row"><button class="btn small" type="button" data-tw="first">⏮</button><button class="btn small" type="button" data-tw="prev">◀ 上一个证据包</button><button class="btn small primary" type="button" data-tw="next" ${tw.cursor >= n ? 'disabled' : ''}>载入下一个证据包 ▶</button><button class="btn small" type="button" data-tw="last">⏭ all</button>
+        <input type="range" min="1" max="${n}" value="${tw.cursor}" data-twcursor aria-label="Packets ingested" style="flex:1;min-width:160px"><span class="small">${tw.cursor} / ${n} packets ingested</span></div>
+        <canvas class="chart" id="tw-rmdi" style="height:320px;margin-top:8px;cursor:pointer" role="img" aria-label="RMDI against cycle with uncertainty, upper limits, rejected packets and forecasts"></canvas>
+        <div class="legend"><span><i style="background:var(--teal-text)"></i>accepted RMDI ± 1.96u</span><span><i style="background:var(--orange-text)"></i>accepted with warning</span><span>▼ non-detection: upper limit</span><span style="color:var(--purple-text)">▽ uncertain detection</span><span style="color:var(--fail)">✕ rejected</span><span><i style="background:var(--orange-soft)"></i>forecast made before the value (Level 4)</span><span>◯ red: outside its forecast</span><span>${ep('SIMULATED')} data, ${ep('INFERRED')} forecast</span></div>
+        <h4>参考：充电结束时的金属区面积（原始 a.u.，不进入状态）</h4><canvas class="chart" id="tw-eoc" style="height:150px" role="img" aria-label="End-of-charge metallic peak area against cycle"></canvas></div>
+      <div class="grid2">
+        <div class="card"><h3>${trk('DT')} 孪生更新 · 第 ${it.cycle} 循环</h3>
+          <div class="grid2" style="gap:8px"><div><h4 style="margin-top:0">更新前状态</h4>${stateKV(ev.prior)}</div><div><h4 style="margin-top:0">更新后状态</h4>${stateKV(ev.after)}</div></div>
+          <h4>证据与闸门</h4>${kv([['packet', `<code>${esc(pk.packet_id)}</code> ${ep('SIMULATED')}`], ['detection', `${esc(pk.detection_class)} · fitted SNR ${pk.fitted_snr ?? '—'}`], ['value', pk.value === null ? `null · upper limit ${fmtR(pk.upper_limit)}` : `${fmtR(pk.value)} ± ${fmtR(numU(pk))}`], ['QC (packet)', status(pk.qc_status)], ['action', `${actChip(ev.action)} · ${kindText[ev.kind]}`], ['change vs previous reliable', ev.delta ? `Δ ${fmtR(ev.delta.d)} vs ${cfg.z}·u_Δ = ${fmtR(cfg.z * ev.delta.ud)} (from cycle ${ev.delta.from}) → ${ev.delta.significant ? '<b>significant increase</b>' : 'not significant'}` : '—'], ['forecast before', ev.forecast_before ? `${fmtR(ev.forecast_before.pred)} [${fmtR(ev.forecast_before.lo)} … ${fmtR(ev.forecast_before.hi)}]${ev.discrepancy ? ev.discrepancy.outside ? ' → <b>outside: model disagreement</b>' : ' → inside' : ''}` : 'not available'], ['trend', ev.trend ? `slope ${fmtR(ev.trend.slope)} ± ${fmtR(ev.trend.se)} /cycle${ev.trend.significant ? ' (significant)' : ''}${ev.trend.accelerating ? ', accelerating' : ''}` : '—'], ['reasons', esc(ev.reasons.join(' ') || '—')]])}</div>
+        <div class="card"><h3>${trk('PM')} 可信度与溯源</h3>${kv([['source', `<code>${esc(pk.source_object)}</code>`], ['sha256', `<code>${esc((pk.source_sha256 || '—').slice(0, 16))}…</code>`], ['packet file', `<code>${esc(it.path)}</code>`], ['packet validation', it.valid ? status('PASS') + ' schema v1.0 + semantic rules' : status('FAIL') + ' ' + esc(it.errors.join('; '))], ['processing', esc(Object.values(pk.processing || {}).join(' · '))], ['normalisation', esc(pk.normalisation)], ['reference', pk.reference ? `area ${pk.reference.area} ± ${pk.reference.u_area}, shift ${pk.reference.shift_ppm} ppm, ratio ${pk.reference.area_ratio_to_baseline}` : '—'], ['peak fit', pk.peak ? `μ ${pk.peak.mu_ppm} ± ${pk.peak.u_mu_ppm} ppm, σ ${pk.peak.sigma_ppm} ppm, χ²ᵣ ${pk.peak.reduced_chi2}` : '—']])}
+          <ul class="checks">${(pk.qc_checks || []).map((ck) => `<li>${status(ck.status)}<span><b>${esc(ck.name)}</b><span class="small">${esc(ck.value ?? '—')} ${esc(ck.unit || '')} · ${esc(ck.threshold || '')}</span></span>${['QE', 'PM', 'DS', 'DT'].includes(ck.owner) ? trk(ck.owner) : ''}</li>`).join('')}</ul></div></div>
+      <div class="card"><h3>${trk('DT')} 下一步证据排序（Level 5） ${ep('INFERRED')}</h3>
+        <p class="small">Minimum detectable increase = ${cfg.z} × u_Δ for the next comparison. Scan time ${nx.tScan.toFixed(1)} min from averages × TR in the packet. Variance gains assume independent repeats and noise-dominated u; a reference check gives no variance gain but separates drift from real change.</p>
+        <div class="tbl-wrap"><table class="tbl"><thead><tr><th>option</th><th class="num">minutes</th><th class="num">min. detectable increase</th><th class="num">gain per minute</th><th>note</th></tr></thead><tbody>${nx.options.map((o) => `<tr class="${o === nx.best ? 'sel' : ''}"><td><b>${esc(o.name)}</b></td><td class="num">${o.minutes.toFixed(1)}</td><td class="num">${o.mdi === null ? '—' : fmtR(o.mdi)}</td><td class="num">${o.gain === null ? '—' : o.gain > 0 ? o.gain.toExponential(1) : '0'}</td><td class="small">${esc(o.note)}</td></tr>`).join('')}</tbody></table></div></div>
+      <div class="grid2">
+        <div class="card"><h3>${trk('PM')} 规则设置</h3>
+          <div class="row"><label class="ctl">significance z <input type="number" min="0" step="0.01" value="${cfg.z}" data-twcfg="z" style="width:70px"></label><label class="ctl">trend window <input type="number" min="2" step="1" value="${cfg.window}" data-twcfg="window" style="width:60px"></label><label class="ctl">min. points for forecast <input type="number" min="2" step="1" value="${cfg.min_points}" data-twcfg="min_points" style="width:60px"></label>
+          <label class="ctl">QC policy <select data-twcfg="qc_policy"><option value="packet" ${cfg.qc_policy === 'packet' ? 'selected' : ''}>as in the packet (PASS / WARN / FAIL)</option><option value="permissive" ${cfg.qc_policy === 'permissive' ? 'selected' : ''}>permissive: accept every valid packet with a warning</option></select></label>
+          <button class="btn small ghost" type="button" data-tw="defaults">Defaults</button></div>
+          <p class="small">z = 1.96 follows the specification’s demonstrator threshold under an approximate Gaussian-error model. The permissive policy is for demonstration only; FAIL evidence then updates the history with a warning.</p></div>
+        <div class="card"><h3>${trk('DS')} 审计日志</h3><ol class="log">${run.events.map((e) => `<li><b>c${e.cycle}</b> ${status(e.qc_used)} ${esc(e.action)} · ${esc(e.kind)}${e.delta?.significant ? ' · Δ significant' : ''}${e.discrepancy?.outside ? ' · outside forecast' : ''} · v${e.after.state_version}</li>`).join('')}</ol>
+          <div class="row" style="margin-top:8px"><button class="btn small" type="button" data-export="twin">导出孪生状态与日志</button></div></div></div></div>`;
+  }
+
   /* ================================================================ looping animation (Visualize, left) */
   const ANIM = { on: !matchMedia('(prefers-reduced-motion: reduce)').matches, step: 0, phase: 0, last: 0, speed: 1, raf: 0, cache: null };
   function animCache() {
@@ -2188,6 +2430,7 @@ canvas.chart { width: 100%; display: block; background: var(--surface); border-r
     const [view, arg] = hash.split('/');
     if (view === 'tour') return { view: 'tour', n: Math.min(9, Math.max(1, Number(arg) || 1)) };
     if (view === 'viz') return { view: 'viz' };
+    if (view === 'cycle') return { view: 'cycle' };
     if (view === 'work') return { view: 'work', tab: WTABS.some(([k]) => k === arg) ? arg : 'spectra' };
     return { view: 'home' };
   }
@@ -2195,12 +2438,13 @@ canvas.chart { width: 100%; display: block; background: var(--surface); border-r
     draws = []; named = {};
     const r = route();
     if (r.view !== 'viz' && S.viz.playing) { clearInterval(S.viz.playing); S.viz.playing = null; }
-    for (const [id, v] of [['homeView', 'home'], ['tourView', 'tour'], ['vizView', 'viz'], ['workView', 'work']]) document.getElementById(id).hidden = r.view !== v;
+    for (const [id, v] of [['homeView', 'home'], ['tourView', 'tour'], ['vizView', 'viz'], ['cycleView', 'cycle'], ['workView', 'work']]) document.getElementById(id).hidden = r.view !== v;
     $$('.modes a').forEach((a) => { if (a.dataset.route === r.view) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
     if (r.view === 'home') renderHome($('#homeView'));
     if (r.view === 'tour') renderTour($('#tourView'), r.n);
     if (r.view === 'work') renderWork($('#workView'), r.tab);
     if (r.view === 'viz') renderViz($('#vizView'));
+    if (r.view === 'cycle') renderCycling($('#cycleView'));
     requestAnimationFrame(redraw);
   }
 
@@ -2211,7 +2455,9 @@ canvas.chart { width: 100%; display: block; background: var(--surface); border-r
       const list = [...files];
       const hasFig5 = list.some((f) => /(^|\/)Na_fullSpectrum_\d+\/fid$/.test(f.webkitRelativePath || ''));
       const extra = await loadExtra(list);
-      if (!hasFig5 && !Object.keys(extra).length) throw new Error('No Figure 5, 6 or 7 Bruker folders found in the selection.');
+      const pkRows = await loadPackets(list);
+      if (!hasFig5 && !Object.keys(extra).length && !pkRows.length) throw new Error('No Figure 5, 6 or 7 Bruker folders or generated packets found in the selection.');
+      if (pkRows.length) ingestPacketFiles(pkRows);
       if (hasFig5) {
         S.data = await load(list);
         setStudy(61, 63); S.selected = 63;
@@ -2219,7 +2465,7 @@ canvas.chart { width: 100%; display: block; background: var(--surface); border-r
         if (S.history.length) { const last = S.history.at(-1); setStudy(last.comparison.baseline.acquisition, last.comparison.followup.acquisition); S.study.event = null; }
       }
       Object.assign(S.extra, extra);
-      const figs = [S.data && 'Fig 5', S.extra.f6_63 && 'Fig 6', S.extra.charged && 'Fig 7'].filter(Boolean);
+      const figs = [S.data && 'Fig 5', S.extra.f6_63 && 'Fig 6', S.extra.charged && 'Fig 7', S.tw.rmdi.length && 'RMDI packets'].filter(Boolean);
       pill.className = 'pill ok'; statusEl.textContent = figs.join(' · ') + ' 已载入';
       render();
       return { ok: true, figs };
@@ -2259,6 +2505,7 @@ canvas.chart { width: 100%; display: block; background: var(--surface); border-r
       if (d.viz) { const v = d.v; S.viz[d.viz] = v === 'true' ? true : v === 'false' ? false : /^\d+$/.test(v) ? Number(v) : v; return render(); }
       if (d.act === 'play') return togglePlay();
       if (d.act === 'anim') return toggleAnim();
+      if (d.tw) { const n = S.tw.rmdi.length; if (d.tw === 'first') S.tw.cursor = 1; if (d.tw === 'prev') S.tw.cursor = Math.max(1, S.tw.cursor - 1); if (d.tw === 'next') S.tw.cursor = Math.min(n, S.tw.cursor + 1); if (d.tw === 'last') S.tw.cursor = n; if (d.tw === 'defaults') S.tw.cfg = { ...TW_DEFAULT }; twSave(); return render(); }
       if (d.act === 'animsync') { S.viz.idx = ANIM.step; redrawOnly('vz-spec', 'vz-trend'); return; }
       if (d.animspeed) { ANIM.speed = Number(d.animspeed); $$('[data-animspeed]').forEach((b) => b.setAttribute('aria-pressed', String(b === t))); return; }
       if (d.act === 'accept') return recordDecision(true);
@@ -2270,12 +2517,14 @@ canvas.chart { width: 100%; display: block; background: var(--surface); border-r
       const t = e.target;
       if (t.dataset.pick) { const b = Number($('select[data-pick="base"]').value), f = Number($('select[data-pick="follow"]').value); setStudy(b, f); render(); }
       if (t.dataset.thr) { const v = Number(t.value); if (Number.isFinite(v) && v >= 0) { S.thresholds = { ...S.thresholds, [t.dataset.thr]: v }; setStudy(S.study.base.id, S.study.follow.id); render(); } else toast('Thresholds must be numbers ≥ 0.'); }
+      if (t.dataset.twcfg) { const k = t.dataset.twcfg; const v = k === 'qc_policy' ? t.value : Number(t.value); if (k === 'qc_policy' || (Number.isFinite(v) && v >= (k === 'z' ? 0 : 2))) { S.tw.cfg = { ...S.tw.cfg, [k]: k === 'z' ? v : k === 'qc_policy' ? v : Math.round(v) }; twSave(); render(); } }
       if (t.dataset.vsel) { const v = t.value; S.viz[t.dataset.vsel] = /^\d+$/.test(v) ? Number(v) : v; render(); }
       if (t.dataset.f7show) { S.viz.f7show[t.dataset.f7show] = t.checked; render(); }
       if ('ack' in t.dataset) { const all = $$('input[data-ack]'); const btn = $('button[data-act="accept"]'); if (btn) btn.disabled = !all.every((x) => x.checked); }
     });
     document.addEventListener('input', (e) => {
       const t = e.target;
+      if ('twcursor' in t.dataset) { S.tw.cursor = Number(t.value); twSave(); render(); return; }
       if ('vt' in t.dataset) { S.viz.idx = Number(t.value); redrawOnly('vz-spec', 'vz-trend'); }
       if (t.id === 'valText') S.valText = t.value;
       if ('stackSlider' in t.dataset) { S.stack[S.stack.mode === 'heat' ? 'contrast' : 'gain'] = Number(t.value); redrawOnly('stack:' + t.dataset.stackSlider); }
@@ -2320,7 +2569,7 @@ canvas.chart { width: 100%; display: block; background: var(--surface); border-r
     if (!location.hash) history.replaceState(null, '', '#home');
     render();
   }
-  window.BatteryTwinExplorer = { loadFiles, state: S, evaluate, packet, buildBundle, validateText };
+  window.BatteryTwinExplorer = { loadFiles, state: S, evaluate, packet, buildBundle, validateText, runTwin, nextEvidence };
   init();
 
 })();
